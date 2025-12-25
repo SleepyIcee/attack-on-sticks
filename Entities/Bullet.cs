@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Reflection.Emit;
 using Raylib_cs;
 
 
@@ -21,6 +22,7 @@ public class Bullet : Entity
         base.Update();
         
         position += direction * speed * Raylib.GetFrameTime();
+        Console.WriteLine(direction);
     }
 
     public override void Draw()

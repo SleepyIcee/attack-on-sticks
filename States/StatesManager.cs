@@ -4,6 +4,7 @@ public class StatesManager
 {
     public static MenuState menuState = new MenuState();
     public static PlayState playState = new PlayState();
+    public static DeathState deathState = new DeathState();
 
     public static string currentState = "PlayState";
 
@@ -17,6 +18,9 @@ public class StatesManager
             case "PlayState":
                 playState.Update();
                 break;
+            case "DeathState":
+                deathState.Update();
+                break;
         }
     }
 
@@ -29,6 +33,9 @@ public class StatesManager
                 break;
             case "PlayState":
                 playState.Draw();
+                break;
+            case "DeathState":
+                deathState.Draw();
                 break;
         }
     }

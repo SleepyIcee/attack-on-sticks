@@ -1,14 +1,14 @@
 
 make the player shoots
 make ants die
-
-
-
-
-
-
-
-
 add lifebar to the ants
+fix the problem when shooting the right corner of the map
+
+
+
+
+
+
 make the player killable
-add a lifebar
+add lifebar to the player
+add UI to both player's and ant's lifebars

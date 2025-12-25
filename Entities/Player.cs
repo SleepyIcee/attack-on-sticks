@@ -18,6 +18,8 @@ public class Player : Entity
     private const float gravity = 50f;
     private const int jumpHight = 2;
 
+    public bool isDead = false;
+
     public Player() : base()
     {
         position = new Vector2(Globals.SCREEN_WIDTH/2, Globals.SCREEN_HEIGHT/2);
@@ -90,9 +92,13 @@ public class Player : Entity
         
         HandelMovement();
         HandleJump();
-
         position += velocity;
         // Console.WriteLine( "X: " + position.X + ", Y: " + position.Y);
+
+        if (isDead == true)
+        {
+            States.StatesManager.currentState = "DeathState";
+        }
     }
     
     public override void Draw()

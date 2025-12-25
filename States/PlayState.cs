@@ -70,7 +70,7 @@ namespace AntsShooter.States
             }
             else
             {
-                spawnAntTimer -= 1 * Raylib.GetFrameTime();   
+                spawnAntTimer -= 1 * Raylib.GetFrameTime();
             }
 
             foreach (var ant in ants)
@@ -91,15 +91,19 @@ namespace AntsShooter.States
         {
             if (Raylib.IsMouseButtonDown(MouseButton.Left) && bulletTimer <= 0)
             {
-                Vector2 mousePosition = Raylib.GetMousePosition();
+                Vector2 mouseScreenPos = Raylib.GetMousePosition();
+                Vector2 mouseWorldPos = Raylib.GetScreenToWorld2D(mouseScreenPos, camera);
 
                 bullets.Add(new Bullet(
                     new Vector2(player.position.X + player.width / 2,
                                 player.position.Y + player.height / 2),
-                    mousePosition));
+                    mouseWorldPos));
 
                 bulletTimer = timeBetweenBullets;
             }
+
+            // Console.Write(Raylib.GetMousePosition() + " ... ");
+            // Console.WriteLine(player.position);
 
             if (bulletTimer > 0)
             {
@@ -129,14 +133,14 @@ namespace AntsShooter.States
                         ants.RemoveAt(j);
                         break;
                     }
+                    // Console.WriteLine(ants[j].isDead);
                     if (ants[j].GetShot(bullets[i]))
                     {
                         bullets.RemoveAt(i);
+                        break;
                     }
                 }
             }
-
-            Console.WriteLine(bullets.Count);
         }
 
         public void DrawBullets()
