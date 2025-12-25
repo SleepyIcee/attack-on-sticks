@@ -11,7 +11,10 @@ public class Player : Entity
     private const float friction = 0.1f;
     private const float maxSpeed = 5f;
     private int facing = 1;
+    private int lifes = 3;
     private bool isDead = false;
+    private const float timeBetweenDamages = 1.0f;
+    public float damageTimer = timeBetweenDamages;
 
     private const float jumpSpeed = 20f;
     private bool isJumping = false;
@@ -92,28 +95,44 @@ public class Player : Entity
         HandelMovement();
         HandleJump();
         position += velocity;
-        // Console.WriteLine( "X: " + position.X + ", Y: " + position.Y);
+        HandelDeath();
+    }
 
+    public void HandelDeath()
+    {
         if (isDead == true)
         {
             States.StatesManager.currentState = "DeathState";
         }
-        Console.WriteLine(isDead);
+
+        if (damageTimer > 0)
+        {
+            damageTimer -= Raylib.GetFrameTime();
+        }
+        Console.WriteLine("Lifes: " + lifes);
     }
 
     public bool GetDamage(Ant ant)
     {
         if (Raylib.CheckCollisionRecs(new Rectangle(position, new Vector2(width, height)),
-            new Rectangle(ant.position, new Vector2(ant.width, ant.height))))
+            new Rectangle(ant.position, new Vector2(ant.width, ant.height))) && damageTimer <= 0)
         {
-            isDead = true;
+            if (lifes > 0)
+            {
+                lifes -= 1;
+            }
+            else
+            {
+                isDead = true;
+            }
+            damageTimer = timeBetweenDamages;
+
             return true;
         }
         else
         {
             return false;
         }
-        
     }
 
     public override void Draw()

@@ -7,7 +7,10 @@ namespace AntsShooter.Entities;
 
 public class Ant : Entity
 {
-    private const float speed = 100f;
+    private float velocityX = 0f;
+    private const float speed = 250f;
+    private const float maxSpeed = 3f;
+    private int facing = 1;
     private Random random = new Random();
     private int spawnDirection;
     private int lifebar = 100;
@@ -16,7 +19,7 @@ public class Ant : Entity
     public Ant()
     {
         position.Y = Globals.originPlayerPos.Y;
-        spawnDirection = random.Next(0, 2); // 0 = left, 1 = right
+        spawnDirection = random.Next(0, 2);
         if (spawnDirection == 0)
             position.X = 0 - 100;
         else
@@ -25,13 +28,17 @@ public class Ant : Entity
 
     public void Follow(Player player)
     {
-        if (player.position.X - player.width > position.X) // 50 should be the distance between player and ant
+        if (player.position.X - player.width > position.X)
         {
-            position.X += speed * Raylib.GetFrameTime();
+            velocityX += speed * Raylib.GetFrameTime();
+            if (velocityX > maxSpeed) velocityX = maxSpeed;
+            facing = 1;
         }
         else if (player.position.X + player.width < position.X)
         {
-            position.X -= speed * Raylib.GetFrameTime();
+            velocityX -= speed * Raylib.GetFrameTime();
+            if (velocityX < -maxSpeed) velocityX = -maxSpeed;
+            facing = 0;
         }
     }
 
@@ -55,9 +62,10 @@ public class Ant : Entity
             return false;
         }
     }
+
     public override void Update()
     {
-        
+        position.X += velocityX;
     }
 
     public override void Draw()

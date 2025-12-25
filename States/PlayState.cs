@@ -76,6 +76,7 @@ namespace AntsShooter.States
             foreach (var ant in ants)
             {
                 ant.Follow(player);
+                ant.Update();
                 if (player.GetDamage(ant))
                 {
                     // turn on ant attack animation
@@ -146,7 +147,7 @@ namespace AntsShooter.States
 
                     if (player.GetDamage(ants[j]))
                     {
-
+                        // turn on ant's attack animation
                     }
                 }
             }
