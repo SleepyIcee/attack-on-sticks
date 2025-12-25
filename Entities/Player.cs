@@ -11,14 +11,13 @@ public class Player : Entity
     private const float friction = 0.1f;
     private const float maxSpeed = 5f;
     private int facing = 1;
+    private bool isDead = false;
 
     private const float jumpSpeed = 20f;
     private bool isJumping = false;
     private bool isFalling = false;
     private const float gravity = 50f;
     private const int jumpHight = 2;
-
-    public bool isDead = false;
 
     public Player() : base()
     {
@@ -99,8 +98,24 @@ public class Player : Entity
         {
             States.StatesManager.currentState = "DeathState";
         }
+        Console.WriteLine(isDead);
     }
-    
+
+    public bool GetDamage(Ant ant)
+    {
+        if (Raylib.CheckCollisionRecs(new Rectangle(position, new Vector2(width, height)),
+            new Rectangle(ant.position, new Vector2(ant.width, ant.height))))
+        {
+            isDead = true;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
+    }
+
     public override void Draw()
     {
         base.Draw();

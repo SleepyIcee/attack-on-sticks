@@ -76,6 +76,10 @@ namespace AntsShooter.States
             foreach (var ant in ants)
             {
                 ant.Follow(player);
+                if (player.GetDamage(ant))
+                {
+                    // turn on ant attack animation
+                }
             }
         }
 
@@ -138,6 +142,11 @@ namespace AntsShooter.States
                     {
                         bullets.RemoveAt(i);
                         break;
+                    }
+
+                    if (player.GetDamage(ants[j]))
+                    {
+
                     }
                 }
             }

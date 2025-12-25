@@ -22,7 +22,7 @@ public class Bullet : Entity
         base.Update();
         
         position += direction * speed * Raylib.GetFrameTime();
-        Console.WriteLine(direction);
+        // Console.WriteLine(direction);
     }
 
     public override void Draw()
