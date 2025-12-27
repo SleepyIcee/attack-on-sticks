@@ -16,7 +16,6 @@ public class Game
     public void Update()
     {
         StatesManager.Update();
-
         if (Raylib.IsKeyPressed(KeyboardKey.Escape))
         {
             Raylib.CloseWindow();

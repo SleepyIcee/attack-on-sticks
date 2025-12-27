@@ -19,6 +19,11 @@ namespace AntsShooter.States
         private const float timeBetweenBullets = 0.1f;
         private float bulletTimer = timeBetweenBullets;
         private const int bulletRange = 1000;
+        private int playerBullets = 10;
+
+        private List<BulletToPick> bulletsToPick = new();
+        private float timeToSpawnBullet;
+        private Random random = new Random();
         
         public PlayState()
         {
@@ -28,6 +33,8 @@ namespace AntsShooter.States
             ants = new List<Ant>();
             
             testBlockPosition = new Vector2(0, 0);
+
+            timeToSpawnBullet = 0.1f;
         }
         
         private void LoadCamera()
@@ -94,7 +101,7 @@ namespace AntsShooter.States
 
         public void HandleShooting()
         {
-            if (Raylib.IsMouseButtonDown(MouseButton.Left) && bulletTimer <= 0)
+            if (Raylib.IsMouseButtonDown(MouseButton.Left) && bulletTimer <= 0 && playerBullets > 0)
             {
                 Vector2 mouseScreenPos = Raylib.GetMousePosition();
                 Vector2 mouseWorldPos = Raylib.GetScreenToWorld2D(mouseScreenPos, camera);
@@ -105,6 +112,7 @@ namespace AntsShooter.States
                     mouseWorldPos));
 
                 bulletTimer = timeBetweenBullets;
+                playerBullets -= 1;
             }
 
             // Console.Write(Raylib.GetMousePosition() + " ... ");
@@ -161,12 +169,50 @@ namespace AntsShooter.States
             }
         }
 
+        void SpawnBulletsToPick()
+        {
+            if (timeToSpawnBullet <= 0)
+            {
+                BulletToPick bulletToPick = new BulletToPick();
+                bulletsToPick.Add(bulletToPick);
+                timeToSpawnBullet = random.Next(3, 7);
+            }
+            else
+            {
+                timeToSpawnBullet -= 1 * Raylib.GetFrameTime();
+            }
+        }
+
+        void UpdateBulletsToPick()
+        {
+            for (int i = bulletsToPick.Count - 1; i >= 0; i--)
+            {
+                bulletsToPick[i].Update();
+                
+                if (bulletsToPick[i].IsPickedByPlayer(player))
+                {
+                    playerBullets += 10;
+                    bulletsToPick.Remove(bulletsToPick[i]);
+                }
+            }
+        }
+
+        void DrawBulletsToPick()
+        {
+            foreach (var bullet in bulletsToPick)
+            {
+                bullet.Draw();
+            }
+        }
+
         public void Update()
         {
             player.Update();
             HandleShooting();
             UpdateCamera();
             UpdateAnts();
+            SpawnBulletsToPick();
+            UpdateBulletsToPick();
         }
 
         public void Draw()
@@ -175,6 +221,7 @@ namespace AntsShooter.States
             player.Draw();
             DrawAnts();
             DrawBullets();
+            DrawBulletsToPick();
             Raylib.DrawRectangle((int)MathF.Round(testBlockPosition.X), (int)MathF.Round(testBlockPosition.Y), 50, 50, Color.Blue);
             Raylib.EndMode2D();
         }

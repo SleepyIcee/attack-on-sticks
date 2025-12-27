@@ -5,10 +5,17 @@ add lifebar to the ants
 fix the problem when shooting the right corner of the map
 make the player killable
 ants acceleration
-
-
-
-
-
 add lifebar to the player
+
+
+
+
+
+spawn bullets around the map
+add acceleration movemnt to the bullets when shooting
 add UI to both player's and ant's lifebars
+player sprite and animation
+ant sprite and animation
+drawing bullets better with the code
+juicy sounds
+screen shake

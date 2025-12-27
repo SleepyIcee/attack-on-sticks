@@ -19,7 +19,6 @@ public class Player : Entity
     private const float jumpSpeed = 20f;
     private bool isJumping = false;
     private bool isFalling = false;
-    private const float gravity = 50f;
     private const int jumpHight = 2;
 
     public Player() : base()
@@ -77,7 +76,7 @@ public class Player : Entity
 
         if (isFalling)
         {
-            velocity.Y += gravity * Raylib.GetFrameTime();
+            velocity.Y += Globals.gravity * Raylib.GetFrameTime();
 
             if (position.Y >= Globals.originPlayerPos.Y)
             {
