@@ -28,15 +28,17 @@ public class BulletToPick : Entity
 
     public void ApplyGravity()
     {
-        velocity.Y += Globals.gravity * Raylib.GetFrameTime();
+        velocity.Y += Globals.GRAVITY * Raylib.GetFrameTime();
 
-        if (position.Y >= Globals.originPlayerPos.Y)
+        if (position.Y >= Globals.GROUND_LEVEL - height)
         {
-            position.Y = Globals.originPlayerPos.Y;
+            position.Y = Globals.GROUND_LEVEL - height;
             velocity.Y = 0;
         }
-
-        position += velocity * Raylib.GetFrameTime();
+        else 
+        {
+            position += velocity * Raylib.GetFrameTime();
+        }
     }
 
     public bool IsPickedByPlayer(Player player)

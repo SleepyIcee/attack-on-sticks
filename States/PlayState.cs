@@ -14,7 +14,7 @@ namespace AntsShooter.States
         private Vector2 cameraTarget;
         private Vector2 testBlockPosition;
         private List<Ant> ants;
-        private float spawnAntTimer = Globals.spawnAntTimer;
+        private float spawnAntTimer = Globals.SpawnAntTimer;
         private List<Bullet> bullets = new();
         private const float timeBetweenBullets = 0.1f;
         private float bulletTimer = timeBetweenBullets;
@@ -51,7 +51,7 @@ namespace AntsShooter.States
         private void UpdateCamera() 
         {
             cameraTarget.X = player.position.X;
-            cameraTarget.Y = Globals.originPlayerPos.Y;
+            cameraTarget.Y = Globals.OriginPlayerPos.Y;
             
             float leftBound = camera.Target.X - camera.Offset.X;
             float rightBound = camera.Target.X + camera.Offset.X;
@@ -73,7 +73,7 @@ namespace AntsShooter.States
             if (spawnAntTimer <= 0)
             {
                 SpawnAnt();
-                spawnAntTimer = Globals.spawnAntTimer;
+                spawnAntTimer = Globals.SpawnAntTimer;
             }
             else
             {

@@ -23,7 +23,10 @@ public class Player : Entity
 
     public Player() : base()
     {
-        position = new Vector2(Globals.SCREEN_WIDTH/2, Globals.SCREEN_HEIGHT/2);
+        width = Globals.PLAYER_WIDTH;
+        height = Globals.PLAYER_HEIGHT;
+        position.X = Globals.OriginPlayerPos.X;
+        position.Y = Globals.OriginPlayerPos.Y;
         
         velocity = Vector2.Zero;
     }
@@ -67,7 +70,7 @@ public class Player : Entity
 
         if (isJumping)
         {
-            if (position.Y <= Globals.originPlayerPos.Y - 1)
+            if (position.Y <= Globals.OriginPlayerPos.Y - 1 - height)
             {
                 isJumping = false;
                 isFalling = true;
@@ -76,11 +79,11 @@ public class Player : Entity
 
         if (isFalling)
         {
-            velocity.Y += Globals.gravity * Raylib.GetFrameTime();
+            velocity.Y += Globals.GRAVITY * Raylib.GetFrameTime();
 
-            if (position.Y >= Globals.originPlayerPos.Y)
+            if (position.Y >= Globals.OriginPlayerPos.Y - height)
             {
-                position.Y = Globals.originPlayerPos.Y;
+                position.Y = Globals.OriginPlayerPos.Y;
                 velocity.Y = 0;
                 isFalling = false;
             }
@@ -95,6 +98,8 @@ public class Player : Entity
         HandleJump();
         position += velocity;
         HandelDeath();
+
+        // Console.WriteLine("player y pos: " + position.Y + " player origin y pos: " + (Globals.OriginPlayerPos.Y - height));
     }
 
     public void HandelDeath()

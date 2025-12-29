@@ -16,9 +16,9 @@ public class Ant : Entity
     private int lifebar = 100;
     public bool isDead = false; 
     
-    public Ant()
+    public Ant() : base()
     {
-        position.Y = Globals.originPlayerPos.Y;
+        position.Y = Globals.GROUND_LEVEL - height;
         spawnDirection = random.Next(0, 2);
         if (spawnDirection == 0)
             position.X = 0 - 100;
