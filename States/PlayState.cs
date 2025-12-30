@@ -1,6 +1,7 @@
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using AntsShooter.Editor;
+using AntsShooter.Enities.UI;
 using AntsShooter.Entities;
 using AntsShooter.Systems;
 using Raylib_cs;
@@ -24,6 +25,8 @@ namespace AntsShooter.States
         private List<BulletToPick> bulletsToPick = new();
         private float timeToSpawnBullet;
         private Random random = new Random();
+
+        private PlayerLifeBar playerLifeBar;
         
         public PlayState()
         {
@@ -35,6 +38,8 @@ namespace AntsShooter.States
             testBlockPosition = new Vector2(0, 0);
 
             timeToSpawnBullet = 0.1f;
+
+            playerLifeBar = new PlayerLifeBar(camera);
         }
         
         private void LoadCamera()
@@ -60,6 +65,9 @@ namespace AntsShooter.States
             if (rightBound > Globals.MAP_WIDTH) camera.Target.X = Globals.MAP_WIDTH - camera.Offset.X;
             
             camera.Target = Vector2.Lerp(camera.Target, cameraTarget, 0.1f);
+
+            // update UI position with camera
+            playerLifeBar.UpdatePositionWithCamera(camera);
         }
 
         private void SpawnAnt()
@@ -84,7 +92,7 @@ namespace AntsShooter.States
             {
                 ant.Follow(player);
                 ant.Update();
-                if (player.GetDamage(ant))
+                if (player.GetDamage(ant, playerLifeBar))
                 {
                     // turn on ant attack animation
                 }
@@ -153,7 +161,7 @@ namespace AntsShooter.States
                         break;
                     }
 
-                    if (player.GetDamage(ants[j]))
+                    if (player.GetDamage(ants[j], playerLifeBar))
                     {
                         // turn on ant's attack animation
                     }
@@ -223,6 +231,8 @@ namespace AntsShooter.States
             DrawBullets();
             DrawBulletsToPick();
             Raylib.DrawRectangle((int)MathF.Round(testBlockPosition.X), (int)MathF.Round(testBlockPosition.Y), 50, 50, Color.Blue);
+            // draw UI elements
+            playerLifeBar.Draw();
             Raylib.EndMode2D();
         }
     }
