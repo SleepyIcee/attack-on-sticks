@@ -25,8 +25,6 @@ namespace AntsShooter.States
         private List<BulletToPick> bulletsToPick = new();
         private float timeToSpawnBullet;
         private Random random = new Random();
-
-        private PlayerLifeBar playerLifeBar;
         
         public PlayState()
         {
@@ -38,8 +36,6 @@ namespace AntsShooter.States
             testBlockPosition = new Vector2(0, 0);
 
             timeToSpawnBullet = 0.1f;
-
-            playerLifeBar = new PlayerLifeBar(camera);
         }
         
         private void LoadCamera()
@@ -67,7 +63,8 @@ namespace AntsShooter.States
             camera.Target = Vector2.Lerp(camera.Target, cameraTarget, 0.1f);
 
             // update UI position with camera
-            playerLifeBar.UpdatePositionWithCamera(camera);
+            player.lifeBar.UpdateScreenPosition(camera,
+            new Vector2(Globals.SCREEN_WIDTH/20, Globals.SCREEN_HEIGHT/10));
         }
 
         private void SpawnAnt()
@@ -92,10 +89,13 @@ namespace AntsShooter.States
             {
                 ant.Follow(player);
                 ant.Update();
-                if (player.GetDamage(ant, playerLifeBar))
+                if (player.GetDamage(ant))
                 {
                     // turn on ant attack animation
                 }
+
+                ant.lifeBar.position.X = ant.position.X;
+                ant.lifeBar.position.Y = ant.position.Y - 20;
             }
         }
 
@@ -159,11 +159,6 @@ namespace AntsShooter.States
                     {
                         bullets.RemoveAt(i);
                         break;
-                    }
-
-                    if (player.GetDamage(ants[j], playerLifeBar))
-                    {
-                        // turn on ant's attack animation
                     }
                 }
             }
@@ -232,7 +227,11 @@ namespace AntsShooter.States
             DrawBulletsToPick();
             Raylib.DrawRectangle((int)MathF.Round(testBlockPosition.X), (int)MathF.Round(testBlockPosition.Y), 50, 50, Color.Blue);
             // draw UI elements
-            playerLifeBar.Draw();
+            player.lifeBar.Draw();
+            foreach (var ant in ants)
+            {
+                ant.lifeBar.Draw();
+            }
             Raylib.EndMode2D();
         }
     }

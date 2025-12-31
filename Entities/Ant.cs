@@ -1,5 +1,6 @@
 using System.Numerics;
 using System.Threading.Channels;
+using AntsShooter.Enities.UI;
 using AntsShooter.Systems;
 using Raylib_cs;
 
@@ -13,17 +14,25 @@ public class Ant : Entity
     private int facing = 1;
     private Random random = new Random();
     private int spawnDirection;
-    private int lifebar = 100;
+    private int health = 10;
+    private int maxHealth = 10; 
     public bool isDead = false; 
+    public LifeBar lifeBar;
     
     public Ant() : base()
     {
         position.Y = Globals.GROUND_LEVEL - height;
         spawnDirection = random.Next(0, 2);
         if (spawnDirection == 0)
+        {
             position.X = 0 - 100;
+        }
         else
+        {
             position.X = Globals.MAP_WIDTH + 100;
+        }
+
+        lifeBar = new LifeBar(50, 10);
     }
 
     public void Follow(Player player)
@@ -46,9 +55,10 @@ public class Ant : Entity
     {
         if (Raylib.CheckCollisionCircleRec(bullet.position, bullet.radius, new Rectangle(position, new Vector2(width, height))))
         {
-            if (lifebar > 0)
+            if (health > 0)
             {
-                lifebar -= 10;
+                health -= 1;
+                lifeBar.lifeBarHealthWidth = (int)(lifeBar.width * (health / (float)maxHealth));
             }
             else
             {
@@ -66,6 +76,7 @@ public class Ant : Entity
     public override void Update()
     {
         position.X += velocityX;
+        lifeBar.position = position + new Vector2(-25, -15);
     }
 
     public override void Draw()

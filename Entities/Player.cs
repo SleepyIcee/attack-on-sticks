@@ -23,6 +23,8 @@ public class Player : Entity
     private bool isFalling = false;
     private const int jumpHight = 2;
 
+    public LifeBar lifeBar;
+
     public Player() : base()
     {
         width = Globals.PLAYER_WIDTH;
@@ -31,6 +33,8 @@ public class Player : Entity
         position.Y = Globals.OriginPlayerPos.Y;
         
         velocity = Vector2.Zero;
+
+        lifeBar = new LifeBar(Globals.SCREEN_WIDTH/5, Globals.SCREEN_HEIGHT/30);;
     }
     
     public void HandelMovement()
@@ -118,7 +122,7 @@ public class Player : Entity
         Console.WriteLine("Health: " + health);
     }
 
-    public bool GetDamage(Ant ant, PlayerLifeBar lifeBar)
+    public bool GetDamage(Ant ant)
     {
         if (Raylib.CheckCollisionRecs(new Rectangle(position, new Vector2(width, height)),
             new Rectangle(ant.position, new Vector2(ant.width, ant.height))) && damageTimer <= 0)
@@ -126,7 +130,7 @@ public class Player : Entity
             if (health > 0)
             {
                 health -= 1;
-                lifeBar.lifeBarWidth -= lifeBar.lifeBarWidth/maxHealth;
+                lifeBar.lifeBarHealthWidth = (int)(lifeBar.width * (health / (float)maxHealth));
             }
             else
             {
