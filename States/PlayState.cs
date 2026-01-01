@@ -11,8 +11,7 @@ namespace AntsShooter.States
     public class PlayState : IState
     {
         private Player player;
-        private Camera2D camera;
-        private Vector2 cameraTarget;
+        private Camera camera;
         private Vector2 testBlockPosition;
         private List<Ant> ants;
         private float spawnAntTimer = Globals.SpawnAntTimer;
@@ -29,42 +28,13 @@ namespace AntsShooter.States
         public PlayState()
         {
             player = new Player();
-            LoadCamera();
+            camera = new Camera(player);
             
             ants = new List<Ant>();
             
             testBlockPosition = new Vector2(0, 0);
 
             timeToSpawnBullet = 0.1f;
-        }
-        
-        private void LoadCamera()
-        {
-            cameraTarget = new Vector2();
-            
-            camera = new Camera2D();
-            camera.Target = cameraTarget;
-            camera.Offset = new Vector2(Globals.SCREEN_WIDTH/2 - player.width/2, Globals.SCREEN_HEIGHT/2 - player.height/2);
-            camera.Rotation = 0.0f;
-            camera.Zoom = 1.0f;
-        }
-        
-        private void UpdateCamera() 
-        {
-            cameraTarget.X = player.position.X;
-            cameraTarget.Y = Globals.OriginPlayerPos.Y;
-            
-            float leftBound = camera.Target.X - camera.Offset.X;
-            float rightBound = camera.Target.X + camera.Offset.X;
-
-            if (leftBound < 0) camera.Target.X = camera.Offset.X;
-            if (rightBound > Globals.MAP_WIDTH) camera.Target.X = Globals.MAP_WIDTH - camera.Offset.X;
-            
-            camera.Target = Vector2.Lerp(camera.Target, cameraTarget, 0.1f);
-
-            // update UI position with camera
-            player.lifeBar.UpdateScreenPosition(camera,
-            new Vector2(Globals.SCREEN_WIDTH/20, Globals.SCREEN_HEIGHT/10));
         }
 
         private void SpawnAnt()
@@ -112,7 +82,7 @@ namespace AntsShooter.States
             if (Raylib.IsMouseButtonDown(MouseButton.Left) && bulletTimer <= 0 && playerBullets > 0)
             {
                 Vector2 mouseScreenPos = Raylib.GetMousePosition();
-                Vector2 mouseWorldPos = Raylib.GetScreenToWorld2D(mouseScreenPos, camera);
+                Vector2 mouseWorldPos = Raylib.GetScreenToWorld2D(mouseScreenPos, camera.camera);
 
                 bullets.Add(new Bullet(
                     new Vector2(player.position.X + player.width / 2,
@@ -121,6 +91,14 @@ namespace AntsShooter.States
 
                 bulletTimer = timeBetweenBullets;
                 playerBullets -= 1;
+
+                // start shaking the camera
+                List<Vector2> cameraShakePoints = new();
+                for (int i = 0; i < 3; i++)
+                {
+                    cameraShakePoints.Add(new Vector2(random.Next(-3, 3), random.Next(-3, 3)));
+                }
+                camera.Shake(cameraShakePoints);
             }
 
             // Console.Write(Raylib.GetMousePosition() + " ... ");
@@ -211,8 +189,8 @@ namespace AntsShooter.States
         public void Update()
         {
             player.Update();
+            camera.Update();
             HandleShooting();
-            UpdateCamera();
             UpdateAnts();
             SpawnBulletsToPick();
             UpdateBulletsToPick();
@@ -220,7 +198,7 @@ namespace AntsShooter.States
 
         public void Draw()
         {
-            Raylib.BeginMode2D(camera);
+            Raylib.BeginMode2D(camera.camera);
             player.Draw();
             DrawAnts();
             DrawBullets();
