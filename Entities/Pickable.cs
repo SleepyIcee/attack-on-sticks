@@ -5,19 +5,31 @@ using AntsShooter.Systems;
 using System.Numerics;
 
 
-public class BulletToPick : Entity
+public class Pickable : Entity
 {
     private Vector2 velocity;
     public float radius = 10.0f;
     Random random = new Random();
+    public string type = "";
+    private Color color;
 
-    public BulletToPick() : base()
+    public Pickable(string pickableType) : base()
     {
         width = 16;
         height = 16;
 
         position = Globals.BulletsSpawnPositions[random.Next(Globals.BulletsSpawnPositions.Count)];
         velocity = Vector2.Zero;
+
+        type = pickableType;
+        if (type == "bullet")
+        {
+            color = Color.Gold;
+        }
+        else if (type == "health")
+        {
+            color = new Color(255, 0, 0, 255);
+        }
     }
 
     public override void Update()
@@ -52,6 +64,6 @@ public class BulletToPick : Entity
 
     public override void Draw()
     {
-        Raylib.DrawCircle((int)Math.Round(position.X), (int)Math.Round(position.Y), radius, Color.Gold);
+        Raylib.DrawCircle((int)Math.Round(position.X), (int)Math.Round(position.Y), radius, color);
     }
 }

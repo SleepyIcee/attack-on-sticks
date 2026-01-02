@@ -10,10 +10,10 @@ public class Player : Entity
     private Vector2 velocity;
     private const float speed = 50f;
     private const float friction = 0.1f;
-    private const float maxSpeed = 5f;
+    private readonly float MaxSpeed = 5f;
     private int facing = 1;
-    private int health = 3;
-    private int maxHealth = 3;
+    public int health = 3;
+    public int maxHealth = 3;
     private bool isDead = false;
     private const float timeBetweenDamages = 1.0f;
     public float damageTimer = timeBetweenDamages;
@@ -42,13 +42,13 @@ public class Player : Entity
         if (Raylib.IsKeyDown(KeyboardKey.D) && position.X < Globals.MAP_WIDTH)
         {
             velocity.X += speed * Raylib.GetFrameTime();
-            if (velocity.X > maxSpeed) velocity.X = maxSpeed;
+            if (velocity.X > MaxSpeed) velocity.X = MaxSpeed;
             facing = 1;
         }
         else if (Raylib.IsKeyDown(KeyboardKey.A) && position.X > 0)
         {
             velocity.X -= speed * Raylib.GetFrameTime();
-            if (velocity.X < -maxSpeed) velocity.X = -maxSpeed;
+            if (velocity.X < -MaxSpeed) velocity.X = -MaxSpeed;
             facing = 0;
         }
         else
@@ -104,6 +104,7 @@ public class Player : Entity
         HandleJump();
         position += velocity;
         HandelDeath();
+        lifeBar.lifeBarHealthWidth = (int)(lifeBar.width * (health / (float)maxHealth));
 
         // Console.WriteLine("player y pos: " + position.Y + " player origin y pos: " + (Globals.OriginPlayerPos.Y - height));
     }
@@ -119,7 +120,7 @@ public class Player : Entity
         {
             damageTimer -= Raylib.GetFrameTime();
         }
-        Console.WriteLine("Health: " + health);
+        // Console.WriteLine("Health: " + health);
     }
 
     public bool GetDamage(Ant ant)
@@ -130,7 +131,6 @@ public class Player : Entity
             if (health > 0)
             {
                 health -= 1;
-                lifeBar.lifeBarHealthWidth = (int)(lifeBar.width * (health / (float)maxHealth));
             }
             else
             {

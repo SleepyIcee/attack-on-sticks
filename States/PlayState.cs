@@ -21,7 +21,7 @@ namespace AntsShooter.States
         private const int bulletRange = 1000;
         private int playerBullets = 10;
 
-        private List<BulletToPick> bulletsToPick = new();
+        private List<Pickable> pickables = new();
         private float timeToSpawnBullet;
         private Random random = new Random();
         
@@ -150,12 +150,14 @@ namespace AntsShooter.States
             }
         }
 
-        void SpawnBulletsToPick()
+        void SpawnPickables()
         {
             if (timeToSpawnBullet <= 0)
             {
-                BulletToPick bulletToPick = new BulletToPick();
-                bulletsToPick.Add(bulletToPick);
+                string[] pickableTypes = {"bullet", "health"};
+                Pickable pickable = new Pickable(pickableTypes[random.Next(pickableTypes.Length)]);
+                // Console.WriteLine(pickable.type);
+                pickables.Add(pickable);
                 timeToSpawnBullet = random.Next(3, 7);
             }
             else
@@ -164,25 +166,35 @@ namespace AntsShooter.States
             }
         }
 
-        void UpdateBulletsToPick()
+        void UpdatePickables()
         {
-            for (int i = bulletsToPick.Count - 1; i >= 0; i--)
+            for (int i = pickables.Count - 1; i >= 0; i--)
             {
-                bulletsToPick[i].Update();
+                pickables[i].Update();
                 
-                if (bulletsToPick[i].IsPickedByPlayer(player))
+                if (pickables[i].IsPickedByPlayer(player))
                 {
-                    playerBullets += 10;
-                    bulletsToPick.Remove(bulletsToPick[i]);
+                    if (pickables[i].type == "bullet")
+                    {
+                        playerBullets += 10;
+                    }
+                    else if (pickables[i].type == "health")
+                    {
+                        if (player.health < player.maxHealth)
+                        {
+                            player.health += 1;
+                        }
+                    }
+                    pickables.Remove(pickables[i]);
                 }
             }
         }
 
         void DrawBulletsToPick()
         {
-            foreach (var bullet in bulletsToPick)
+            foreach (var pickable in pickables)
             {
-                bullet.Draw();
+                pickable.Draw();
             }
         }
 
@@ -192,8 +204,8 @@ namespace AntsShooter.States
             camera.Update();
             HandleShooting();
             UpdateAnts();
-            SpawnBulletsToPick();
-            UpdateBulletsToPick();
+            SpawnPickables();
+            UpdatePickables();
         }
 
         public void Draw()
