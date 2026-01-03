@@ -15,10 +15,10 @@ public class Pickable : Entity
 
     public Pickable(string pickableType) : base()
     {
-        width = 16;
-        height = 16;
+        Width = 16;
+        Height = 16;
 
-        position = Globals.BulletsSpawnPositions[random.Next(Globals.BulletsSpawnPositions.Count)];
+        Position = Globals.BulletsSpawnPositions[random.Next(Globals.BulletsSpawnPositions.Count)];
         velocity = Vector2.Zero;
 
         type = pickableType;
@@ -42,20 +42,20 @@ public class Pickable : Entity
     {
         velocity.Y += Globals.GRAVITY * Raylib.GetFrameTime();
 
-        if (position.Y >= Globals.GROUND_LEVEL - height)
+        if (Position.Y >= Globals.GROUND_LEVEL - Height)
         {
-            position.Y = Globals.GROUND_LEVEL - height;
+            Position.Y = Globals.GROUND_LEVEL - Height;
             velocity.Y = 0;
         }
         else 
         {
-            position += velocity * Raylib.GetFrameTime();
+            Position += velocity * Raylib.GetFrameTime();
         }
     }
 
     public bool IsPickedByPlayer(Player player)
     {
-        if (Raylib.CheckCollisionCircleRec(position, radius, new Rectangle(player.position, new Vector2(player.width, player.height))))
+        if (Raylib.CheckCollisionCircleRec(Position, radius, new Rectangle(player.Position, new Vector2(player.Width, player.Height))))
         {
             return true;
         }
@@ -64,6 +64,6 @@ public class Pickable : Entity
 
     public override void Draw()
     {
-        Raylib.DrawCircle((int)Math.Round(position.X), (int)Math.Round(position.Y), radius, color);
+        Raylib.DrawCircle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), radius, color);
     }
 }

@@ -19,11 +19,14 @@ namespace AntsShooter.States
         private const float timeBetweenBullets = 0.1f;
         private float bulletTimer = timeBetweenBullets;
         private const int bulletRange = 1000;
-        private int playerBullets = 10;
+        private int playerBullets = 30;
 
         private List<Pickable> pickables = new();
         private float timeToSpawnBullet;
         private Random random = new Random();
+
+        // sounds
+        private Sound gunSound = Raylib.LoadSound("assets/sounds/gun-sound.wav");
         
         public PlayState()
         {
@@ -64,8 +67,8 @@ namespace AntsShooter.States
                     // turn on ant attack animation
                 }
 
-                ant.lifeBar.position.X = ant.position.X;
-                ant.lifeBar.position.Y = ant.position.Y - 20;
+                ant.lifeBar.Position.X = ant.Position.X;
+                ant.lifeBar.Position.Y = ant.Position.Y - 20;
             }
         }
 
@@ -85,8 +88,8 @@ namespace AntsShooter.States
                 Vector2 mouseWorldPos = Raylib.GetScreenToWorld2D(mouseScreenPos, camera.camera);
 
                 bullets.Add(new Bullet(
-                    new Vector2(player.position.X + player.width / 2,
-                                player.position.Y + player.height / 2),
+                    new Vector2(player.Position.X + player.Width / 2,
+                                player.Position.Y + player.Height / 2),
                     mouseWorldPos));
 
                 bulletTimer = timeBetweenBullets;
@@ -99,6 +102,7 @@ namespace AntsShooter.States
                     cameraShakePoints.Add(new Vector2(random.Next(-3, 3), random.Next(-3, 3)));
                 }
                 camera.Shake(cameraShakePoints);
+                Raylib.PlaySound(gunSound);
             }
 
             // Console.Write(Raylib.GetMousePosition() + " ... ");
@@ -109,17 +113,17 @@ namespace AntsShooter.States
                 bulletTimer -= Raylib.GetFrameTime();
             }
 
-            float centerX = player.position.X;
-            float centerY = player.position.Y;
+            float centerX = player.Position.X;
+            float centerY = player.Position.Y;
 
             for (int i = bullets.Count - 1; i >= 0; i--)
             {
                 bullets[i].Update();
 
-                if (bullets[i].position.X > centerX + bulletRange ||
-                    bullets[i].position.X < centerX - bulletRange ||
-                    bullets[i].position.Y > centerY + bulletRange ||
-                    bullets[i].position.Y < centerY - bulletRange)
+                if (bullets[i].Position.X > centerX + bulletRange ||
+                    bullets[i].Position.X < centerX - bulletRange ||
+                    bullets[i].Position.Y > centerY + bulletRange ||
+                    bullets[i].Position.Y < centerY - bulletRange)
                 {
                     bullets.RemoveAt(i);
                     continue;

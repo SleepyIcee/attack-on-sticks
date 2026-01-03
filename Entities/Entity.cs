@@ -5,15 +5,15 @@ namespace AntsShooter.Entities;
 
 public class Entity
 {
-    public Vector2 position;
-    public Texture2D texture;
-    public int height { get; set; } = 50;
-    public int width { get; set; } = 50;
+    public Vector2 Position;
+    public Texture2D Texture;
+    public int Height { get; set; } = 50;
+    public int Width { get; set; } = 50;
 
     public Entity()
     {
-        position = new Vector2(0, 0);
-        texture = new Texture2D();
+        Position = new Vector2(0, 0);
+        Texture = new Texture2D();
     }
 
     public virtual void Update()

@@ -11,12 +11,14 @@ add deceleration movemnt to the bullets when shooting
 fix the ground surface position
 add UI to both player's and ant's lifebars
 screen shake
-
-
-
-
-juicy sounds
 healing system
+juicy shooting sound
+
+
+
+
+add score and change the speed of ants every few seconds in the game
+running sound
 drawing bullets better with the code
 player sprite and animation
 ant sprite and animation

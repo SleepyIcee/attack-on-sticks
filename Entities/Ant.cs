@@ -21,15 +21,15 @@ public class Ant : Entity
     
     public Ant() : base()
     {
-        position.Y = Globals.GROUND_LEVEL - height;
+        Position.Y = Globals.GROUND_LEVEL - Height;
         spawnDirection = random.Next(0, 2);
         if (spawnDirection == 0)
         {
-            position.X = 0 - 100;
+            Position.X = 0 - 100;
         }
         else
         {
-            position.X = Globals.MAP_WIDTH + 100;
+            Position.X = Globals.MAP_WIDTH + 100;
         }
 
         lifeBar = new LifeBar(50, 10);
@@ -37,13 +37,13 @@ public class Ant : Entity
 
     public void Follow(Player player)
     {
-        if (player.position.X - player.width > position.X)
+        if (player.Position.X - player.Width > Position.X)
         {
             velocityX += speed * Raylib.GetFrameTime();
             if (velocityX > maxSpeed) velocityX = maxSpeed;
             facing = 1;
         }
-        else if (player.position.X + player.width < position.X)
+        else if (player.Position.X + player.Width < Position.X)
         {
             velocityX -= speed * Raylib.GetFrameTime();
             if (velocityX < -maxSpeed) velocityX = -maxSpeed;
@@ -53,12 +53,12 @@ public class Ant : Entity
 
     public bool GetShot(Bullet bullet)
     {
-        if (Raylib.CheckCollisionCircleRec(bullet.position, bullet.radius, new Rectangle(position, new Vector2(width, height))))
+        if (Raylib.CheckCollisionRecs(bullet.rectangle, new Rectangle(Position, new Vector2(Width, Height))))
         {
             if (health > 0)
             {
                 health -= 1;
-                lifeBar.lifeBarHealthWidth = (int)(lifeBar.width * (health / (float)maxHealth));
+                lifeBar.lifeBarHealthWidth = (int)(lifeBar.Width * (health / (float)maxHealth));
             }
             else
             {
@@ -75,12 +75,12 @@ public class Ant : Entity
 
     public override void Update()
     {
-        position.X += velocityX;
-        lifeBar.position = position + new Vector2(-25, -15);
+        Position.X += velocityX;
+        lifeBar.Position = Position + new Vector2(-25, -15);
     }
 
     public override void Draw()
     {
-        Raylib.DrawRectangle((int)MathF.Round(position.X), (int)MathF.Round(position.Y), 50, 50, Color.Blue);
+        Raylib.DrawRectangle((int)MathF.Round(Position.X), (int)MathF.Round(Position.Y), 50, 50, Color.Blue);
     }
 }

@@ -27,10 +27,10 @@ public class Player : Entity
 
     public Player() : base()
     {
-        width = Globals.PLAYER_WIDTH;
-        height = Globals.PLAYER_HEIGHT;
-        position.X = Globals.OriginPlayerPos.X;
-        position.Y = Globals.OriginPlayerPos.Y;
+        Width = Globals.PLAYER_WIDTH;
+        Height = Globals.PLAYER_HEIGHT;
+        Position.X = Globals.OriginPlayerPos.X;
+        Position.Y = Globals.OriginPlayerPos.Y;
         
         velocity = Vector2.Zero;
 
@@ -39,13 +39,13 @@ public class Player : Entity
     
     public void HandelMovement()
     {
-        if (Raylib.IsKeyDown(KeyboardKey.D) && position.X < Globals.MAP_WIDTH)
+        if (Raylib.IsKeyDown(KeyboardKey.D) && Position.X < Globals.MAP_WIDTH)
         {
             velocity.X += speed * Raylib.GetFrameTime();
             if (velocity.X > MaxSpeed) velocity.X = MaxSpeed;
             facing = 1;
         }
-        else if (Raylib.IsKeyDown(KeyboardKey.A) && position.X > 0)
+        else if (Raylib.IsKeyDown(KeyboardKey.A) && Position.X > 0)
         {
             velocity.X -= speed * Raylib.GetFrameTime();
             if (velocity.X < -MaxSpeed) velocity.X = -MaxSpeed;
@@ -76,7 +76,7 @@ public class Player : Entity
 
         if (isJumping)
         {
-            if (position.Y <= Globals.OriginPlayerPos.Y - 1 - height)
+            if (Position.Y <= Globals.OriginPlayerPos.Y - 1 - Height)
             {
                 isJumping = false;
                 isFalling = true;
@@ -87,9 +87,9 @@ public class Player : Entity
         {
             velocity.Y += Globals.GRAVITY * Raylib.GetFrameTime();
 
-            if (position.Y >= Globals.OriginPlayerPos.Y - height)
+            if (Position.Y >= Globals.OriginPlayerPos.Y - Height)
             {
-                position.Y = Globals.OriginPlayerPos.Y;
+                Position.Y = Globals.OriginPlayerPos.Y;
                 velocity.Y = 0;
                 isFalling = false;
             }
@@ -102,9 +102,9 @@ public class Player : Entity
         
         HandelMovement();
         HandleJump();
-        position += velocity;
+        Position += velocity;
         HandelDeath();
-        lifeBar.lifeBarHealthWidth = (int)(lifeBar.width * (health / (float)maxHealth));
+        lifeBar.lifeBarHealthWidth = (int)(lifeBar.Width * (health / (float)maxHealth));
 
         // Console.WriteLine("player y pos: " + position.Y + " player origin y pos: " + (Globals.OriginPlayerPos.Y - height));
     }
@@ -125,8 +125,8 @@ public class Player : Entity
 
     public bool GetDamage(Ant ant)
     {
-        if (Raylib.CheckCollisionRecs(new Rectangle(position, new Vector2(width, height)),
-            new Rectangle(ant.position, new Vector2(ant.width, ant.height))) && damageTimer <= 0)
+        if (Raylib.CheckCollisionRecs(new Rectangle(Position, new Vector2(Width, Height)),
+            new Rectangle(ant.Position, new Vector2(ant.Width, ant.Height))) && damageTimer <= 0)
         {
             if (health > 0)
             {
@@ -152,11 +152,11 @@ public class Player : Entity
 
         if (facing == 1)
         {
-            Raylib.DrawRectangle((int)MathF.Round(position.X), (int)MathF.Round(position.Y), width, height, Color.Red);
+            Raylib.DrawRectangle((int)MathF.Round(Position.X), (int)MathF.Round(Position.Y), Width, Height, Color.Red);
         }
         else
         {
-            Raylib.DrawRectangle((int)MathF.Round(position.X), (int)MathF.Round(position.Y), width, height, Color.Red);
+            Raylib.DrawRectangle((int)MathF.Round(Position.X), (int)MathF.Round(Position.Y), Width, Height, Color.Red);
             // draw the flipped version of the texture
         }
     }

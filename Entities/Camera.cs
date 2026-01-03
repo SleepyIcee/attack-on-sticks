@@ -24,7 +24,7 @@ public class Camera : Entity
         cameraTarget = new Vector2();    
         camera = new Camera2D();
         camera.Target = cameraTarget;
-        cameraOffset = new Vector2(Globals.SCREEN_WIDTH/2 - player.width/2, Globals.SCREEN_HEIGHT/2 - player.height/2);
+        cameraOffset = new Vector2(Globals.SCREEN_WIDTH/2 - player.Width/2, Globals.SCREEN_HEIGHT/2 - player.Height/2);
         camera.Offset = cameraOffset;
         camera.Rotation = 0.0f;
         camera.Zoom = 1.0f;
@@ -34,7 +34,7 @@ public class Camera : Entity
     {
         base.Update();
 
-        cameraTarget.X = player.position.X;
+        cameraTarget.X = player.Position.X;
         cameraTarget.Y = Globals.OriginPlayerPos.Y;
             
         float leftBound = camera.Target.X - camera.Offset.X;
