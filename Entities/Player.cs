@@ -17,6 +17,8 @@ public class Player : Entity
     private bool isDead = false;
     private const float timeBetweenDamages = 1.0f;
     public float damageTimer = timeBetweenDamages;
+    
+    private Sound runningSound;
 
     private const float jumpSpeed = 20f;
     private bool isJumping = false;
@@ -35,6 +37,8 @@ public class Player : Entity
         velocity = Vector2.Zero;
 
         lifeBar = new LifeBar(Globals.SCREEN_WIDTH/5, Globals.SCREEN_HEIGHT/30);;
+
+        runningSound = Raylib.LoadSound("assets/sounds/running-sound.wav");
     }
     
     public void HandelMovement()
@@ -44,12 +48,14 @@ public class Player : Entity
             velocity.X += speed * Raylib.GetFrameTime();
             if (velocity.X > MaxSpeed) velocity.X = MaxSpeed;
             facing = 1;
+            if (!Raylib.IsSoundPlaying(runningSound) && !isJumping && !isFalling) Raylib.PlaySound(runningSound);
         }
         else if (Raylib.IsKeyDown(KeyboardKey.A) && Position.X > 0)
         {
             velocity.X -= speed * Raylib.GetFrameTime();
             if (velocity.X < -MaxSpeed) velocity.X = -MaxSpeed;
             facing = 0;
+            if (!Raylib.IsSoundPlaying(runningSound) && !isJumping && !isFalling) Raylib.PlaySound(runningSound);
         }
         else
         {

@@ -20,10 +20,14 @@ namespace AntsShooter.States
         private float bulletTimer = timeBetweenBullets;
         private const int bulletRange = 1000;
         private int playerBullets = 30;
+        private int score = 0;
 
         private List<Pickable> pickables = new();
         private float timeToSpawnBullet;
         private Random random = new Random();
+
+        private readonly int ScoreFontSize = 50;
+        private Color scoreFontColor = Color.Black;
 
         // sounds
         private Sound gunSound = Raylib.LoadSound("assets/sounds/gun-sound.wav");
@@ -134,6 +138,7 @@ namespace AntsShooter.States
                     if (ants[j].isDead)
                     {
                         ants.RemoveAt(j);
+                        score++;
                         break;
                     }
                     // Console.WriteLine(ants[j].isDead);
@@ -221,11 +226,12 @@ namespace AntsShooter.States
             DrawBulletsToPick();
             Raylib.DrawRectangle((int)MathF.Round(testBlockPosition.X), (int)MathF.Round(testBlockPosition.Y), 50, 50, Color.Blue);
             // draw UI elements
-            player.lifeBar.Draw();
             foreach (var ant in ants)
             {
                 ant.lifeBar.Draw();
             }
+            player.lifeBar.Draw();
+            Raylib.DrawText(Convert.ToString(score), Globals.MAP_WIDTH - Globals.MAP_WIDTH/2, Globals.SCREEN_HEIGHT - Globals.SCREEN_HEIGHT/2, ScoreFontSize, scoreFontColor);
             Raylib.EndMode2D();
         }
     }
