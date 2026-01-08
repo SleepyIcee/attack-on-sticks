@@ -20,7 +20,8 @@ namespace AntsShooter.States
         private float bulletTimer = timeBetweenBullets;
         private const int bulletRange = 1000;
         private int playerBullets = 30;
-        private int score = 0;
+        private int kills = 0;
+        private int killsNumberToMakeTheGameHarder = 3;
 
         private List<Pickable> pickables = new();
         private float timeToSpawnBullet;
@@ -138,7 +139,14 @@ namespace AntsShooter.States
                     if (ants[j].isDead)
                     {
                         ants.RemoveAt(j);
-                        score++;
+                        kills++;
+
+                        // make the game harder
+                        if (kills%killsNumberToMakeTheGameHarder == 0 && Globals.SpawnAntTimer > 1)
+                        {
+                            Globals.SpawnAntTimer -= 0.5f;
+                            killsNumberToMakeTheGameHarder+=1;
+                        }
                         break;
                     }
                     // Console.WriteLine(ants[j].isDead);
@@ -231,7 +239,7 @@ namespace AntsShooter.States
                 ant.lifeBar.Draw();
             }
             player.lifeBar.Draw();
-            Raylib.DrawText(Convert.ToString(score), Globals.MAP_WIDTH - Globals.MAP_WIDTH/2, Globals.SCREEN_HEIGHT - Globals.SCREEN_HEIGHT/2, ScoreFontSize, scoreFontColor);
+            Raylib.DrawText(Convert.ToString(kills), Globals.MAP_WIDTH - Globals.MAP_WIDTH/2, Globals.SCREEN_HEIGHT - Globals.SCREEN_HEIGHT/2, ScoreFontSize, scoreFontColor);
             Raylib.EndMode2D();
         }
     }
