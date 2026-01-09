@@ -45,10 +45,6 @@ public class Camera : Entity
             
         camera.Target = Vector2.Lerp(camera.Target, cameraTarget, 0.1f);
 
-        // update UI position with camera
-        player.lifeBar.UpdateScreenPosition(camera,
-        new Vector2(Globals.SCREEN_WIDTH/20, Globals.SCREEN_HEIGHT/10));
-
         // shake logic
         if (isTimeToShake)
         {

@@ -22,7 +22,7 @@ public class Pickable : Entity
         velocity = Vector2.Zero;
 
         type = pickableType;
-        if (type == "bullet")
+        if (type == "ammo")
         {
             color = Color.Gold;
         }

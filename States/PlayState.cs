@@ -19,16 +19,13 @@ namespace AntsShooter.States
         private const float timeBetweenBullets = 0.1f;
         private float bulletTimer = timeBetweenBullets;
         private const int bulletRange = 1000;
-        private int playerBullets = 30;
-        private int kills = 0;
+        private Ammo ammo;
+        private KillsScore killsScore;
         private int killsNumberToMakeTheGameHarder = 3;
 
         private List<Pickable> pickables = new();
-        private float timeToSpawnBullet;
+        private float timeToSpawnPickable;
         private Random random = new Random();
-
-        private readonly int ScoreFontSize = 50;
-        private Color scoreFontColor = Color.Black;
 
         // sounds
         private Sound gunSound = Raylib.LoadSound("assets/sounds/gun-sound.wav");
@@ -42,7 +39,10 @@ namespace AntsShooter.States
             
             testBlockPosition = new Vector2(0, 0);
 
-            timeToSpawnBullet = 0.1f;
+            timeToSpawnPickable = 0.1f;
+
+            ammo = new Ammo();
+            killsScore = new KillsScore();
         }
 
         private void SpawnAnt()
@@ -87,7 +87,7 @@ namespace AntsShooter.States
 
         public void HandleShooting()
         {
-            if (Raylib.IsMouseButtonDown(MouseButton.Left) && bulletTimer <= 0 && playerBullets > 0)
+            if (Raylib.IsMouseButtonDown(MouseButton.Left) && bulletTimer <= 0 && ammo.ammo > 0)
             {
                 Vector2 mouseScreenPos = Raylib.GetMousePosition();
                 Vector2 mouseWorldPos = Raylib.GetScreenToWorld2D(mouseScreenPos, camera.camera);
@@ -98,7 +98,7 @@ namespace AntsShooter.States
                     mouseWorldPos));
 
                 bulletTimer = timeBetweenBullets;
-                playerBullets -= 1;
+                ammo.ammo -= 1;
 
                 // start shaking the camera
                 List<Vector2> cameraShakePoints = new();
@@ -139,10 +139,10 @@ namespace AntsShooter.States
                     if (ants[j].isDead)
                     {
                         ants.RemoveAt(j);
-                        kills++;
+                        killsScore.kills++;
 
                         // make the game harder
-                        if (kills%killsNumberToMakeTheGameHarder == 0 && Globals.SpawnAntTimer > 1)
+                        if (killsScore.kills%killsNumberToMakeTheGameHarder == 0 && Globals.SpawnAntTimer > 1)
                         {
                             Globals.SpawnAntTimer -= 0.5f;
                             killsNumberToMakeTheGameHarder+=1;
@@ -169,17 +169,17 @@ namespace AntsShooter.States
 
         void SpawnPickables()
         {
-            if (timeToSpawnBullet <= 0)
+            if (timeToSpawnPickable <= 0)
             {
-                string[] pickableTypes = {"bullet", "health"};
+                string[] pickableTypes = {"ammo", "health"};
                 Pickable pickable = new Pickable(pickableTypes[random.Next(pickableTypes.Length)]);
                 // Console.WriteLine(pickable.type);
                 pickables.Add(pickable);
-                timeToSpawnBullet = random.Next(3, 7);
+                timeToSpawnPickable = random.Next(3, 7);
             }
             else
             {
-                timeToSpawnBullet -= 1 * Raylib.GetFrameTime();
+                timeToSpawnPickable -= 1 * Raylib.GetFrameTime();
             }
         }
 
@@ -191,9 +191,9 @@ namespace AntsShooter.States
                 
                 if (pickables[i].IsPickedByPlayer(player))
                 {
-                    if (pickables[i].type == "bullet")
+                    if (pickables[i].type == "ammo")
                     {
-                        playerBullets += 10;
+                        ammo.ammo += 10;
                     }
                     else if (pickables[i].type == "health")
                     {
@@ -223,6 +223,9 @@ namespace AntsShooter.States
             UpdateAnts();
             SpawnPickables();
             UpdatePickables();
+            // update UI position with camera
+            player.lifeBar.UpdateScreenPosition(camera);
+            ammo.UpdateScreenPosition(camera);
         }
 
         public void Draw()
@@ -232,14 +235,16 @@ namespace AntsShooter.States
             DrawAnts();
             DrawBullets();
             DrawBulletsToPick();
-            Raylib.DrawRectangle((int)MathF.Round(testBlockPosition.X), (int)MathF.Round(testBlockPosition.Y), 50, 50, Color.Blue);
+            // Raylib.DrawRectangle((int)MathF.Round(testBlockPosition.X), (int)MathF.Round(testBlockPosition.Y), 50, 50, Color.Blue);
+
             // draw UI elements
             foreach (var ant in ants)
             {
                 ant.lifeBar.Draw();
             }
             player.lifeBar.Draw();
-            Raylib.DrawText(Convert.ToString(kills), Globals.MAP_WIDTH - Globals.MAP_WIDTH/2, Globals.SCREEN_HEIGHT - Globals.SCREEN_HEIGHT/2, ScoreFontSize, scoreFontColor);
+            ammo.Draw();
+
             Raylib.EndMode2D();
         }
     }
