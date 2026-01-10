@@ -87,7 +87,7 @@ namespace AntsShooter.States
 
         public void HandleShooting()
         {
-            if (Raylib.IsMouseButtonDown(MouseButton.Left) && bulletTimer <= 0 && ammo.ammo > 0)
+            if (Raylib.IsMouseButtonDown(MouseButton.Left) && bulletTimer <= 0 && ammo.loadedAmmo > 0)
             {
                 Vector2 mouseScreenPos = Raylib.GetMousePosition();
                 Vector2 mouseWorldPos = Raylib.GetScreenToWorld2D(mouseScreenPos, camera.camera);
@@ -98,7 +98,7 @@ namespace AntsShooter.States
                     mouseWorldPos));
 
                 bulletTimer = timeBetweenBullets;
-                ammo.ammo -= 1;
+                ammo.loadedAmmo -= 1;
 
                 // start shaking the camera
                 List<Vector2> cameraShakePoints = new();
@@ -226,6 +226,7 @@ namespace AntsShooter.States
             // update UI position with camera
             player.lifeBar.UpdateScreenPosition(camera);
             ammo.UpdateScreenPosition(camera);
+            ammo.Update();
         }
 
         public void Draw()

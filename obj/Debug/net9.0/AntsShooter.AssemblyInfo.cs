@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AntsShooter")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fbe3a26ad5a100d2928f1ce69d643c72260351a9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c8da436c0da87bcb4ca491ea90742c29cd11fdab")]
 [assembly: System.Reflection.AssemblyProductAttribute("AntsShooter")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AntsShooter")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

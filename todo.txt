@@ -27,3 +27,4 @@ implement reload system
 player sprite and animation
 ant sprite and animation
 push pickables and ants from eachother
+add bombs
