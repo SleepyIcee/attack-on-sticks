@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "fkN8pn55km4=",
+  "dgSpecHash": "lM6pC9M9VNI=",
   "success": true,
-  "projectFilePath": "/home/nand/Dev/ants-shooter/AntsShooter.csproj",
+  "projectFilePath": "C:\\Dev\\ants-shooter\\AntsShooter.csproj",
   "expectedPackageFiles": [
-    "/home/nand/.nuget/packages/raylib-cs/7.0.1/raylib-cs.7.0.1.nupkg.sha512"
+    "C:\\Users\\Ibrahim\\.nuget\\packages\\raylib-cs\\7.0.1\\raylib-cs.7.0.1.nupkg.sha512"
   ],
   "logs": []
 }

@@ -16,15 +16,16 @@ juicy shooting sound
 running sound
 rename classes
 drawing bullets better with the code
-
+implement reload system
+gun reloading delay bar
 
 
 add score and change the speed of ants every few seconds in the game
 
 
-
-implement reload system
+gun reloading sound
+death state
+push pickables and ants from eachother
 player sprite and animation
 ant sprite and animation
-push pickables and ants from eachother
 add bombs

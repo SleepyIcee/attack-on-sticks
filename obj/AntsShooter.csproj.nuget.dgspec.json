@@ -1,26 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "/home/nand/Dev/ants-shooter/AntsShooter.csproj": {}
+    "C:\\Dev\\ants-shooter\\AntsShooter.csproj": {}
   },
   "projects": {
-    "/home/nand/Dev/ants-shooter/AntsShooter.csproj": {
+    "C:\\Dev\\ants-shooter\\AntsShooter.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/nand/Dev/ants-shooter/AntsShooter.csproj",
+        "projectUniqueName": "C:\\Dev\\ants-shooter\\AntsShooter.csproj",
         "projectName": "AntsShooter",
-        "projectPath": "/home/nand/Dev/ants-shooter/AntsShooter.csproj",
-        "packagesPath": "/home/nand/.nuget/packages/",
-        "outputPath": "/home/nand/Dev/ants-shooter/obj/",
+        "projectPath": "C:\\Dev\\ants-shooter\\AntsShooter.csproj",
+        "packagesPath": "C:\\Users\\Ibrahim\\.nuget\\packages\\",
+        "outputPath": "C:\\Dev\\ants-shooter\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/nand/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Ibrahim\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "/usr/lib64/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,7 +38,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net9.0": {
@@ -66,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/9.0.112/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

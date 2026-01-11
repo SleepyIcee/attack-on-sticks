@@ -87,7 +87,7 @@ namespace AntsShooter.States
 
         public void HandleShooting()
         {
-            if (Raylib.IsMouseButtonDown(MouseButton.Left) && bulletTimer <= 0 && ammo.loadedAmmo > 0)
+            if (Raylib.IsMouseButtonDown(MouseButton.Left) && ammo.reloadGun == false && bulletTimer <= 0 && ammo.loadedAmmo > 0)
             {
                 Vector2 mouseScreenPos = Raylib.GetMousePosition();
                 Vector2 mouseWorldPos = Raylib.GetScreenToWorld2D(mouseScreenPos, camera.camera);

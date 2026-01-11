@@ -14,25 +14,38 @@ public class Ammo : Entity
 
     private readonly float TimeToReload = 3f;
     private float reloadDelayTimer = 0;
-    private bool reloadGun = false;
+    public bool reloadGun = false;
+
+    private Vector2 reloadingLinePosition;
+    private Vector2 reloadingLineScreenPosition;
+    private int normalReloadingLineWidth = 30;
+    private int reloadingLineWidth;
+    private int reloadingLineHeight = 10;
 
     public Ammo() : base()
     {
         Position = Vector2.Zero;
         screenPosition = new Vector2(Globals.SCREEN_WIDTH-200, 45);
 
-        reloadDelayTimer = TimeToReload;
+        reloadDelayTimer = 0;
+
+        reloadingLinePosition = Vector2.Zero;
+        reloadingLineWidth = 0;
+        reloadingLineScreenPosition = new Vector2(Globals.SCREEN_WIDTH/2 + normalReloadingLineWidth/2, Globals.SCREEN_HEIGHT/2 - reloadingLineHeight * 3);
     }
 
     public void UpdateScreenPosition(Camera camera)
     {
         Position.X = camera.camera.Target.X + (screenPosition.X - Globals.SCREEN_WIDTH / 2);
         Position.Y = camera.camera.Target.Y + (screenPosition.Y - Globals.SCREEN_HEIGHT / 2);
+
+        reloadingLinePosition.X = camera.camera.Target.X + (reloadingLineScreenPosition.X - Globals.SCREEN_WIDTH / 2);
+        reloadingLinePosition.Y = camera.camera.Target.Y + (reloadingLineScreenPosition.Y - Globals.SCREEN_HEIGHT / 2);
     }
 
     public void Reload()
     {
-        if (reloadDelayTimer <= 0)
+        if (reloadDelayTimer >= TimeToReload)
         {
             int needs = HowMuchAmmoCouldBeLoaded - loadedAmmo;
             int transfer = Math.Min(needs, ammo);
@@ -41,11 +54,13 @@ public class Ammo : Entity
             ammo -= transfer;
 
             reloadGun = false;
-            reloadDelayTimer = TimeToReload;
+            reloadDelayTimer = 0;
+            reloadingLineWidth = 0;
         }
         else
         {
-            reloadDelayTimer -= Raylib.GetFrameTime();
+            reloadDelayTimer += Raylib.GetFrameTime();
+            reloadingLineWidth = (int)(normalReloadingLineWidth/TimeToReload*reloadDelayTimer);
         }
     }
 
@@ -53,7 +68,7 @@ public class Ammo : Entity
     {
         base.Update();
 
-        if (loadedAmmo == 0 || Raylib.IsMouseButtonPressed(MouseButton.Right) && ammo > 0)
+        if (loadedAmmo == 0 || Raylib.IsMouseButtonPressed(MouseButton.Right) && ammo > 0 && loadedAmmo < HowMuchAmmoCouldBeLoaded)
         {
             reloadGun = true;
         }
@@ -66,5 +81,11 @@ public class Ammo : Entity
         base.Draw();
         Raylib.DrawText("loaded ammo: " + Convert.ToString(loadedAmmo), (int)Math.Round(Position.X-400), (int)Math.Round(Position.Y), 50, Color.Black);
         Raylib.DrawText("ammo: " + Convert.ToString(ammo), (int)Math.Round(Position.X), (int)Math.Round(Position.Y), 50, Color.Black);
+
+        // reload bar
+        if (reloadGun)
+        {
+            Raylib.DrawRectangle((int)Math.Round(reloadingLinePosition.X), (int)Math.Round(reloadingLinePosition.Y), reloadingLineWidth, reloadingLineHeight, Color.Gray);
+        }
     }
 }
