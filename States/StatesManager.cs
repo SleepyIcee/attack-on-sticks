@@ -7,9 +7,23 @@ public class StatesManager
     public static DeathState deathState = new DeathState();
 
     public static string currentState = "PlayState";
+    public static string lastState = "PlayState";
+
+    public static void Load()
+    {
+        menuState = new MenuState();
+        playState = new PlayState();
+        deathState = new DeathState();
+    }
 
     public static void Update()
     {
+        if (lastState != currentState)
+        {
+            Load();
+            lastState = currentState;
+        }
+
         switch (currentState)
         {
             case "MenuState":

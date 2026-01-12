@@ -23,8 +23,8 @@ gun reloading delay bar
 add score and change the speed of ants every few seconds in the game
 
 
-gun reloading sound
 death state
+gun reloading sound
 push pickables and ants from eachother
 player sprite and animation
 ant sprite and animation
