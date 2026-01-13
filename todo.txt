@@ -18,12 +18,12 @@ rename classes
 drawing bullets better with the code
 implement reload system
 gun reloading delay bar
+death state
 
 
 add score and change the speed of ants every few seconds in the game
 
 
-death state
 gun reloading sound
 push pickables and ants from eachother
 player sprite and animation

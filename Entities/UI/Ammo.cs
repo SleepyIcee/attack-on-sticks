@@ -68,12 +68,12 @@ public class Ammo : Entity
     {
         base.Update();
 
-        if (loadedAmmo == 0 || Raylib.IsMouseButtonPressed(MouseButton.Right) && ammo > 0 && loadedAmmo < HowMuchAmmoCouldBeLoaded)
+        if (loadedAmmo == 0 || Raylib.IsMouseButtonPressed(MouseButton.Right) && loadedAmmo < HowMuchAmmoCouldBeLoaded)
         {
             reloadGun = true;
         }
 
-        if (reloadGun) Reload();
+        if (reloadGun & ammo > 0) Reload();
     }
 
     public override void Draw()

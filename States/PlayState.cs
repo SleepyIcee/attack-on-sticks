@@ -14,6 +14,7 @@ namespace AntsShooter.States
         private Camera camera;
         private Vector2 testBlockPosition;
         private List<Ant> ants;
+        private readonly int pushAntsFromEachOtherForce = 30;
         private float spawnAntTimer = Globals.SpawnAntTimer;
         private List<Bullet> bullets = new();
         private const float timeBetweenBullets = 0.1f;
@@ -70,6 +71,22 @@ namespace AntsShooter.States
                 if (player.GetDamage(ant))
                 {
                     // turn on ant attack animation
+                }
+
+                for (int i = 0; i < ants.Count(); i++)
+                {
+                    if (Raylib.CheckCollisionRecs(new Rectangle(ant.Position, new Vector2(ant.Width, ant.Height)),
+                    new Rectangle(ants[i].Position, new Vector2(ants[i].Width, ants[i].Height))))
+                    {
+                        if (ant.Position.X > ants[i].Position.X)
+                        {
+                            ant.Position.X += pushAntsFromEachOtherForce * Raylib.GetFrameTime();
+                        }
+                        else
+                        {
+                            ant.Position.X -= pushAntsFromEachOtherForce * Raylib.GetFrameTime();
+                        }
+                    }
                 }
 
                 ant.lifeBar.Position.X = ant.Position.X;

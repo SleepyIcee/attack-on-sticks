@@ -8,7 +8,7 @@ namespace AntsShooter.Entities;
 
 public class Ant : Entity
 {
-    private float velocityX = 0f;
+    public float velocityX = 0f;
     private const float speed = 250f;
     private const float maxSpeed = 3f;
     private int facing = 1;
