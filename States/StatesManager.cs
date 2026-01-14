@@ -2,18 +2,20 @@ namespace AntsShooter.States;
 
 public class StatesManager
 {
-    public static MenuState menuState = new MenuState();
-    public static PlayState playState = new PlayState();
-    public static DeathState deathState = new DeathState();
+    private static MenuState menuState = new MenuState();
+    private static PlayState playState = new PlayState();
+    private static DeathState deathState = new DeathState();
+    private static ScoresState scoresState = new ScoresState();
 
-    public static string currentState = "PlayState";
-    public static string lastState = "PlayState";
+    public static string currentState = "MenuState";
+    private static string lastState = currentState;
 
     public static void Load()
     {
         menuState = new MenuState();
         playState = new PlayState();
         deathState = new DeathState();
+        scoresState = new ScoresState();
     }
 
     public static void Update()
@@ -35,6 +37,9 @@ public class StatesManager
             case "DeathState":
                 deathState.Update();
                 break;
+            case "ScoresState":
+                scoresState.Update();
+                break;
         }
     }
 
@@ -50,6 +55,9 @@ public class StatesManager
                 break;
             case "DeathState":
                 deathState.Draw();
+                break;
+            case "ScoresState":
+                scoresState.Draw();
                 break;
         }
     }
