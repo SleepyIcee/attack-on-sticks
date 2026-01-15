@@ -75,22 +75,45 @@ namespace AntsShooter.States
 
                 for (int i = 0; i < ants.Count(); i++)
                 {
-                    if (Raylib.CheckCollisionRecs(new Rectangle(ant.Position, new Vector2(ant.Width, ant.Height)),
-                    new Rectangle(ants[i].Position, new Vector2(ants[i].Width, ants[i].Height))))
-                    {
-                        if (ant.Position.X > ants[i].Position.X)
-                        {
-                            ant.Position.X += pushAntsFromEachOtherForce * Raylib.GetFrameTime();
-                        }
-                        else
-                        {
-                            ant.Position.X -= pushAntsFromEachOtherForce * Raylib.GetFrameTime();
-                        }
-                    }
+                    PushAntsFromEachOther(ref ant.Position, new Vector2(ant.Width, ant.Height),
+                    ants[i].Position, new Vector2(ants[i].Width, ants[i].Height),
+                    pushAntsFromEachOtherForce);
                 }
 
                 ant.lifeBar.Position.X = ant.Position.X;
                 ant.lifeBar.Position.Y = ant.Position.Y - 20;
+            }
+        }
+
+        private void PushAntsFromEachOther(ref Vector2 ant1Position, Vector2 ant1WidthHeight, Vector2 ant2Position, Vector2 ant2WidthHeight, float force)
+        {
+            if (Raylib.CheckCollisionRecs(new Rectangle(ant1Position, ant1WidthHeight),
+            new Rectangle(ant2Position, ant2WidthHeight)))
+            {
+                if (ant1Position.X > ant2Position.X)
+                {
+                    ant1Position.X += force * Raylib.GetFrameTime();
+                }
+                else
+                {
+                    ant1Position.X -= force * Raylib.GetFrameTime();
+                }
+            }
+        }
+
+        private void PushPickablesFromEachOther(ref Vector2 pickable1Position, float pickable1Radius, Vector2 pickable2Position, float pickable2Radius, float force)
+        {
+            if (Raylib.CheckCollisionCircles(pickable1Position, pickable1Radius,
+            pickable2Position, pickable2Radius))
+            {
+                if (pickable1Position.X > pickable2Position.X)
+                {
+                    pickable1Position.X += force * Raylib.GetFrameTime();
+                }
+                else
+                {
+                    pickable1Position.X -= force * Raylib.GetFrameTime();
+                }
             }
         }
 
@@ -206,20 +229,23 @@ namespace AntsShooter.States
             {
                 pickables[i].Update();
                 
+                for (int j = 0; j < pickables.Count; j++)
+                {
+                    PushPickablesFromEachOther(ref pickables[i].Position, pickables[i].radius,
+                    pickables[j].Position, pickables[j].radius, 10f);
+                }
+
                 if (pickables[i].IsPickedByPlayer(player))
                 {
                     if (pickables[i].type == "ammo")
                     {
                         ammo.ammo += 10;
+                        pickables.Remove(pickables[i]);
                     }
-                    else if (pickables[i].type == "health")
+                    else if (pickables[i].type == "health" && player.health < player.maxHealth)
                     {
-                        if (player.health < player.maxHealth)
-                        {
-                            player.health += 1;
-                        }
+                        player.health += 1;
                     }
-                    pickables.Remove(pickables[i]);
                 }
             }
         }
