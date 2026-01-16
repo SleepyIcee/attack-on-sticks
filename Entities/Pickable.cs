@@ -13,6 +13,9 @@ public class Pickable : Entity
     public string type = "";
     private Color color;
 
+    public float timeToRemove;
+    public float removeTimer;
+
     public Pickable(string pickableType) : base()
     {
         Width = 16;
@@ -20,6 +23,9 @@ public class Pickable : Entity
 
         Position = Globals.BulletsSpawnPositions[random.Next(Globals.BulletsSpawnPositions.Count)];
         velocity = Vector2.Zero;
+
+        timeToRemove = 10.0f;
+        removeTimer = timeToRemove;
 
         type = pickableType;
         if (type == "ammo")
