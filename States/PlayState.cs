@@ -35,7 +35,6 @@ namespace AntsShooter.States
 
         // sounds
         private Sound gunSound = Raylib.LoadSound("assets/sounds/gun-sound.wav");
-
         
         public PlayState()
         {
@@ -122,7 +121,7 @@ namespace AntsShooter.States
             }
         }
 
-        public void HandleShooting()
+        private void HandleShooting()
         {
             if (Raylib.IsMouseButtonDown(MouseButton.Left) && ammo.reloadGun == false && bulletTimer <= 0 && ammo.loadedAmmo > 0)
             {
@@ -168,15 +167,16 @@ namespace AntsShooter.States
                     bullets[i].Position.Y < centerY - bulletRange)
                 {
                     bullets.RemoveAt(i);
-                    continue;
+                    break;
                 }
 
                 for (int j = ants.Count - 1; j >= 0; j--)
                 {
                     if (ants[j].isDead)
                     {
-                        ants.RemoveAt(j);
                         killsScore.kills++;
+                        ants.RemoveAt(j);
+                        break;
                     }
                     
                     if (ants[j].GetShot(bullets[i]))
@@ -188,7 +188,7 @@ namespace AntsShooter.States
             }
         }
 
-        public void DrawBullets()
+        private void DrawBullets()
         {
             foreach (var bullet in bullets)
             {
@@ -196,7 +196,7 @@ namespace AntsShooter.States
             }
         }
 
-        void SpawnPickables()
+        private void SpawnPickables()
         {
             if (timeToSpawnPickable <= 0)
             {
@@ -212,7 +212,7 @@ namespace AntsShooter.States
             }
         }
 
-        void UpdatePickables()
+        private void UpdatePickables()
         {
             for (int i = pickables.Count - 1; i >= 0; i--)
             {
@@ -236,8 +236,8 @@ namespace AntsShooter.States
 
                 if (pickables[i].removeTimer < 0)
                 {
-                    pickables.RemoveAt(i);
                     pickables[i].removeTimer = pickables[i].timeToRemove;
+                    pickables.RemoveAt(i);
                 }
                 else
                 {
@@ -261,7 +261,7 @@ namespace AntsShooter.States
             );
         }
 
-        void DrawBulletsToPick()
+        private void DrawBulletsToPick()
         {
             foreach (var pickable in pickables)
             {
