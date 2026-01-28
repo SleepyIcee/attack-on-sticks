@@ -23,9 +23,10 @@ resolve ants collisions
 add score and change the speed of ants every few seconds in the game
 
 
+gun reloading sound
+
 
 draw a gun and make it rotate with the mouth
 player sprite and animation
-gun reloading sound
 ant sprite and animation
 add bombs

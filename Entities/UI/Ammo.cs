@@ -22,6 +22,8 @@ public class Ammo : Entity
     private int reloadingLineWidth;
     private int reloadingLineHeight = 10;
 
+    private Sound gunReloadSound = new();
+
     public Ammo() : base()
     {
         Position = Vector2.Zero;
@@ -32,6 +34,8 @@ public class Ammo : Entity
         reloadingLinePosition = Vector2.Zero;
         reloadingLineWidth = 0;
         reloadingLineScreenPosition = new Vector2(Globals.SCREEN_WIDTH/2 + normalReloadingLineWidth/2, Globals.SCREEN_HEIGHT/2 - reloadingLineHeight * 3);
+
+        gunReloadSound = Raylib.LoadSound("assets/sounds/ak47-reload-sound.wav");
     }
 
     public void UpdateScreenPosition(Camera camera)
@@ -62,6 +66,8 @@ public class Ammo : Entity
             reloadDelayTimer += Raylib.GetFrameTime();
             reloadingLineWidth = (int)(normalReloadingLineWidth/TimeToReload*reloadDelayTimer);
         }
+
+        Raylib.PlaySound(gunReloadSound);
     }
 
     public override void Update()
@@ -73,7 +79,10 @@ public class Ammo : Entity
             reloadGun = true;
         }
 
-        if (reloadGun & ammo > 0) Reload();
+        if (reloadGun & ammo > 0)
+        {
+            Reload();
+        }
     }
 
     public override void Draw()

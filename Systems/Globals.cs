@@ -21,5 +21,4 @@ public static class Globals
 
     // game timers and spawns
     public static float SpawnAntTimer = 5f;
-    public static readonly List<Vector2> BulletsSpawnPositions = [new Vector2(200, -30), new Vector2(400, -30), new Vector2(600, -30)];
 }

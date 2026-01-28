@@ -21,7 +21,8 @@ public class Pickable : Entity
         Width = 16;
         Height = 16;
 
-        Position = Globals.BulletsSpawnPositions[random.Next(Globals.BulletsSpawnPositions.Count)];
+        Position.X = random.Next(0, 1600);
+        Position.Y = -30; 
         velocity = Vector2.Zero;
 
         timeToRemove = 10.0f;
