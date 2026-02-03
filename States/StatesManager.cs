@@ -1,3 +1,7 @@
+using AntsShooter.Systems;
+using Raylib_cs;
+using System.Numerics;
+
 namespace AntsShooter.States;
 
 public class StatesManager
@@ -7,8 +11,10 @@ public class StatesManager
     private static DeathState deathState = new DeathState();
     private static ScoresState scoresState = new ScoresState();
 
-    public static string currentState = "MenuState";
+    public static string currentState = "PlayState";
     private static string lastState = currentState;
+
+    private static RenderTexture2D renderTexture = Raylib.LoadRenderTexture(Globals.SCREEN_WIDTH/2, Globals.SCREEN_HEIGHT/2);
 
     public static void Load()
     {
@@ -16,6 +22,8 @@ public class StatesManager
         playState = new PlayState();
         deathState = new DeathState();
         scoresState = new ScoresState();
+
+        Raylib.SetTextureFilter(renderTexture.Texture, TextureFilter.Point);
     }
 
     public static void Update()
@@ -45,6 +53,8 @@ public class StatesManager
 
     public static void Draw()
     {
+        Raylib.BeginTextureMode(renderTexture);
+        Raylib.ClearBackground(Color.Black);
         switch (currentState)
         {
             case "MenuState":
@@ -60,5 +70,13 @@ public class StatesManager
                 scoresState.Draw();
                 break;
         }
+        Raylib.EndTextureMode();
+
+        Raylib.DrawTexturePro(renderTexture.Texture,
+        new Rectangle(0, 0, renderTexture.Texture.Width, -renderTexture.Texture.Height),
+        new Rectangle(0, 0, Globals.SCREEN_WIDTH, Globals.SCREEN_HEIGHT),
+        Vector2.Zero,
+        0.0f,
+        Color.White);
     }
 }

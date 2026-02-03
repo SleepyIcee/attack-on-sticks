@@ -8,7 +8,7 @@ using System.Numerics;
 public class Pickable : Entity
 {
     private Vector2 velocity;
-    public float radius = 10.0f;
+    public float radius = 5.0f;
     Random random = new Random();
     public string type = "";
     private Color color;

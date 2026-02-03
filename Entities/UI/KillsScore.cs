@@ -26,6 +26,6 @@ public class KillsScore : Entity
     public override void Draw()
     {
         base.Draw();
-        Raylib.DrawText(Convert.ToString(kills), Globals.MAP_WIDTH - Globals.MAP_WIDTH/2, Globals.SCREEN_HEIGHT - Globals.SCREEN_HEIGHT/2, fontSize, fontColor);
+        Raylib.DrawText(Convert.ToString(kills), Globals.MAP_WIDTH - Globals.MAP_WIDTH/2, Globals.VECTUAL_SCREEN_HEIGHT - Globals.VECTUAL_SCREEN_HEIGHT/2, fontSize, fontColor);
     }
 }

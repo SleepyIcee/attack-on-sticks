@@ -21,6 +21,8 @@ public class Ant : Entity
     
     public Ant() : base()
     {
+        Width = Globals.PLAYER_WIDTH;
+        Height = Globals.PLAYER_HEIGHT;
         Position.Y = Globals.GROUND_LEVEL - Height;
         spawnDirection = random.Next(0, 2);
         if (spawnDirection == 0)
@@ -81,6 +83,6 @@ public class Ant : Entity
 
     public override void Draw()
     {
-        Raylib.DrawRectangle((int)MathF.Round(Position.X), (int)MathF.Round(Position.Y), 50, 50, Color.Blue);
+        Raylib.DrawRectangle((int)MathF.Round(Position.X), (int)MathF.Round(Position.Y), Width, Height, Color.Blue);
     }
 }

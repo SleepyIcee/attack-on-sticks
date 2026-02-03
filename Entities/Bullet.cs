@@ -11,15 +11,14 @@ public class Bullet : Entity
     private Vector2 direction;
     private Vector2 velocity;
     private float speed = 2000.0f;
-    private float maxSpeed = 2000.0f;
     public Rectangle rectangle;
 
     public Bullet(Vector2 pos, Vector2 target) : base()
     {
         Position = pos;
         direction = Vector2.Normalize(target - Position);
-        Width = 20;
-        Height = 10;
+        Width = 10;
+        Height = 5;
         rectangle = new Rectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), Width, Height);
     }
 
@@ -27,8 +26,8 @@ public class Bullet : Entity
     {
         base.Update();
 
-        velocity = direction * maxSpeed;
-        velocity += -direction * speed * Raylib.GetFrameTime();
+        // Move bullet at a consistent speed along its direction.
+        velocity = direction * speed;
         Position += velocity * Raylib.GetFrameTime();
         rectangle.X = (int)Math.Round(Position.X);
         rectangle.Y = (int)Math.Round(Position.Y);

@@ -24,7 +24,7 @@ public class Camera : Entity
         cameraTarget = new Vector2();    
         camera = new Camera2D();
         camera.Target = cameraTarget;
-        cameraOffset = new Vector2(Globals.SCREEN_WIDTH/2 - player.Width/2, Globals.SCREEN_HEIGHT/2 - player.Height/2);
+        cameraOffset = new Vector2(Globals.VECTUAL_SCREEN_WIDTH/2 - player.Width/2, Globals.VECTUAL_SCREEN_HEIGHT/2 - player.Height/2 + 15);
         camera.Offset = cameraOffset;
         camera.Rotation = 0.0f;
         camera.Zoom = 1.0f;

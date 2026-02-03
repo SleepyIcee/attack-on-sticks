@@ -18,6 +18,10 @@ public class MenuState : IState
         Globals.SCREEN_HEIGHT/2),
         200, 50);
 
+        // scoresButton = new Button("scores",
+        // new Vector2(Globals.SCREEN_WIDTH/3, Globals.SCREEN_HEIGHT/3),
+        // 200, 50);
+
         scoresButton = new Button("scores",
         new Vector2(Globals.SCREEN_WIDTH/3, Globals.SCREEN_HEIGHT/3),
         200, 50);

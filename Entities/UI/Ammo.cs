@@ -27,24 +27,24 @@ public class Ammo : Entity
     public Ammo() : base()
     {
         Position = Vector2.Zero;
-        screenPosition = new Vector2(Globals.SCREEN_WIDTH-200, 45);
+        screenPosition = new Vector2(Globals.VECTUAL_SCREEN_WIDTH-200, 45);
 
         reloadDelayTimer = 0;
 
         reloadingLinePosition = Vector2.Zero;
         reloadingLineWidth = 0;
-        reloadingLineScreenPosition = new Vector2(Globals.SCREEN_WIDTH/2 + normalReloadingLineWidth/2, Globals.SCREEN_HEIGHT/2 - reloadingLineHeight * 3);
+        reloadingLineScreenPosition = new Vector2(Globals.VECTUAL_SCREEN_WIDTH/2 + normalReloadingLineWidth/2, Globals.VECTUAL_SCREEN_HEIGHT/2 - reloadingLineHeight * 3);
 
         gunReloadSound = Raylib.LoadSound("assets/sounds/ak47-reload-sound.wav");
     }
 
     public void UpdateScreenPosition(Camera camera)
     {
-        Position.X = camera.camera.Target.X + (screenPosition.X - Globals.SCREEN_WIDTH / 2);
-        Position.Y = camera.camera.Target.Y + (screenPosition.Y - Globals.SCREEN_HEIGHT / 2);
+        Position.X = camera.camera.Target.X + (screenPosition.X - Globals.VECTUAL_SCREEN_WIDTH / 2);
+        Position.Y = camera.camera.Target.Y + (screenPosition.Y - Globals.VECTUAL_SCREEN_HEIGHT / 2);
 
-        reloadingLinePosition.X = camera.camera.Target.X + (reloadingLineScreenPosition.X - Globals.SCREEN_WIDTH / 2);
-        reloadingLinePosition.Y = camera.camera.Target.Y + (reloadingLineScreenPosition.Y - Globals.SCREEN_HEIGHT / 2);
+        reloadingLinePosition.X = camera.camera.Target.X + (reloadingLineScreenPosition.X - Globals.VECTUAL_SCREEN_WIDTH / 2);
+        reloadingLinePosition.Y = camera.camera.Target.Y + (reloadingLineScreenPosition.Y - Globals.VECTUAL_SCREEN_HEIGHT / 2);
     }
 
     public void Reload()
@@ -88,8 +88,8 @@ public class Ammo : Entity
     public override void Draw()
     {
         base.Draw();
-        Raylib.DrawText("loaded ammo: " + Convert.ToString(loadedAmmo), (int)Math.Round(Position.X-400), (int)Math.Round(Position.Y), 50, Color.Black);
-        Raylib.DrawText("ammo: " + Convert.ToString(ammo), (int)Math.Round(Position.X), (int)Math.Round(Position.Y), 50, Color.Black);
+        Raylib.DrawText("loaded ammo: " + Convert.ToString(loadedAmmo), (int)Math.Round(Position.X-80), (int)Math.Round(Position.Y), 5, Color.White);
+        Raylib.DrawText("ammo: " + Convert.ToString(ammo), (int)Math.Round(Position.X), (int)Math.Round(Position.Y), 5, Color.White);
 
         // reload bar
         if (reloadGun)

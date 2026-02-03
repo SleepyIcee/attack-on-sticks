@@ -14,7 +14,7 @@ public class LifeBar : Entity
     public LifeBar(int lifeBarWidth, int lifeBarHeight) : base()
     {
         Position = Vector2.Zero;
-        screenPosition = new Vector2(Globals.SCREEN_WIDTH/20, Globals.SCREEN_HEIGHT/10);
+        screenPosition = new Vector2(Globals.VECTUAL_SCREEN_WIDTH/20, Globals.VECTUAL_SCREEN_HEIGHT/10);
         Width = lifeBarWidth;
         Height = lifeBarHeight;
 
@@ -23,8 +23,8 @@ public class LifeBar : Entity
 
     public void UpdateScreenPosition(Camera camera)
     {
-        Position.X = camera.camera.Target.X + (screenPosition.X - Globals.SCREEN_WIDTH / 2);
-        Position.Y = camera.camera.Target.Y + (screenPosition.Y - Globals.SCREEN_HEIGHT / 2);
+        Position.X = camera.camera.Target.X + (screenPosition.X - Globals.VECTUAL_SCREEN_WIDTH / 2);
+        Position.Y = camera.camera.Target.Y + (screenPosition.Y - Globals.VECTUAL_SCREEN_HEIGHT / 2);
     }
 
     public override void Update()

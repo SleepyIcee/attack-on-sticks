@@ -20,12 +20,13 @@ public class Player : Entity
     
     private Sound runningSound;
 
-    private const float jumpSpeed = 20f;
+    private const float jumpSpeed = 12.0f;
     private bool isJumping = false;
     private bool isFalling = false;
-    private const int jumpHight = 2;
 
     public LifeBar lifeBar;
+
+    // private Texture2D texture = Raylib.LoadTexture("assets/player/idle/player-idle.png");
 
     public Player() : base()
     {
@@ -36,7 +37,7 @@ public class Player : Entity
         
         velocity = Vector2.Zero;
 
-        lifeBar = new LifeBar(Globals.SCREEN_WIDTH/5, Globals.SCREEN_HEIGHT/30);;
+        lifeBar = new LifeBar(Globals.VECTUAL_SCREEN_WIDTH/5, Globals.VECTUAL_SCREEN_HEIGHT/30);
 
         runningSound = Raylib.LoadSound("assets/sounds/running-sound.wav");
     }
@@ -165,5 +166,7 @@ public class Player : Entity
             Raylib.DrawRectangle((int)MathF.Round(Position.X), (int)MathF.Round(Position.Y), Width, Height, Color.Red);
             // draw the flipped version of the texture
         }
+
+        // Raylib.DrawTexture(texture, (int)MathF.Round(Position.X), (int)MathF.Round(Position.Y), Color.White);
     }
 }
