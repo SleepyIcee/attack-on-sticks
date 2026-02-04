@@ -14,7 +14,8 @@ public class StatesManager
     public static string currentState = "PlayState";
     private static string lastState = currentState;
 
-    private static RenderTexture2D renderTexture = Raylib.LoadRenderTexture(Globals.SCREEN_WIDTH/2, Globals.SCREEN_HEIGHT/2);
+    private const int VirtualScreenScaling = 2;
+    private static RenderTexture2D renderTexture = Raylib.LoadRenderTexture(Globals.SCREEN_WIDTH/VirtualScreenScaling, Globals.SCREEN_HEIGHT/VirtualScreenScaling);
 
     public static void Load()
     {
@@ -49,6 +50,9 @@ public class StatesManager
                 scoresState.Update();
                 break;
         }
+
+        // scale mouse position to virtual screen
+        Globals.mousePosition = Raylib.GetMousePosition() / VirtualScreenScaling;
     }
 
     public static void Draw()

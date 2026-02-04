@@ -8,11 +8,9 @@ namespace AntsShooter;
 
 public class Game
 {
-    RenderTexture2D renderTexture = Raylib.LoadRenderTexture(Globals.SCREEN_WIDTH/2, Globals.SCREEN_HEIGHT/2);
-
     public Game()
     {
-        Raylib.SetTextureFilter(renderTexture.Texture, TextureFilter.Point);
+        
     }
     
     public void Update()

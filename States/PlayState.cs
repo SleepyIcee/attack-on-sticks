@@ -124,8 +124,7 @@ namespace AntsShooter.States
 
         private void HandleShooting()
         {
-            Vector2 mouseScreenPos = Raylib.GetMousePosition();
-            Vector2 mouseWorldPos = Raylib.GetScreenToWorld2D(mouseScreenPos, camera.camera);
+            Vector2 mouseWorldPos = Raylib.GetScreenToWorld2D(Globals.mousePosition, camera.camera);
             lastMouseWorldPos = mouseWorldPos;
 
             if (Raylib.IsMouseButtonDown(MouseButton.Left) && ammo.reloadGun == false && bulletTimer <= 0 && ammo.loadedAmmo > 0)
@@ -297,7 +296,6 @@ namespace AntsShooter.States
             Raylib.DrawCircleV(lastMouseWorldPos, 3, Color.Red);
             Vector2 playerCenter = new Vector2(player.Position.X + player.Width/2, player.Position.Y + player.Height/2);
             Raylib.DrawLineV(playerCenter, lastMouseWorldPos, Color.Red);
-            // Raylib.DrawRectangle((int)MathF.Round(testBlockPosition.X), (int)MathF.Round(testBlockPosition.Y), 50, 50, Color.Blue);
 
             // draw UI elements
             foreach (var ant in ants)
