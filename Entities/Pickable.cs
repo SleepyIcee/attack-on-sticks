@@ -22,7 +22,7 @@ public class Pickable : Entity
         Height = 16;
 
         Position.X = random.Next(0, 1600);
-        Position.Y = -30; 
+        Position.Y = -30;
         velocity = Vector2.Zero;
 
         timeToRemove = 10.0f;

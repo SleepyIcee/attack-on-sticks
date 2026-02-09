@@ -11,7 +11,7 @@ public class StatesManager
     private static DeathState deathState = new DeathState();
     private static ScoresState scoresState = new ScoresState();
 
-    public static string currentState = "PlayState";
+    public static string currentState = "MenuState";
     private static string lastState = currentState;
 
     private const int VirtualScreenScaling = 2;

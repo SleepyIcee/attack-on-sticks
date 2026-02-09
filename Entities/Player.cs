@@ -7,6 +7,13 @@ namespace AntsShooter.Entities;
 
 public class Player : Entity
 {
+    private Texture2D texture;
+    private Dictionary<string, Animation> animations = new Dictionary<string, Animation>
+    {
+        {"idle" , new Animation("assets/player/idle")},
+        {"run" , new Animation("assets/player/run")},
+        {"jump" , new Animation("assets/player/jump")}
+    };
     private Vector2 velocity;
     private const float speed = 50f;
     private const float friction = 0.1f;
@@ -49,6 +56,7 @@ public class Player : Entity
             velocity.X += speed * Raylib.GetFrameTime();
             if (velocity.X > MaxSpeed) velocity.X = MaxSpeed;
             facing = 1;
+            texture = animations["run"].Play(10);
             if (!Raylib.IsSoundPlaying(runningSound) && !isJumping && !isFalling) Raylib.PlaySound(runningSound);
         }
         else if (Raylib.IsKeyDown(KeyboardKey.A) && Position.X > 0)
@@ -56,6 +64,7 @@ public class Player : Entity
             velocity.X -= speed * Raylib.GetFrameTime();
             if (velocity.X < -MaxSpeed) velocity.X = -MaxSpeed;
             facing = 0;
+            texture = animations["run"].Play(10);
             if (!Raylib.IsSoundPlaying(runningSound) && !isJumping && !isFalling) Raylib.PlaySound(runningSound);
         }
         else
@@ -68,6 +77,7 @@ public class Player : Entity
             {
                 velocity.X = 0;
             }
+            texture = animations["idle"].Play(10);
         }
         
         // Console.WriteLine(isJumping);
@@ -100,6 +110,11 @@ public class Player : Entity
                 velocity.Y = 0;
                 isFalling = false;
             }
+        }
+
+        if (isJumping || isFalling)
+        {
+            texture = animations["jump"].Play(10);
         }
     }
     
@@ -159,14 +174,13 @@ public class Player : Entity
 
         if (facing == 1)
         {
-            Raylib.DrawRectangle((int)MathF.Round(Position.X), (int)MathF.Round(Position.Y), Width, Height, Color.Red);
+            Raylib.DrawTexture(texture, (int)MathF.Round(Position.X), (int)MathF.Round(Position.Y), Color.White);
         }
         else
         {
-            Raylib.DrawRectangle((int)MathF.Round(Position.X), (int)MathF.Round(Position.Y), Width, Height, Color.Red);
-            // draw the flipped version of the texture
+            //Raylib.DrawRectangle((int)MathF.Round(Position.X), (int)MathF.Round(Position.Y), Width, Height, Color.Red);
+            Raylib.DrawTexturePro(texture, new Rectangle(0f, 0f, -Width, Height),
+            new Rectangle(Position.X, Position.Y, Width, Height), Vector2.Zero, 0f, Color.White);
         }
-
-        // Raylib.DrawTexture(texture, (int)MathF.Round(Position.X), (int)MathF.Round(Position.Y), Color.White);
     }
 }

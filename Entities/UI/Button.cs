@@ -1,5 +1,7 @@
 using AntsShooter.Entities;
+using AntsShooter.Systems;
 using Raylib_cs;
+using System.Net;
 using System.Numerics;
 
 namespace AntsShooter.Enities.UI;
@@ -11,6 +13,9 @@ public class Button : Entity
     private Vector2 textPosition;
     private Color buttonColor;
 
+    public bool isHovered = false;
+    public bool mouseHovered = false;
+    
     public Button(string text, Vector2 position, int width, int height) : base()
     {
         Position = position;
@@ -47,10 +52,10 @@ public class Button : Entity
 
     public bool IsClicked()
     {
-        if (Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(),
+        if (Raylib.CheckCollisionPointRec(Raylib.GetMousePosition()/Globals.VECTUAL_SCREEN_SCALING,
             new Rectangle(Position, new Vector2(Width, Height))))
         {
-            buttonColor = Color.LightGray;
+            mouseHovered = true;
             if (Raylib.IsMouseButtonPressed(MouseButton.Left))
             {
                 return true;
@@ -62,14 +67,24 @@ public class Button : Entity
         }
         else
         {
-            buttonColor = Color.Gray;
+            mouseHovered = false;
         }
+        
         return false;
     }
 
     public override void Update()
     {
         base.Update();
+
+        if (isHovered)
+        {
+            buttonColor = Color.LightGray;
+        }
+        else
+        {
+            buttonColor = Color.Gray;
+        }
     }
 
     public override void Draw()

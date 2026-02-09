@@ -305,6 +305,8 @@ namespace AntsShooter.States
             player.lifeBar.Draw();
             ammo.Draw();
 
+            Raylib.DrawRectangle(0 - Globals.MAP_WIDTH/2, (int)MathF.Round(Globals.OriginPlayerPos.Y + player.Height), Globals.MAP_WIDTH + Globals.MAP_WIDTH, Globals.VECTUAL_SCREEN_HEIGHT - Globals.GROUND_LEVEL, Color.Yellow);
+
             Raylib.EndMode2D();
         }
     }

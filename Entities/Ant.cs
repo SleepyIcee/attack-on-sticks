@@ -9,6 +9,11 @@ namespace AntsShooter.Entities;
 public class Ant : Entity
 {
     public float velocityX = 0f;
+    private Texture2D texture;
+    private Dictionary<string, Animation> animations = new Dictionary<string, Animation>
+    {
+        {"run", new Animation("assets/player/run")}
+    };
     private const float speed = 250f;
     private const float maxSpeed = 3f;
     private int facing = 1;
@@ -44,12 +49,14 @@ public class Ant : Entity
             velocityX += speed * Raylib.GetFrameTime();
             if (velocityX > maxSpeed) velocityX = maxSpeed;
             facing = 1;
+            texture = animations["run"].Play(10);
         }
         else if (player.Position.X + player.Width < Position.X)
         {
             velocityX -= speed * Raylib.GetFrameTime();
             if (velocityX < -maxSpeed) velocityX = -maxSpeed;
             facing = 0;
+            texture = animations["run"].Play(10);
         }
     }
 
@@ -83,6 +90,14 @@ public class Ant : Entity
 
     public override void Draw()
     {
-        Raylib.DrawRectangle((int)MathF.Round(Position.X), (int)MathF.Round(Position.Y), Width, Height, Color.Blue);
+        if (facing == 1)
+        {
+            Raylib.DrawTexture(texture, (int)MathF.Round(Position.X), (int)MathF.Round(Position.Y), Color.White);
+        }
+        else
+        {
+            Raylib.DrawTexturePro(texture, new Rectangle(0f, 0f, -Width, Height),
+            new Rectangle(Position.X, Position.Y, Width, Height), Vector2.Zero, 0f, Color.White);
+        }
     }
 }

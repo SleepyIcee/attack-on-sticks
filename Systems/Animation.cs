@@ -5,34 +5,39 @@ namespace AntsShooter.Systems;
 
 public class Animation
 {
-    private Texture2D image = new();
-    private const float FrameTime = 10.0f;
+    private List<Texture2D> images = new();
+    private const float FrameTime = 1.0f;
     private float frameTimer = FrameTime;
-    private int currentFrame = 1;
-    private int framesCount = 1;
-    private Rectangle frameRect = new();
+    private int currentFrame = 0;
 
-    public Animation(Texture2D framesImage, Rectangle rect, int rectsCount)
+    public Animation(string imagesDir)
     {
-        image = framesImage;
-        frameRect = rect;
-        framesCount = rectsCount;
+        foreach(var image in Directory.GetFiles(imagesDir))
+        {
+            images.Add(Raylib.LoadTexture(image));
+        }
     }
 
-    public Rectangle Play(float animationSpeed)
+    public Texture2D Play(float animationSpeed)
     {
         if (frameTimer <= 0)
         {
-            if (currentFrame < framesCount)
+            if (currentFrame < images.Count() - 1)
             {
                 currentFrame++;
             }
+            else
+            {
+                currentFrame = 0;
+            }
+
+            frameTimer = FrameTime;
         }
         else
         {
-            frameTimer = FrameTime;
+            frameTimer -= animationSpeed * Raylib.GetFrameTime();
         }
 
-        return new Rectangle {};
+        return images[currentFrame];
     }
 }

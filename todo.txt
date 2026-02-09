@@ -21,12 +21,13 @@ gun reloading delay bar
 death state
 resolve ants collisions
 add score and change the speed of ants every few seconds in the game
+player sprite and animation
+ant sprite and animation
+
 
 
 gun reloading sound
 
-
 draw a gun and make it rotate with the mouth
-player sprite and animation
-ant sprite and animation
+add score saving
 add bombs
