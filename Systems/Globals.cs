@@ -14,6 +14,7 @@ public static class Globals
     public const int MAP_WIDTH = 1600;
     public const int GROUND_LEVEL = VECTUAL_SCREEN_HEIGHT - 200;
     public static Vector2 mousePosition = Vector2.Zero;
+    public static Vector2 mouseWorldPos = Vector2.Zero;
 
     // player settings
     public const int PLAYER_WIDTH = 43;

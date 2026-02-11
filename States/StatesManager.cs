@@ -58,7 +58,7 @@ public class StatesManager
     public static void Draw()
     {
         Raylib.BeginTextureMode(renderTexture);
-        Raylib.ClearBackground(Color.Black);
+        Raylib.ClearBackground(Color.DarkPurple);
         switch (currentState)
         {
             case "MenuState":

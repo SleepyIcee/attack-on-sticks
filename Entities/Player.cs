@@ -1,4 +1,5 @@
 using System.Numerics;
+using AntsShooter.Enities;
 using AntsShooter.Enities.UI;
 using AntsShooter.Systems;
 using Raylib_cs;
@@ -8,6 +9,7 @@ namespace AntsShooter.Entities;
 public class Player : Entity
 {
     private Texture2D texture;
+    private Gun gun;
     private Dictionary<string, Animation> animations = new Dictionary<string, Animation>
     {
         {"idle" , new Animation("assets/player/idle")},
@@ -41,15 +43,15 @@ public class Player : Entity
         Height = Globals.PLAYER_HEIGHT;
         Position.X = Globals.OriginPlayerPos.X;
         Position.Y = Globals.OriginPlayerPos.Y;
-        
         velocity = Vector2.Zero;
 
+        gun = new Gun();
         lifeBar = new LifeBar(Globals.VECTUAL_SCREEN_WIDTH/5, Globals.VECTUAL_SCREEN_HEIGHT/30);
 
         runningSound = Raylib.LoadSound("assets/sounds/running-sound.wav");
     }
     
-    public void HandelMovement()
+    public void HandleMovement()
     {
         if (Raylib.IsKeyDown(KeyboardKey.D) && Position.X < Globals.MAP_WIDTH)
         {
@@ -122,16 +124,17 @@ public class Player : Entity
     {
         base.Update();
         
-        HandelMovement();
+        HandleMovement();
         HandleJump();
         Position += velocity;
-        HandelDeath();
+        HandleDeath();
+        gun.LookAtMouse(Position, Globals.mouseWorldPos);
         lifeBar.lifeBarHealthWidth = (int)(lifeBar.Width * (health / (float)maxHealth));
 
         // Console.WriteLine("player y pos: " + position.Y + " player origin y pos: " + (Globals.OriginPlayerPos.Y - height));
     }
 
-    public void HandelDeath()
+    public void HandleDeath()
     {
         if (isDead == true)
         {
@@ -182,5 +185,6 @@ public class Player : Entity
             Raylib.DrawTexturePro(texture, new Rectangle(0f, 0f, -Width, Height),
             new Rectangle(Position.X, Position.Y, Width, Height), Vector2.Zero, 0f, Color.White);
         }
+        gun.Draw();
     }
 }

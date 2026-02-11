@@ -124,15 +124,15 @@ namespace AntsShooter.States
 
         private void HandleShooting()
         {
-            Vector2 mouseWorldPos = Raylib.GetScreenToWorld2D(Globals.mousePosition, camera.camera);
-            lastMouseWorldPos = mouseWorldPos;
+            Globals.mouseWorldPos = Raylib.GetScreenToWorld2D(Globals.mousePosition, camera.camera);
+            lastMouseWorldPos = Globals.mouseWorldPos;
 
             if (Raylib.IsMouseButtonDown(MouseButton.Left) && ammo.reloadGun == false && bulletTimer <= 0 && ammo.loadedAmmo > 0)
             {
                 bullets.Add(new Bullet(
                     new Vector2(player.Position.X + player.Width / 2,
                                 player.Position.Y + player.Height / 2),
-                    mouseWorldPos));
+                    Globals.mouseWorldPos));
 
                 bulletTimer = timeBetweenBullets;
                 ammo.loadedAmmo -= 1;
@@ -288,14 +288,15 @@ namespace AntsShooter.States
         public void Draw()
         {
             Raylib.BeginMode2D(camera.camera);
-            player.Draw();
-            DrawAnts();
-            DrawBullets();
-            DrawPickables();
 
             Raylib.DrawCircleV(lastMouseWorldPos, 3, Color.Red);
             Vector2 playerCenter = new Vector2(player.Position.X + player.Width/2, player.Position.Y + player.Height/2);
             Raylib.DrawLineV(playerCenter, lastMouseWorldPos, Color.Red);
+
+            player.Draw();
+            DrawAnts();
+            DrawBullets();
+            DrawPickables();
 
             // draw UI elements
             foreach (var ant in ants)
@@ -305,7 +306,7 @@ namespace AntsShooter.States
             player.lifeBar.Draw();
             ammo.Draw();
 
-            Raylib.DrawRectangle(0 - Globals.MAP_WIDTH/2, (int)MathF.Round(Globals.OriginPlayerPos.Y + player.Height), Globals.MAP_WIDTH + Globals.MAP_WIDTH, Globals.VECTUAL_SCREEN_HEIGHT - Globals.GROUND_LEVEL, Color.Yellow);
+            Raylib.DrawRectangle(0 - Globals.MAP_WIDTH/2, (int)MathF.Round(Globals.OriginPlayerPos.Y + player.Height), Globals.MAP_WIDTH + Globals.MAP_WIDTH, Globals.VECTUAL_SCREEN_HEIGHT - Globals.GROUND_LEVEL, Color.Gray);
 
             Raylib.EndMode2D();
         }

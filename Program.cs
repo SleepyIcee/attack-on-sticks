@@ -16,7 +16,6 @@ class Program
         {
             Raylib.BeginDrawing();
             game.Update();
-            Raylib.ClearBackground(Color.Black);
             game.Draw();
             Raylib.EndDrawing();
         }
