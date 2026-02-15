@@ -15,6 +15,7 @@ public class DeathState : IState
 
     public DeathState()
     {
+        Score.Save(Globals.score);
         buttons = new List<Button>
         {
             new Button("play again",
@@ -89,7 +90,7 @@ public class DeathState : IState
             buttons[keyboardPoitingToButtonNumber].isHovered = true;
         }
     }
-    
+
     public void Update()
     {
         UpdateUI();
@@ -107,12 +108,13 @@ public class DeathState : IState
             {
                 continue;
             }
-            
+
             buttons[i].isHovered = false;
         }
     }
     public void Draw()
     {
+        Raylib.DrawText(Globals.score.ToString(), (int)MathF.Round(Globals.VECTUAL_SCREEN_WIDTH / 2 - 10), 30, 20, Color.White);
         foreach (var button in buttons)
         {
             button.Draw();

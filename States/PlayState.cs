@@ -36,18 +36,19 @@ namespace AntsShooter.States
 
         // sounds
         private Sound gunSound = Raylib.LoadSound("assets/sounds/gun-sound.wav");
-        
+
         public PlayState()
         {
             player = new Player();
             camera = new Camera(player);
-            
+
             ants = new List<Ant>();
-            
+
             testBlockPosition = new Vector2(0, 0);
 
             ammo = new Ammo();
             killsScore = new KillsScore();
+            Globals.score = 0;
         }
 
         private void SpawnAnt()
@@ -108,8 +109,8 @@ namespace AntsShooter.States
                     else
                         delta /= delta.Length();
 
-                    a.Position += delta * antPushForce * Raylib.GetFrameTime();;
-                    b.Position -= delta * antPushForce * Raylib.GetFrameTime();;
+                    a.Position += delta * antPushForce * Raylib.GetFrameTime(); ;
+                    b.Position -= delta * antPushForce * Raylib.GetFrameTime(); ;
                 }
             }
         }
@@ -176,10 +177,11 @@ namespace AntsShooter.States
                     if (ants[j].isDead)
                     {
                         killsScore.kills++;
+                        Globals.score = killsScore.kills;
                         ants.RemoveAt(j);
                         break;
                     }
-                    
+
                     if (ants[j].GetShot(bullets[i]))
                     {
                         bullets.RemoveAt(i);
@@ -201,7 +203,7 @@ namespace AntsShooter.States
         {
             if (timeToSpawnPickable <= 0)
             {
-                string[] pickableTypes = {"ammo", "health"};
+                string[] pickableTypes = { "ammo", "health" };
                 Pickable pickable = new Pickable(pickableTypes[random.Next(pickableTypes.Length)]);
                 // Console.WriteLine(pickable.type);
                 pickables.Add(pickable);
@@ -290,7 +292,7 @@ namespace AntsShooter.States
             Raylib.BeginMode2D(camera.camera);
 
             Raylib.DrawCircleV(lastMouseWorldPos, 3, Color.Red);
-            Vector2 playerCenter = new Vector2(player.Position.X + player.Width/2, player.Position.Y + player.Height/2);
+            Vector2 playerCenter = new Vector2(player.Position.X + player.Width / 2, player.Position.Y + player.Height / 2);
             Raylib.DrawLineV(playerCenter, lastMouseWorldPos, Color.Red);
 
             player.Draw();
@@ -306,7 +308,8 @@ namespace AntsShooter.States
             player.lifeBar.Draw();
             ammo.Draw();
 
-            Raylib.DrawRectangle(0 - Globals.MAP_WIDTH/2, (int)MathF.Round(Globals.OriginPlayerPos.Y + player.Height), Globals.MAP_WIDTH + Globals.MAP_WIDTH, Globals.VECTUAL_SCREEN_HEIGHT - Globals.GROUND_LEVEL, Color.Gray);
+            Raylib.DrawText(Globals.score.ToString(), (int)MathF.Round(Globals.MAP_WIDTH / 2 - 10), 30, 20, Color.White);
+            Raylib.DrawRectangle(0 - Globals.MAP_WIDTH / 2, (int)MathF.Round(Globals.OriginPlayerPos.Y + player.Height), Globals.MAP_WIDTH + Globals.MAP_WIDTH, Globals.VECTUAL_SCREEN_HEIGHT - Globals.GROUND_LEVEL, Color.Gray);
 
             Raylib.EndMode2D();
         }

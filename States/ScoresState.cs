@@ -12,6 +12,8 @@ public class ScoresState : IState
     private static readonly float keyboardPoitingTime = 0.2f;
     private float keyboardPoitingToTimer = keyboardPoitingTime;
 
+    private int[] topScores = Score.LoadHighestScores();
+
     public ScoresState()
     {
         buttons = new List<Button>
@@ -94,13 +96,18 @@ public class ScoresState : IState
             {
                 continue;
             }
-            
+
             buttons[i].isHovered = false;
         }
     }
 
     public void Draw()
     {
+        for (int i = 0; i < topScores.Length; i++)
+        {
+            Raylib.DrawText(topScores[i].ToString(), (int)MathF.Round(Globals.VECTUAL_SCREEN_WIDTH / 2 - 10), 50 + i * 20, 20, Color.White);
+        }
+
         foreach (var button in buttons)
         {
             button.Draw();
