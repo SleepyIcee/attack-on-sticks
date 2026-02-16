@@ -15,7 +15,7 @@ public class StatesManager
     private static string lastState = currentState;
 
     private const int VirtualScreenScaling = 2;
-    private static RenderTexture2D renderTexture = Raylib.LoadRenderTexture(Globals.SCREEN_WIDTH/VirtualScreenScaling, Globals.SCREEN_HEIGHT/VirtualScreenScaling);
+    private static RenderTexture2D renderTexture = Raylib.LoadRenderTexture(Globals.SCREEN_WIDTH / VirtualScreenScaling, Globals.SCREEN_HEIGHT / VirtualScreenScaling);
 
     public static void Load()
     {
@@ -23,6 +23,13 @@ public class StatesManager
         playState = new PlayState();
         deathState = new DeathState();
         scoresState = new ScoresState();
+
+        if (currentState == "PlayState")
+        {
+            Globals.score = 0;
+        }
+
+        lastState = currentState;
 
         Raylib.SetTextureFilter(renderTexture.Texture, TextureFilter.Point);
     }
@@ -32,7 +39,6 @@ public class StatesManager
         if (lastState != currentState)
         {
             Load();
-            lastState = currentState;
         }
 
         switch (currentState)

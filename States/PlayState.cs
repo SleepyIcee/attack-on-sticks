@@ -48,7 +48,6 @@ namespace AntsShooter.States
 
             ammo = new Ammo();
             killsScore = new KillsScore();
-            Globals.score = 0;
         }
 
         private void SpawnAnt()
