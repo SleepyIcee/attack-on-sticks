@@ -18,7 +18,7 @@ public class Player : Entity
     };
     private Vector2 velocity;
     private const float speed = 50f;
-    private const float friction = 0.1f;
+    private const float friction = 10f;
     private readonly float MaxSpeed = 5f;
     private int facing = 1;
     public int health = 3;
@@ -26,7 +26,7 @@ public class Player : Entity
     private bool isDead = false;
     private const float timeBetweenDamages = 1.0f;
     public float damageTimer = timeBetweenDamages;
-    
+
     private Sound runningSound;
 
     private const float jumpSpeed = 12.0f;
@@ -34,6 +34,11 @@ public class Player : Entity
     private bool isFalling = false;
 
     public LifeBar lifeBar;
+
+    private const float dashingSpeed = 10f;
+    private bool dashing = false;
+    private const float DashTime = 0.1f;
+    private float dashTimer = DashTime;
 
     // private Texture2D texture = Raylib.LoadTexture("assets/player/idle/player-idle.png");
 
@@ -46,45 +51,82 @@ public class Player : Entity
         velocity = Vector2.Zero;
 
         gun = new Gun();
-        lifeBar = new LifeBar(Globals.VECTUAL_SCREEN_WIDTH/5, Globals.VECTUAL_SCREEN_HEIGHT/30);
+        lifeBar = new LifeBar(Globals.VECTUAL_SCREEN_WIDTH / 5, Globals.VECTUAL_SCREEN_HEIGHT / 30);
 
         runningSound = Raylib.LoadSound("assets/sounds/running-sound.wav");
     }
-    
+
     public void HandleMovement()
     {
-        if (Raylib.IsKeyDown(KeyboardKey.D) && Position.X < Globals.MAP_WIDTH)
+        if (!dashing)
         {
-            velocity.X += speed * Raylib.GetFrameTime();
-            if (velocity.X > MaxSpeed) velocity.X = MaxSpeed;
-            facing = 1;
-            texture = animations["run"].Play(10);
-            if (!Raylib.IsSoundPlaying(runningSound) && !isJumping && !isFalling) Raylib.PlaySound(runningSound);
-        }
-        else if (Raylib.IsKeyDown(KeyboardKey.A) && Position.X > 0)
-        {
-            velocity.X -= speed * Raylib.GetFrameTime();
-            if (velocity.X < -MaxSpeed) velocity.X = -MaxSpeed;
-            facing = 0;
-            texture = animations["run"].Play(10);
-            if (!Raylib.IsSoundPlaying(runningSound) && !isJumping && !isFalling) Raylib.PlaySound(runningSound);
-        }
-        else
-        {
-            if (Math.Abs(velocity.X) > 10)
+            if (Raylib.IsKeyDown(KeyboardKey.D) && Position.X < Globals.MAP_WIDTH)
             {
-                velocity.X -= Math.Sign(velocity.X) * friction * Raylib.GetFrameTime();
+                facing = 1;
+                velocity.X += speed * Raylib.GetFrameTime();
+                if (velocity.X > MaxSpeed) velocity.X = MaxSpeed;
+                texture = animations["run"].Play(10);
+                if (!Raylib.IsSoundPlaying(runningSound) && !isJumping && !isFalling) Raylib.PlaySound(runningSound);
+            }
+            else if (Raylib.IsKeyDown(KeyboardKey.A) && Position.X > 0)
+            {
+                facing = 0;
+                velocity.X -= speed * Raylib.GetFrameTime();
+                if (velocity.X < -MaxSpeed) velocity.X = -MaxSpeed;
+                texture = animations["run"].Play(10);
+                if (!Raylib.IsSoundPlaying(runningSound) && !isJumping && !isFalling) Raylib.PlaySound(runningSound);
             }
             else
             {
+                SlowDown();
+                texture = animations["idle"].Play(10);
+            }
+        }
+    }
+
+    public void HandleDash()
+    {
+        if (dashing)
+        {
+            if (facing == 1)
+            {
+                velocity.X += dashingSpeed;
+            }
+            else
+            {
+                velocity.X -= dashingSpeed;
+            }
+
+            if (dashTimer <= 0)
+            {
+                dashing = false;
                 velocity.X = 0;
             }
-            texture = animations["idle"].Play(10);
+
+            dashTimer -= Raylib.GetFrameTime();
         }
-        
-        // Console.WriteLine(isJumping);
+        else
+        {
+            if (Raylib.IsKeyPressed(KeyboardKey.Space))
+            {
+                dashing = true;
+                dashTimer = DashTime;
+            }
+        }
     }
-    
+
+    private void SlowDown()
+    {
+        if (Math.Abs(velocity.X) > 1)
+        {
+            velocity.X -= Math.Sign(velocity.X) * friction * Raylib.GetFrameTime();
+        }
+        else
+        {
+            velocity.X = 0;
+        }
+    }
+
     public void HandleJump()
     {
         if (Raylib.IsKeyPressed(KeyboardKey.W) && !isJumping && !isFalling)
@@ -119,13 +161,14 @@ public class Player : Entity
             texture = animations["jump"].Play(10);
         }
     }
-    
+
     public override void Update()
     {
         base.Update();
-        
+
         HandleMovement();
         HandleJump();
+        HandleDash();
         Position += velocity;
         HandleDeath();
         gun.LookAtMouse(Position, Globals.mouseWorldPos);

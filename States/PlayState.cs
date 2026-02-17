@@ -271,10 +271,19 @@ namespace AntsShooter.States
             }
         }
 
+        private void BoxPlayerInsideMap()
+        {
+            if (player.Position.X < 0)
+                player.Position.X = 0;
+            if (player.Position.X + player.Width > Globals.MAP_WIDTH)
+                player.Position.X = Globals.MAP_WIDTH - player.Width;
+        }
+
         public void Update()
         {
             player.Update();
             camera.Update();
+            BoxPlayerInsideMap();
             HandleShooting();
             UpdateAnts();
             SpawnPickables();
