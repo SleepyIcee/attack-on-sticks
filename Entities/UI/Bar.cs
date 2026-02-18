@@ -1,23 +1,17 @@
-using AntsShooter.Entities;
 using AntsShooter.Systems;
-using Raylib_cs;
 using System.Numerics;
+using AntsShooter.Entities;
 
 namespace AntsShooter.Entities.UI;
 
-public class LifeBar : Entity
+public class Bar : Entity
 {
     private Vector2 screenPosition = new Vector2(Globals.VECTUAL_SCREEN_WIDTH / 20, Globals.VECTUAL_SCREEN_HEIGHT / 10);
-    private Color color = new Color(255, 0, 0, 255);
-    public int lifeBarHealthWidth { get; set; }
 
-    public LifeBar(int lifeBarWidth, int lifeBarHeight) : base()
+    public Bar() : base()
     {
         Position = Vector2.Zero;
-        Width = lifeBarWidth;
-        Height = lifeBarHeight;
-
-        this.lifeBarHealthWidth = Width;
+        screenPosition = new Vector2(Globals.VECTUAL_SCREEN_WIDTH / 20, Globals.VECTUAL_SCREEN_HEIGHT / 10);
     }
 
     public void UpdateScreenPosition(Camera camera)
@@ -34,7 +28,5 @@ public class LifeBar : Entity
     public override void Draw()
     {
         base.Draw();
-        Raylib.DrawRectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), Width, Height, Color.Gray);
-        Raylib.DrawRectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), lifeBarHealthWidth, Height, color);
     }
 }

@@ -4,6 +4,7 @@ using Raylib_cs;
 using System.Net.Http.Headers;
 using System.Numerics;
 
+namespace AntsShooter.Entities.UI;
 
 public class Ammo : Entity
 {

@@ -1,7 +1,7 @@
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using AntsShooter.Editor;
-using AntsShooter.Enities.UI;
+using AntsShooter.Entities.UI;
 using AntsShooter.Entities;
 using AntsShooter.Systems;
 using Raylib_cs;
@@ -291,6 +291,7 @@ namespace AntsShooter.States
             UpdateDifficulty();
             // update UI position with camera
             player.lifeBar.UpdateScreenPosition(camera);
+            player.dashBar.UpdateScreenPosition(camera);
             ammo.UpdateScreenPosition(camera);
             ammo.Update();
         }
@@ -314,6 +315,7 @@ namespace AntsShooter.States
                 ant.lifeBar.Draw();
             }
             player.lifeBar.Draw();
+            player.dashBar.Draw();
             ammo.Draw();
 
             Raylib.DrawText(Globals.score.ToString(), (int)MathF.Round(Globals.MAP_WIDTH / 2 - 10), 30, 20, Color.White);

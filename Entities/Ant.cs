@@ -1,6 +1,6 @@
 using System.Numerics;
 using System.Threading.Channels;
-using AntsShooter.Enities.UI;
+using AntsShooter.Entities.UI;
 using AntsShooter.Systems;
 using Raylib_cs;
 
@@ -20,10 +20,10 @@ public class Ant : Entity
     private Random random = new Random();
     private int spawnDirection;
     private int health = 10;
-    private int maxHealth = 10; 
-    public bool isDead = false; 
+    private int maxHealth = 10;
+    public bool isDead = false;
     public LifeBar lifeBar;
-    
+
     public Ant() : base()
     {
         Width = Globals.PLAYER_WIDTH;

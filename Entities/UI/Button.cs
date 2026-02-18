@@ -4,7 +4,7 @@ using Raylib_cs;
 using System.Net;
 using System.Numerics;
 
-namespace AntsShooter.Enities.UI;
+namespace AntsShooter.Entities.UI;
 
 public class Button : Entity
 {
@@ -15,7 +15,7 @@ public class Button : Entity
 
     public bool isHovered = false;
     public bool mouseHovered = false;
-    
+
     public Button(string text, Vector2 position, int width, int height) : base()
     {
         Position = position;
@@ -29,10 +29,10 @@ public class Button : Entity
     private void CalculateTextSize()
     {
         fontSize = (int)(Height * 0.6f);
-        
+
         int padding = 10;
         int maxTextWidth = Width - (padding * 2);
-        
+
         while (fontSize > 10)
         {
             int textWidth = Raylib.MeasureText(Text, fontSize);
@@ -42,7 +42,7 @@ public class Button : Entity
             }
             fontSize -= 2;
         }
-        
+
         int textWidthFinal = Raylib.MeasureText(Text, fontSize);
         textPosition = new Vector2(
             Position.X + (Width - textWidthFinal) / 2,
@@ -69,7 +69,7 @@ public class Button : Entity
         {
             mouseHovered = false;
         }
-        
+
         return false;
     }
 
@@ -90,7 +90,7 @@ public class Button : Entity
     public override void Draw()
     {
         base.Draw();
-        
+
         Raylib.DrawRectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), Width, Height, buttonColor);
         Raylib.DrawText(Text, (int)Math.Round(textPosition.X), (int)Math.Round(textPosition.Y), fontSize, Color.White);
     }

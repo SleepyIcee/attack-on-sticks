@@ -4,6 +4,7 @@ using AntsShooter.Entities;
 using AntsShooter.Systems;
 using System.Numerics;
 
+namespace AntsShooter.Entities;
 
 public class Pickable : Entity
 {
@@ -54,7 +55,7 @@ public class Pickable : Entity
             Position.Y = Globals.GROUND_LEVEL - Height;
             velocity.Y = 0;
         }
-        else 
+        else
         {
             Position += velocity * Raylib.GetFrameTime();
         }

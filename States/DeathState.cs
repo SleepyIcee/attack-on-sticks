@@ -1,7 +1,7 @@
 using Raylib_cs;
 using System.Numerics;
 using AntsShooter.Systems;
-using AntsShooter.Enities.UI;
+using AntsShooter.Entities.UI;
 
 namespace AntsShooter.States;
 

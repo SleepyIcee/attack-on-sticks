@@ -1,6 +1,6 @@
 using Raylib_cs;
 using System.Numerics;
-using AntsShooter.Enities.UI;
+using AntsShooter.Entities.UI;
 using AntsShooter.Systems;
 
 namespace AntsShooter.States;
@@ -99,11 +99,11 @@ public class MenuState : IState
             buttons[keyboardPoitingToButtonNumber].isHovered = true;
         }
     }
-    
+
     public void Update()
     {
         UpdateUI();
-        
+
         for (int i = 0; i < buttons.Count(); i++)
         {
             buttons[i].Update();
@@ -117,7 +117,7 @@ public class MenuState : IState
             {
                 continue;
             }
-            
+
             buttons[i].isHovered = false;
         }
     }

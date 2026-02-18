@@ -3,7 +3,7 @@ using AntsShooter.Entities;
 using Raylib_cs;
 
 
-namespace AntsShooter.Enities
+namespace AntsShooter.Entities
 {
     public class Gun : Entity
     {
@@ -15,7 +15,7 @@ namespace AntsShooter.Enities
 
         public Gun() : base()
         {
-            
+
         }
 
         public void LookAtMouse(Vector2 playerPosition, Vector2 mousePosition)

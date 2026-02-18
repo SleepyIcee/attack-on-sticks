@@ -10,7 +10,7 @@ class Program
         Raylib.InitWindow(Globals.SCREEN_WIDTH, Globals.SCREEN_HEIGHT, "AntsShooter");
         Raylib.InitAudioDevice();
         Game game = new Game();
-        
+
         Raylib.SetTargetFPS(60);
         while (!Raylib.WindowShouldClose())
         {

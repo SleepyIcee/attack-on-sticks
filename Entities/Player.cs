@@ -1,6 +1,6 @@
 using System.Numerics;
-using AntsShooter.Enities;
-using AntsShooter.Enities.UI;
+using AntsShooter.Entities;
+using AntsShooter.Entities.UI;
 using AntsShooter.Systems;
 using Raylib_cs;
 
@@ -34,11 +34,16 @@ public class Player : Entity
     private bool isFalling = false;
 
     public LifeBar lifeBar;
+    public DashBar dashBar;
 
     private const float dashingSpeed = 10f;
     private bool dashing = false;
     private const float DashTime = 0.1f;
     private float dashTimer = DashTime;
+
+    private bool canDash = true;
+    private const float tilDashEnableTime = 5f;
+    private float tilDashEnableTimer = tilDashEnableTime;
 
     // private Texture2D texture = Raylib.LoadTexture("assets/player/idle/player-idle.png");
 
@@ -52,6 +57,7 @@ public class Player : Entity
 
         gun = new Gun();
         lifeBar = new LifeBar(Globals.VECTUAL_SCREEN_WIDTH / 5, Globals.VECTUAL_SCREEN_HEIGHT / 30);
+        dashBar = new DashBar(Globals.VECTUAL_SCREEN_WIDTH / 5, Globals.VECTUAL_SCREEN_HEIGHT / 30);
 
         runningSound = Raylib.LoadSound("assets/sounds/running-sound.wav");
     }
@@ -107,10 +113,24 @@ public class Player : Entity
         }
         else
         {
-            if (Raylib.IsKeyPressed(KeyboardKey.Space))
+            if (Raylib.IsKeyPressed(KeyboardKey.Space) && canDash)
             {
                 dashing = true;
                 dashTimer = DashTime;
+                canDash = false;
+                tilDashEnableTimer = 0;
+            }
+        }
+
+        if (!canDash)
+        {
+            if (tilDashEnableTimer >= tilDashEnableTime)
+            {
+                canDash = true;
+            }
+            else
+            {
+                tilDashEnableTimer += Raylib.GetFrameTime();
             }
         }
     }
@@ -173,6 +193,7 @@ public class Player : Entity
         HandleDeath();
         gun.LookAtMouse(Position, Globals.mouseWorldPos);
         lifeBar.lifeBarHealthWidth = (int)(lifeBar.Width * (health / (float)maxHealth));
+        dashBar.dashBarWidth = (int)(dashBar.Width * (tilDashEnableTimer / (float)tilDashEnableTime));
 
         // Console.WriteLine("player y pos: " + position.Y + " player origin y pos: " + (Globals.OriginPlayerPos.Y - height));
     }
