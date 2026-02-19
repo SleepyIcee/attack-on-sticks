@@ -2,7 +2,6 @@ using System.Numerics;
 using AntsShooter.Entities;
 using Raylib_cs;
 
-
 namespace AntsShooter.Entities
 {
     public class Gun : Entity
@@ -23,7 +22,7 @@ namespace AntsShooter.Entities
             Position = playerPosition + new Vector2(Width/2, Height/2);
             origin = new Vector2((float)Width/2, (float)Height/2);
             Vector2 gunCenter = Position + origin;
-            direction = Vector2.Normalize(mousePosition - gunCenter);
+            direction = Vector2.Normalize(mousePosition - Position);
             angle = MathF.Atan2(direction.Y, direction.X) * 180f / MathF.PI;
 
             if (mousePosition.X < Position.X)

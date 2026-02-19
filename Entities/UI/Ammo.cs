@@ -75,7 +75,7 @@ public class Ammo : Entity
     {
         base.Update();
 
-        if (loadedAmmo == 0 || Raylib.IsMouseButtonPressed(MouseButton.Right) && loadedAmmo < HowMuchAmmoCouldBeLoaded)
+        if (loadedAmmo == 0 || Raylib.IsKeyPressed(KeyboardKey.R) && loadedAmmo < HowMuchAmmoCouldBeLoaded)
         {
             reloadGun = true;
         }

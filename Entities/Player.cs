@@ -9,7 +9,7 @@ namespace AntsShooter.Entities;
 public class Player : Entity
 {
     private Texture2D texture;
-    private Gun gun;
+    private Gun gun = new Gun();
     private Dictionary<string, Animation> animations = new Dictionary<string, Animation>
     {
         {"idle" , new Animation("assets/player/idle")},
@@ -42,7 +42,7 @@ public class Player : Entity
     private float dashTimer = DashTime;
 
     private bool canDash = true;
-    private const float tilDashEnableTime = 5f;
+    private const float tilDashEnableTime = 3f;
     private float tilDashEnableTimer = tilDashEnableTime;
 
     // private Texture2D texture = Raylib.LoadTexture("assets/player/idle/player-idle.png");
@@ -55,7 +55,6 @@ public class Player : Entity
         Position.Y = Globals.OriginPlayerPos.Y;
         velocity = Vector2.Zero;
 
-        gun = new Gun();
         lifeBar = new LifeBar(Globals.VECTUAL_SCREEN_WIDTH / 5, Globals.VECTUAL_SCREEN_HEIGHT / 30);
         dashBar = new DashBar(Globals.VECTUAL_SCREEN_WIDTH / 5, Globals.VECTUAL_SCREEN_HEIGHT / 30);
 
