@@ -31,6 +31,6 @@ draw a gun and make it rotate with the mouth
 
 
 add dash
-add bombs
+add nuke
 
 change the game name to Attack on ants

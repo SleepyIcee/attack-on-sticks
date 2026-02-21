@@ -6,8 +6,8 @@ namespace AntsShooter.Systems;
 public static class Globals
 {
     // screen and map settings
-    public const int SCREEN_WIDTH = 1080;
-    public const int SCREEN_HEIGHT = 600;
+    public const int SCREEN_WIDTH = 1280;
+    public const int SCREEN_HEIGHT = 720;
     public const int VECTUAL_SCREEN_SCALING = 2;
     public const int VECTUAL_SCREEN_WIDTH = SCREEN_WIDTH / VECTUAL_SCREEN_SCALING;
     public const int VECTUAL_SCREEN_HEIGHT = SCREEN_HEIGHT / VECTUAL_SCREEN_SCALING;

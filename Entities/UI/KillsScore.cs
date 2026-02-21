@@ -3,19 +3,23 @@ using AntsShooter.Systems;
 using Raylib_cs;
 using System.Numerics;
 
+namespace AntsShooter.Entities.UI;
 
 public class KillsScore : Entity
 {
+    private Vector2 screenPosition = new Vector2(Globals.VECTUAL_SCREEN_WIDTH / 20, Globals.VECTUAL_SCREEN_HEIGHT / 10);
     public int kills = 0;
     private readonly int fontSize;
     private Color fontColor;
 
-
     public KillsScore() : base()
     {
-        Position = Vector2.Zero;
-        fontSize = 50;
-        fontColor = Color.Black;
+        fontSize = 5;
+
+        Position.X = 10;
+        Position.Y = Globals.VECTUAL_SCREEN_HEIGHT - 75;
+
+        fontColor = Color.White;
     }
 
     public override void Update()
@@ -26,6 +30,9 @@ public class KillsScore : Entity
     public override void Draw()
     {
         base.Draw();
-        Raylib.DrawText(Convert.ToString(kills), Globals.MAP_WIDTH - Globals.MAP_WIDTH/2, Globals.VECTUAL_SCREEN_HEIGHT - Globals.VECTUAL_SCREEN_HEIGHT/2, fontSize, fontColor);
+        // Raylib.DrawText(Convert.ToString(kills), Globals.VECTUAL_SCREEN_WIDTH - Globals.VECTUAL_SCREEN_WIDTH/2,
+        // Globals.VECTUAL_SCREEN_HEIGHT - Globals.VECTUAL_SCREEN_HEIGHT/2, fontSize, fontColor);
+
+        Raylib.DrawText("kills: " + Convert.ToString(kills), (int)Math.Round(Position.X), (int)Math.Round(Position.Y), fontSize, fontColor);
     }
 }

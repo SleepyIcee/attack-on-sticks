@@ -289,10 +289,7 @@ namespace AntsShooter.States
             SpawnPickables();
             UpdatePickables();
             UpdateDifficulty();
-            // update UI position with camera
-            player.lifeBar.UpdateScreenPosition(camera);
-            player.dashBar.UpdateScreenPosition(camera);
-            ammo.UpdateScreenPosition(camera);
+            // update UI elements
             ammo.Update();
         }
 
@@ -309,19 +306,20 @@ namespace AntsShooter.States
             DrawBullets();
             DrawPickables();
 
-            // draw UI elements
             foreach (var ant in ants)
             {
                 ant.lifeBar.Draw();
             }
-            player.lifeBar.Draw();
-            player.dashBar.Draw();
-            ammo.Draw();
 
-            Raylib.DrawText(Globals.score.ToString(), (int)MathF.Round(Globals.MAP_WIDTH / 2 - 10), 30, 20, Color.White);
             Raylib.DrawRectangle(0 - Globals.MAP_WIDTH / 2, (int)MathF.Round(Globals.OriginPlayerPos.Y + player.Height), Globals.MAP_WIDTH + Globals.MAP_WIDTH, Globals.VECTUAL_SCREEN_HEIGHT - Globals.GROUND_LEVEL, Color.Gray);
 
             Raylib.EndMode2D();
+
+            // draw UI elements
+            player.lifeBar.Draw();
+            player.dashBar.Draw();
+            ammo.Draw();
+            killsScore.Draw();
         }
     }
 }

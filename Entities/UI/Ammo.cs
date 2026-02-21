@@ -27,25 +27,17 @@ public class Ammo : Entity
 
     public Ammo() : base()
     {
-        Position = Vector2.Zero;
+        Position.X = 90;
+        Position.Y = Globals.VECTUAL_SCREEN_HEIGHT - 65;
+
         screenPosition = new Vector2(Globals.VECTUAL_SCREEN_WIDTH-200, 45);
 
         reloadDelayTimer = 0;
 
-        reloadingLinePosition = Vector2.Zero;
+        reloadingLinePosition = new Vector2(Globals.VECTUAL_SCREEN_WIDTH/2 - normalReloadingLineWidth/2, Globals.VECTUAL_SCREEN_HEIGHT/2 - reloadingLineHeight * 3);
         reloadingLineWidth = 0;
-        reloadingLineScreenPosition = new Vector2(Globals.VECTUAL_SCREEN_WIDTH/2 + normalReloadingLineWidth/2, Globals.VECTUAL_SCREEN_HEIGHT/2 - reloadingLineHeight * 3);
 
         gunReloadSound = Raylib.LoadSound("assets/sounds/ak47-reload-sound.wav");
-    }
-
-    public void UpdateScreenPosition(Camera camera)
-    {
-        Position.X = camera.camera.Target.X + (screenPosition.X - Globals.VECTUAL_SCREEN_WIDTH / 2);
-        Position.Y = camera.camera.Target.Y + (screenPosition.Y - Globals.VECTUAL_SCREEN_HEIGHT / 2);
-
-        reloadingLinePosition.X = camera.camera.Target.X + (reloadingLineScreenPosition.X - Globals.VECTUAL_SCREEN_WIDTH / 2);
-        reloadingLinePosition.Y = camera.camera.Target.Y + (reloadingLineScreenPosition.Y - Globals.VECTUAL_SCREEN_HEIGHT / 2);
     }
 
     public void Reload()

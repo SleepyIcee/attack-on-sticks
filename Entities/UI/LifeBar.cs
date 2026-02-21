@@ -13,17 +13,13 @@ public class LifeBar : Entity
 
     public LifeBar(int lifeBarWidth, int lifeBarHeight) : base()
     {
-        Position = Vector2.Zero;
         Width = lifeBarWidth;
         Height = lifeBarHeight;
 
-        this.lifeBarHealthWidth = Width;
-    }
+        Position.X = 10;
+        Position.Y = Globals.VECTUAL_SCREEN_HEIGHT - Height * 4 - 5;
 
-    public void UpdateScreenPosition(Camera camera)
-    {
-        Position.X = camera.camera.Target.X + (screenPosition.X - Globals.VECTUAL_SCREEN_WIDTH / 2);
-        Position.Y = camera.camera.Target.Y + (screenPosition.Y - Globals.VECTUAL_SCREEN_HEIGHT / 2);
+        this.lifeBarHealthWidth = Width;
     }
 
     public override void Update()
@@ -34,7 +30,7 @@ public class LifeBar : Entity
     public override void Draw()
     {
         base.Draw();
-        Raylib.DrawRectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), Width, Height, Color.Gray);
+        Raylib.DrawRectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), Width, Height, Color.DarkGray);
         Raylib.DrawRectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), lifeBarHealthWidth, Height, color);
     }
 }

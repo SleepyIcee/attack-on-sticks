@@ -38,7 +38,7 @@ public class Player : Entity
 
     private const float dashingSpeed = 10f;
     private bool dashing = false;
-    private const float DashTime = 0.1f;
+    private const float DashTime = 0.13f;
     private float dashTimer = DashTime;
 
     private bool canDash = true;
