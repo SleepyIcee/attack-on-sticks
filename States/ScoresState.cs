@@ -18,9 +18,14 @@ public class ScoresState : IState
     {
         buttons = new List<Button>
         {
+            // new Button("back",
+            // new Vector2(Globals.VECTUAL_SCREEN_WIDTH/2 - Globals.BUTTONS_WIDTH/2,
+            // Globals.VECTUAL_SCREEN_HEIGHT/2 - Globals.BUTTONS_HEIGHT/2),
+            // Globals.BUTTONS_WIDTH, Globals.BUTTONS_HEIGHT)
+
             new Button("back",
-            new Vector2(Globals.VECTUAL_SCREEN_WIDTH/2 - Globals.BUTTONS_WIDTH/2,
-            Globals.VECTUAL_SCREEN_HEIGHT/2 - Globals.BUTTONS_HEIGHT/2),
+            new Vector2(10,
+            Globals.VECTUAL_SCREEN_HEIGHT - Globals.BUTTONS_HEIGHT * 2 - 10),
             Globals.BUTTONS_WIDTH, Globals.BUTTONS_HEIGHT)
         };
     }

@@ -11,7 +11,7 @@ public class Button : Entity
     private string Text;
     private int fontSize;
     private Vector2 textPosition;
-    private Color buttonColor;
+    private Color buttonColor = Color.Black;
 
     public bool isHovered = false;
     public bool mouseHovered = false;
@@ -22,7 +22,6 @@ public class Button : Entity
         Width = width;
         Height = height;
         Text = text;
-        buttonColor = Color.Gray;
         CalculateTextSize();
     }
 
@@ -79,11 +78,11 @@ public class Button : Entity
 
         if (isHovered)
         {
-            buttonColor = Color.LightGray;
+            buttonColor = Color.DarkGray;
         }
         else
         {
-            buttonColor = Color.Gray;
+            buttonColor = Color.Black;
         }
     }
 
@@ -93,5 +92,6 @@ public class Button : Entity
 
         Raylib.DrawRectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), Width, Height, buttonColor);
         Raylib.DrawText(Text, (int)Math.Round(textPosition.X), (int)Math.Round(textPosition.Y), fontSize, Color.White);
+        // Raylib.DrawTextEx(Globals.GameFont, Text, Position, fontSize, 2, Color.White);
     }
 }

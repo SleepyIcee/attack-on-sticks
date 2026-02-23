@@ -15,6 +15,7 @@ public class StatesManager
     private static string lastState = currentState;
 
     private const int VirtualScreenScaling = 2;
+    private static Color backgroundColor = new Color(14, 20, 61);
     private static RenderTexture2D renderTexture = Raylib.LoadRenderTexture(Globals.SCREEN_WIDTH / VirtualScreenScaling, Globals.SCREEN_HEIGHT / VirtualScreenScaling);
 
     public static void Load()
@@ -64,7 +65,7 @@ public class StatesManager
     public static void Draw()
     {
         Raylib.BeginTextureMode(renderTexture);
-        Raylib.ClearBackground(Color.DarkPurple);
+        Raylib.ClearBackground(backgroundColor);
         switch (currentState)
         {
             case "MenuState":

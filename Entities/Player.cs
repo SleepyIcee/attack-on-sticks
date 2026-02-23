@@ -201,7 +201,7 @@ public class Player : Entity
     {
         if (isDead == true)
         {
-            States.StatesManager.currentState = "DeathState";
+            States.StatesManager.currentState = "MenuState";
         }
 
         if (damageTimer > 0)

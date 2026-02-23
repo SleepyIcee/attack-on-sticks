@@ -34,5 +34,6 @@ public class KillsScore : Entity
         // Globals.VECTUAL_SCREEN_HEIGHT - Globals.VECTUAL_SCREEN_HEIGHT/2, fontSize, fontColor);
 
         Raylib.DrawText("kills: " + Convert.ToString(kills), (int)Math.Round(Position.X), (int)Math.Round(Position.Y), fontSize, fontColor);
+        // Raylib.DrawTextEx(Globals.GameFont, "kills: " + Convert.ToString(kills), Position, fontSize, 2, Color.White);
     }
 }

@@ -18,13 +18,22 @@ public class DeathState : IState
         Score.Save(Globals.score);
         buttons = new List<Button>
         {
+            // new Button("play again",
+            // new Vector2(Globals.VECTUAL_SCREEN_WIDTH/2 - Globals.BUTTONS_WIDTH/2,
+            // Globals.VECTUAL_SCREEN_HEIGHT/2 - Globals.BUTTONS_HEIGHT),
+            // Globals.BUTTONS_WIDTH, Globals.BUTTONS_HEIGHT),
+            // new Button("menu",
+            // new Vector2(Globals.VECTUAL_SCREEN_WIDTH/2 - Globals.BUTTONS_WIDTH/2,
+            // Globals.VECTUAL_SCREEN_HEIGHT/2 + Globals.BUTTONS_HEIGHT/2),
+            // Globals.BUTTONS_WIDTH, Globals.BUTTONS_HEIGHT)
+
             new Button("play again",
-            new Vector2(Globals.VECTUAL_SCREEN_WIDTH/2 - Globals.BUTTONS_WIDTH/2,
-            Globals.VECTUAL_SCREEN_HEIGHT/2 - Globals.BUTTONS_HEIGHT),
+            new Vector2(10,
+            Globals.VECTUAL_SCREEN_HEIGHT - Globals.BUTTONS_HEIGHT * 3 - 20),
             Globals.BUTTONS_WIDTH, Globals.BUTTONS_HEIGHT),
             new Button("menu",
-            new Vector2(Globals.VECTUAL_SCREEN_WIDTH/2 - Globals.BUTTONS_WIDTH/2,
-            Globals.VECTUAL_SCREEN_HEIGHT/2 + Globals.BUTTONS_HEIGHT/2),
+            new Vector2(10,
+            Globals.VECTUAL_SCREEN_HEIGHT - Globals.BUTTONS_HEIGHT * 2 - 10),
             Globals.BUTTONS_WIDTH, Globals.BUTTONS_HEIGHT)
         };
     }

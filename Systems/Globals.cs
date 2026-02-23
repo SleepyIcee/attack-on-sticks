@@ -28,6 +28,7 @@ public static class Globals
     public static float SpawnAntTimer = 5f;
 
     // UI settings
+    // public static readonly Font GameFont = Raylib.LoadFontEx("assets/font/font.ttf", 50, null, 0);
     public const int BUTTONS_WIDTH = 100;
     public const int BUTTONS_HEIGHT = 20;
     public static int score;

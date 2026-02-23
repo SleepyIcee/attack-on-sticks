@@ -25,9 +25,11 @@ public class Ammo : Entity
 
     private Sound gunReloadSound = new();
 
+    private int fontSize = 5;
+
     public Ammo() : base()
     {
-        Position.X = 90;
+        Position.X = 10;
         Position.Y = Globals.VECTUAL_SCREEN_HEIGHT - 65;
 
         screenPosition = new Vector2(Globals.VECTUAL_SCREEN_WIDTH-200, 45);
@@ -81,8 +83,9 @@ public class Ammo : Entity
     public override void Draw()
     {
         base.Draw();
-        Raylib.DrawText("loaded ammo: " + Convert.ToString(loadedAmmo), (int)Math.Round(Position.X-80), (int)Math.Round(Position.Y), 5, Color.White);
-        Raylib.DrawText("ammo: " + Convert.ToString(ammo), (int)Math.Round(Position.X), (int)Math.Round(Position.Y), 5, Color.White);
+        Raylib.DrawText(Convert.ToString(loadedAmmo) + " / " + Convert.ToString(ammo), (int)Math.Round(Position.X), (int)Math.Round(Position.Y), 5, Color.White);
+        // Raylib.DrawTextEx(Globals.GameFont, "loaded ammo: " + Convert.ToString(loadedAmmo), Position, fontSize, 2, Color.White);
+        // Raylib.DrawTextEx(Globals.GameFont, "ammo: " + Convert.ToString(ammo), Position, fontSize, 2, Color.White);
 
         // reload bar
         if (reloadGun)
