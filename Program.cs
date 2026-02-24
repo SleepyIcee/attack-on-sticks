@@ -7,6 +7,7 @@ class Program
 {
     public static void Main()
     {
+        Raylib.ToggleFullscreen();
         Raylib.InitWindow(Globals.SCREEN_WIDTH, Globals.SCREEN_HEIGHT, "AntsShooter");
         Raylib.InitAudioDevice();
         Game game = new Game();
@@ -19,6 +20,7 @@ class Program
             game.Draw();
             Raylib.EndDrawing();
         }
+        ResourceManager.UnloadAll();
         Raylib.CloseWindow();
     }
 }

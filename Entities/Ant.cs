@@ -39,6 +39,9 @@ public class Ant : Entity
             Position.X = Globals.MAP_WIDTH + 100;
         }
 
+        animations["run"] = ResourceManager.GetAnimation("ant_run", "assets/player/run");
+        texture = animations["run"].Play(0);
+
         lifeBar = new LifeBar(50, 10);
     }
 

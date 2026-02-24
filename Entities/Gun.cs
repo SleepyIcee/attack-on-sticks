@@ -1,20 +1,29 @@
 using System.Numerics;
 using AntsShooter.Entities;
+using AntsShooter.Systems;
 using Raylib_cs;
 
 namespace AntsShooter.Entities
 {
     public class Gun : Entity
     {
-        Texture2D texture = Raylib.LoadTexture("assets/gun/idle/gun.png");
+        private Texture2D texture;
+        private Dictionary<string, Animation> animations = new Dictionary<string, Animation>
+        {
+            {"idle", ResourceManager.GetAnimation("gun_idle", "assets/gun/idle")},
+            {"shoot", ResourceManager.GetAnimation("gun_shoot", "assets/gun/shoot")}
+        };
         private Vector2 origin = Vector2.Zero;
         private Vector2 direction = Vector2.Zero;
         private float angle = 0;
         private int facing = 1;
+        public bool shooting = false;
+        private Sound gunSound;
 
         public Gun() : base()
         {
-
+            texture = animations["idle"].Play(0);
+            // gunSound = ResourceManager.GetSound("gun_sound", "assets/sounds/gun-sound.wav");
         }
 
         public void LookAtMouse(Vector2 playerPosition, Vector2 mousePosition)
@@ -38,13 +47,22 @@ namespace AntsShooter.Entities
         public override void Update()
         {
             base.Update();
+
+            if (shooting)
+            {
+                texture = animations["shoot"].Play(1);
+            }
+            else
+            {
+                texture = animations["idle"].Play(1);
+            }
         }
 
         public override void Draw()
         {
             base.Draw();
-            Raylib.DrawTexturePro(texture, new Rectangle(0f, 0f, new Vector2(texture.Width, texture.Height * facing)),
-            new Rectangle(Position.X, Position.Y, new Vector2(Width, Height)), origin, angle, Color.White);
+            Raylib.DrawTexturePro(texture, new Rectangle(0f, 0f, texture.Width, texture.Height * facing),
+            new Rectangle(Position.X, Position.Y, Width, Height), origin, angle, Color.White);
         }
     }
 }

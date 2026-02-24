@@ -34,7 +34,6 @@ namespace AntsShooter.States
         private const float minSpawnTime = 1.0f;
         private int lastDifficultyStep = 0;
 
-        // sounds
         private Sound gunSound = Raylib.LoadSound("assets/sounds/gun-sound.wav");
 
         public PlayState()
@@ -137,6 +136,9 @@ namespace AntsShooter.States
                 bulletTimer = timeBetweenBullets;
                 ammo.loadedAmmo -= 1;
 
+                player.gun.shooting = true;
+                Raylib.PlaySound(gunSound);
+
                 // start shaking the camera
                 List<Vector2> cameraShakePoints = new();
                 for (int i = 0; i < 3; i++)
@@ -144,7 +146,10 @@ namespace AntsShooter.States
                     cameraShakePoints.Add(new Vector2(random.Next(-3, 3), random.Next(-3, 3)));
                 }
                 camera.Shake(cameraShakePoints);
-                Raylib.PlaySound(gunSound);
+            }
+            else
+            {
+                player.gun.shooting = false;
             }
 
             // Console.Write(Raylib.GetMousePosition() + " ... ");

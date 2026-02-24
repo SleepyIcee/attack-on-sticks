@@ -24,6 +24,7 @@ public class Ammo : Entity
     private int reloadingLineHeight = 10;
 
     private Sound gunReloadSound = new();
+    private bool reloadSoundPlayed = false;
 
     private int fontSize = 5;
 
@@ -55,14 +56,19 @@ public class Ammo : Entity
             reloadGun = false;
             reloadDelayTimer = 0;
             reloadingLineWidth = 0;
+            reloadSoundPlayed = false;
         }
         else
         {
+            if (!reloadSoundPlayed)
+            {
+                Raylib.PlaySound(gunReloadSound);
+                reloadSoundPlayed = true;
+            }
+            
             reloadDelayTimer += Raylib.GetFrameTime();
             reloadingLineWidth = (int)(normalReloadingLineWidth/TimeToReload*reloadDelayTimer);
         }
-
-        Raylib.PlaySound(gunReloadSound);
     }
 
     public override void Update()
