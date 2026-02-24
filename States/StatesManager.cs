@@ -16,6 +16,8 @@ public class StatesManager
 
     private const int VirtualScreenScaling = 2;
     private static Color backgroundColor = new Color(14, 20, 61);
+    private static Texture2D mouseCursor = Raylib.LoadTexture("assets/cursor/cursor.png");
+    private const int MouseCursorWidth = 16;
     private static RenderTexture2D renderTexture = Raylib.LoadRenderTexture(Globals.SCREEN_WIDTH / VirtualScreenScaling, Globals.SCREEN_HEIGHT / VirtualScreenScaling);
 
     public static void Load()
@@ -81,6 +83,8 @@ public class StatesManager
                 scoresState.Draw();
                 break;
         }
+
+        Raylib.DrawTexture(mouseCursor, (int)MathF.Round(Globals.mousePosition.X - MouseCursorWidth/2), (int)MathF.Round(Globals.mousePosition.Y - MouseCursorWidth/2), Color.White);
         Raylib.EndTextureMode();
 
         Raylib.DrawTexturePro(renderTexture.Texture,

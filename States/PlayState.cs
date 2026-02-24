@@ -297,9 +297,9 @@ namespace AntsShooter.States
         {
             Raylib.BeginMode2D(camera.camera);
 
-            Raylib.DrawCircleV(lastMouseWorldPos, 3, Color.Red);
-            Vector2 playerCenter = new Vector2(player.Position.X + player.Width / 2, player.Position.Y + player.Height / 2);
-            Raylib.DrawLineV(playerCenter, lastMouseWorldPos, Color.Red);
+            // Raylib.DrawCircleV(lastMouseWorldPos, 3, Color.Red);
+            // Vector2 playerCenter = new Vector2(player.Position.X + player.Width / 2, player.Position.Y + player.Height / 2);
+            // Raylib.DrawLineV(playerCenter, lastMouseWorldPos, Color.Red);
 
             player.Draw();
             DrawAnts();
