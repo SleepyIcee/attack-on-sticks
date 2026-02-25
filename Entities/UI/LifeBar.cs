@@ -9,7 +9,7 @@ public class LifeBar : Entity
 {
     private Vector2 screenPosition = new Vector2(Globals.VECTUAL_SCREEN_WIDTH / 20, Globals.VECTUAL_SCREEN_HEIGHT / 10);
     private Color color = new Color(255, 0, 0, 255);
-    public int lifeBarHealthWidth { get; set; }
+    public int LifeBarHealthWidth { get; set; }
 
     public LifeBar(int lifeBarWidth, int lifeBarHeight) : base()
     {
@@ -19,7 +19,7 @@ public class LifeBar : Entity
         Position.X = 10;
         Position.Y = Globals.VECTUAL_SCREEN_HEIGHT - Height * 4 - 5;
 
-        this.lifeBarHealthWidth = Width;
+        this.LifeBarHealthWidth = Width;
     }
 
     public override void Update()
@@ -31,6 +31,6 @@ public class LifeBar : Entity
     {
         base.Draw();
         // Raylib.DrawRectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), Width, Height, Color.DarkGray);
-        Raylib.DrawRectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), lifeBarHealthWidth, Height, color);
+        Raylib.DrawRectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), LifeBarHealthWidth, Height, color);
     }
 }

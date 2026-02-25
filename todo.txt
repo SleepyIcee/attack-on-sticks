@@ -24,13 +24,16 @@ add score and change the speed of ants every few seconds in the game
 player sprite and animation
 ant sprite and animation
 add score saving
-
-
 gun reloading sound
 draw a gun and make it rotate with the mouth
-
-
 add dash
-add nuke
 
+
+
+
+finish the gun animation
+draw new stickman characters and add dash animation to the player
+draw better background and fill the main menu
+draw textures for pickables
+add nuke
 change the game name to Attack on ants

@@ -9,13 +9,13 @@ namespace AntsShooter.Entities.UI;
 public class Ammo : Entity
 {
     private Vector2 screenPosition;
-    public int ammo = 60;
-    public int loadedAmmo = 30;
+    public int HowMuchAmmo = 60;
+    public int LoadedAmmo = 30;
     public readonly int HowMuchAmmoCouldBeLoaded = 30;
 
     private readonly float TimeToReload = 3f;
     private float reloadDelayTimer = 0;
-    public bool reloadGun = false;
+    public bool ReloadGun = false;
 
     private Vector2 reloadingLinePosition;
     private Vector2 reloadingLineScreenPosition;
@@ -47,13 +47,13 @@ public class Ammo : Entity
     {
         if (reloadDelayTimer >= TimeToReload)
         {
-            int needs = HowMuchAmmoCouldBeLoaded - loadedAmmo;
-            int transfer = Math.Min(needs, ammo);
+            int needs = HowMuchAmmoCouldBeLoaded - LoadedAmmo;
+            int transfer = Math.Min(needs, HowMuchAmmo);
 
-            loadedAmmo += transfer;
-            ammo -= transfer;
+            LoadedAmmo += transfer;
+            HowMuchAmmo -= transfer;
 
-            reloadGun = false;
+            ReloadGun = false;
             reloadDelayTimer = 0;
             reloadingLineWidth = 0;
             reloadSoundPlayed = false;
@@ -75,12 +75,12 @@ public class Ammo : Entity
     {
         base.Update();
 
-        if (loadedAmmo == 0 || Raylib.IsKeyPressed(KeyboardKey.R) && loadedAmmo < HowMuchAmmoCouldBeLoaded)
+        if (LoadedAmmo == 0 || Raylib.IsKeyPressed(KeyboardKey.R) && LoadedAmmo < HowMuchAmmoCouldBeLoaded)
         {
-            reloadGun = true;
+            ReloadGun = true;
         }
 
-        if (reloadGun & ammo > 0)
+        if (ReloadGun & HowMuchAmmo > 0)
         {
             Reload();
         }
@@ -89,12 +89,12 @@ public class Ammo : Entity
     public override void Draw()
     {
         base.Draw();
-        Raylib.DrawText(Convert.ToString(loadedAmmo) + " / " + Convert.ToString(ammo), (int)Math.Round(Position.X), (int)Math.Round(Position.Y), 5, Color.White);
+        Raylib.DrawText(Convert.ToString(LoadedAmmo) + " / " + Convert.ToString(HowMuchAmmo), (int)Math.Round(Position.X), (int)Math.Round(Position.Y), 5, Color.White);
         // Raylib.DrawTextEx(Globals.GameFont, "loaded ammo: " + Convert.ToString(loadedAmmo), Position, fontSize, 2, Color.White);
         // Raylib.DrawTextEx(Globals.GameFont, "ammo: " + Convert.ToString(ammo), Position, fontSize, 2, Color.White);
 
         // reload bar
-        if (reloadGun)
+        if (ReloadGun)
         {
             Raylib.DrawRectangle((int)Math.Round(reloadingLinePosition.X), (int)Math.Round(reloadingLinePosition.Y), reloadingLineWidth, reloadingLineHeight, Color.Gray);
         }

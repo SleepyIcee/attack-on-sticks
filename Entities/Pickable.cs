@@ -9,13 +9,13 @@ namespace AntsShooter.Entities;
 public class Pickable : Entity
 {
     private Vector2 velocity;
-    public float radius = 5.0f;
+    public float Radius = 5.0f;
     Random random = new Random();
-    public string type = "";
+    public string Type = "";
     private Color color;
 
-    public float timeToRemove;
-    public float removeTimer;
+    public float TimeToRemove;
+    public float RemoveTimer;
 
     public Pickable(string pickableType) : base()
     {
@@ -26,15 +26,15 @@ public class Pickable : Entity
         Position.Y = -30;
         velocity = Vector2.Zero;
 
-        timeToRemove = 10.0f;
-        removeTimer = timeToRemove;
+        TimeToRemove = 10.0f;
+        RemoveTimer = TimeToRemove;
 
-        type = pickableType;
-        if (type == "ammo")
+        Type = pickableType;
+        if (Type == "ammo")
         {
             color = Color.Gold;
         }
-        else if (type == "health")
+        else if (Type == "health")
         {
             color = new Color(255, 0, 0, 255);
         }
@@ -63,7 +63,7 @@ public class Pickable : Entity
 
     public bool IsPickedByPlayer(Player player)
     {
-        if (Raylib.CheckCollisionCircleRec(Position, radius, new Rectangle(player.Position, new Vector2(player.Width, player.Height))))
+        if (Raylib.CheckCollisionCircleRec(Position, Radius, new Rectangle(player.Position, new Vector2(player.Width, player.Height))))
         {
             return true;
         }
@@ -72,6 +72,6 @@ public class Pickable : Entity
 
     public override void Draw()
     {
-        Raylib.DrawCircle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), radius, color);
+        Raylib.DrawCircle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), Radius, color);
     }
 }

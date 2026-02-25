@@ -42,7 +42,7 @@ public class MenuState : IState
     {
         if (buttons[0].IsClicked())
         {
-            StatesManager.currentState = "PlayState";
+            StatesManager.CurrentState = "PlayState";
         }
         else if (buttons[1].IsClicked())
         {
@@ -87,7 +87,7 @@ public class MenuState : IState
         {
             if (keyboardPoitingToButtonNumber == 0)
             {
-                StatesManager.currentState = "PlayState";
+                StatesManager.CurrentState = "PlayState";
             }
             else if (keyboardPoitingToButtonNumber == 1)
             {
@@ -96,7 +96,7 @@ public class MenuState : IState
         }
         else
         {
-            buttons[keyboardPoitingToButtonNumber].isHovered = true;
+            buttons[keyboardPoitingToButtonNumber].IsHovered = true;
         }
     }
 
@@ -108,7 +108,7 @@ public class MenuState : IState
         {
             buttons[i].Update();
 
-            if (buttons[i].mouseHovered)
+            if (buttons[i].MouseHovered)
             {
                 keyboardPoitingToButtonNumber = i;
             }
@@ -118,7 +118,7 @@ public class MenuState : IState
                 continue;
             }
 
-            buttons[i].isHovered = false;
+            buttons[i].IsHovered = false;
         }
     }
 

@@ -7,7 +7,7 @@ namespace AntsShooter.Entities.UI;
 public class DashBar : Entity
 {
     private Color color = Color.Orange;
-    public int dashBarWidth { get; set; }
+    public int DashBarWidth { get; set; }
 
     public DashBar(int dashBarWidth, int dashBarHeight) : base()
     {
@@ -17,7 +17,7 @@ public class DashBar : Entity
         Position.X = 10;
         Position.Y = Globals.VECTUAL_SCREEN_HEIGHT - Height * 3;
 
-        this.dashBarWidth = Width;
+        this.DashBarWidth = Width;
     }
 
     public override void Update()
@@ -29,6 +29,6 @@ public class DashBar : Entity
     {
         base.Draw();
         // Raylib.DrawRectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), Width, Height, Color.DarkGray);
-        Raylib.DrawRectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), dashBarWidth, Height, color);
+        Raylib.DrawRectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), DashBarWidth, Height, color);
     }
 }

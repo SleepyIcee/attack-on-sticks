@@ -15,7 +15,7 @@ public class DeathState : IState
 
     public DeathState()
     {
-        Score.Save(Globals.score);
+        Score.Save(Globals.Score);
         buttons = new List<Button>
         {
             // new Button("play again",
@@ -42,11 +42,11 @@ public class DeathState : IState
     {
         if (buttons[0].IsClicked())
         {
-            StatesManager.currentState = "PlayState";
+            StatesManager.CurrentState = "PlayState";
         }
         else if (buttons[1].IsClicked())
         {
-            StatesManager.currentState = "MenuState";
+            StatesManager.CurrentState = "MenuState";
         }
 
         if (keyboardPoitingToTimer <= 0)
@@ -87,16 +87,16 @@ public class DeathState : IState
         {
             if (keyboardPoitingToButtonNumber == 0)
             {
-                StatesManager.currentState = "PlayState";
+                StatesManager.CurrentState = "PlayState";
             }
             else if (keyboardPoitingToButtonNumber == 1)
             {
-                StatesManager.currentState = "MenuState";
+                StatesManager.CurrentState = "MenuState";
             }
         }
         else
         {
-            buttons[keyboardPoitingToButtonNumber].isHovered = true;
+            buttons[keyboardPoitingToButtonNumber].IsHovered = true;
         }
     }
 
@@ -108,7 +108,7 @@ public class DeathState : IState
         {
             buttons[i].Update();
 
-            if (buttons[i].mouseHovered)
+            if (buttons[i].MouseHovered)
             {
                 keyboardPoitingToButtonNumber = i;
             }
@@ -118,12 +118,12 @@ public class DeathState : IState
                 continue;
             }
 
-            buttons[i].isHovered = false;
+            buttons[i].IsHovered = false;
         }
     }
     public void Draw()
     {
-        Raylib.DrawText(Globals.score.ToString(), (int)MathF.Round(Globals.VECTUAL_SCREEN_WIDTH / 2 - 10), 30, 20, Color.White);
+        Raylib.DrawText(Globals.Score.ToString(), (int)MathF.Round(Globals.VECTUAL_SCREEN_WIDTH / 2 - 10), 30, 20, Color.White);
         foreach (var button in buttons)
         {
             button.Draw();

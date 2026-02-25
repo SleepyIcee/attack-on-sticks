@@ -13,8 +13,8 @@ public static class Globals
     public const int VECTUAL_SCREEN_HEIGHT = SCREEN_HEIGHT / VECTUAL_SCREEN_SCALING;
     public const int MAP_WIDTH = 1600;
     public const int GROUND_LEVEL = VECTUAL_SCREEN_HEIGHT - 200;
-    public static Vector2 mousePosition = Vector2.Zero;
-    public static Vector2 mouseWorldPos = Vector2.Zero;
+    public static Vector2 MousePosition = Vector2.Zero;
+    public static Vector2 MouseWorldPos = Vector2.Zero;
 
     // player settings
     public const int PLAYER_WIDTH = 43;
@@ -31,5 +31,5 @@ public static class Globals
     // public static readonly Font GameFont = Raylib.LoadFontEx("assets/font/font.ttf", 50, null, 0);
     public const int BUTTONS_WIDTH = 100;
     public const int BUTTONS_HEIGHT = 20;
-    public static int score;
+    public static int Score;
 }

@@ -8,7 +8,7 @@ namespace AntsShooter.Entities;
 
 public class Ant : Entity
 {
-    public float velocityX = 0f;
+    public float VelocityX = 0f;
     private Texture2D texture;
     private Dictionary<string, Animation> animations = new Dictionary<string, Animation>
     {
@@ -21,8 +21,8 @@ public class Ant : Entity
     private int spawnDirection;
     private int health = 10;
     private int maxHealth = 10;
-    public bool isDead = false;
-    public LifeBar lifeBar;
+    public bool IsDead = false;
+    public LifeBar LifeBar;
 
     public Ant() : base()
     {
@@ -42,22 +42,22 @@ public class Ant : Entity
         animations["run"] = ResourceManager.GetAnimation("ant_run", "assets/player/run");
         texture = animations["run"].Play(0);
 
-        lifeBar = new LifeBar(50, 10);
+        LifeBar = new LifeBar(50, 10);
     }
 
     public void Follow(Player player)
     {
         if (player.Position.X - player.Width > Position.X)
         {
-            velocityX += speed * Raylib.GetFrameTime();
-            if (velocityX > maxSpeed) velocityX = maxSpeed;
+            VelocityX += speed * Raylib.GetFrameTime();
+            if (VelocityX > maxSpeed) VelocityX = maxSpeed;
             facing = 1;
             texture = animations["run"].Play(10);
         }
         else if (player.Position.X + player.Width < Position.X)
         {
-            velocityX -= speed * Raylib.GetFrameTime();
-            if (velocityX < -maxSpeed) velocityX = -maxSpeed;
+            VelocityX -= speed * Raylib.GetFrameTime();
+            if (VelocityX < -maxSpeed) VelocityX = -maxSpeed;
             facing = 0;
             texture = animations["run"].Play(10);
         }
@@ -70,11 +70,11 @@ public class Ant : Entity
             if (health > 0)
             {
                 health -= 1;
-                lifeBar.lifeBarHealthWidth = (int)(lifeBar.Width * (health / (float)maxHealth));
+                LifeBar.LifeBarHealthWidth = (int)(LifeBar.Width * (health / (float)maxHealth));
             }
             else
             {
-                isDead = true;
+                IsDead = true;
             }
 
             return true;
@@ -87,8 +87,8 @@ public class Ant : Entity
 
     public override void Update()
     {
-        Position.X += velocityX;
-        lifeBar.Position = Position + new Vector2(-25, -15);
+        Position.X += VelocityX;
+        LifeBar.Position = Position + new Vector2(-25, -15);
     }
 
     public override void Draw()

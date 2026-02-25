@@ -13,8 +13,8 @@ public class Button : Entity
     private Vector2 textPosition;
     private Color buttonColor = Color.Black;
 
-    public bool isHovered = false;
-    public bool mouseHovered = false;
+    public bool IsHovered = false;
+    public bool MouseHovered = false;
 
     public Button(string text, Vector2 position, int width, int height) : base()
     {
@@ -54,7 +54,7 @@ public class Button : Entity
         if (Raylib.CheckCollisionPointRec(Raylib.GetMousePosition()/Globals.VECTUAL_SCREEN_SCALING,
             new Rectangle(Position, new Vector2(Width, Height))))
         {
-            mouseHovered = true;
+            MouseHovered = true;
             if (Raylib.IsMouseButtonPressed(MouseButton.Left))
             {
                 return true;
@@ -66,7 +66,7 @@ public class Button : Entity
         }
         else
         {
-            mouseHovered = false;
+            MouseHovered = false;
         }
 
         return false;
@@ -76,7 +76,7 @@ public class Button : Entity
     {
         base.Update();
 
-        if (isHovered)
+        if (IsHovered)
         {
             buttonColor = Color.DarkGray;
         }

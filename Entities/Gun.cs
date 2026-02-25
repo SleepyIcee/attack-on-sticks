@@ -11,18 +11,18 @@ namespace AntsShooter.Entities
         private Dictionary<string, Animation> animations = new Dictionary<string, Animation>
         {
             {"idle", ResourceManager.GetAnimation("gun_idle", "assets/gun/idle")},
-            {"shoot", ResourceManager.GetAnimation("gun_shoot", "assets/gun/shoot")}
+            {"shoot", ResourceManager.GetAnimation("gun_shoot", "assets/gun/shoot", true)}
         };
         private Vector2 origin = Vector2.Zero;
         private Vector2 direction = Vector2.Zero;
         private float angle = 0;
         private int facing = 1;
-        public bool shooting = false;
+        public bool Shooting = false;
         private Sound gunSound;
 
         public Gun() : base()
         {
-            texture = animations["idle"].Play(0);
+            // texture = animations["idle"].Play(0);
             // gunSound = ResourceManager.GetSound("gun_sound", "assets/sounds/gun-sound.wav");
         }
 
@@ -48,13 +48,19 @@ namespace AntsShooter.Entities
         {
             base.Update();
 
-            if (shooting)
+            if (Shooting)
             {
-                texture = animations["shoot"].Play(1);
+                if (animations["shoot"].Replay == false)
+                {
+                    Shooting = false;
+                }
+
+                texture = animations["shoot"].Play(30);
             }
             else
             {
-                texture = animations["idle"].Play(1);
+                texture = animations["idle"].Play(0);
+                animations["shoot"].Replay = true;
             }
         }
 

@@ -8,11 +8,11 @@ public static class ResourceManager
     private static Dictionary<string, Sound> sounds = new();
 
     // Load animation once and cache it
-    public static Animation GetAnimation(string name, string path)
+    public static Animation GetAnimation(string name, string path, bool playOnce = false)
     {
         if (!animations.ContainsKey(name))
         {
-            animations[name] = new Animation(path);
+            animations[name] = new Animation(path, playOnce);
         }
         return animations[name];
     }

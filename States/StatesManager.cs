@@ -11,8 +11,8 @@ public class StatesManager
     private static DeathState deathState = new DeathState();
     private static ScoresState scoresState = new ScoresState();
 
-    public static string currentState = "MenuState";
-    private static string lastState = currentState;
+    public static string CurrentState = "MenuState";
+    private static string lastState = CurrentState;
 
     private const int VirtualScreenScaling = 2;
     private static Color backgroundColor = new Color(14, 20, 61);
@@ -27,24 +27,24 @@ public class StatesManager
         deathState = new DeathState();
         scoresState = new ScoresState();
 
-        if (currentState == "PlayState")
+        if (CurrentState == "PlayState")
         {
-            Globals.score = 0;
+            Globals.Score = 0;
         }
 
-        lastState = currentState;
+        lastState = CurrentState;
 
         Raylib.SetTextureFilter(renderTexture.Texture, TextureFilter.Point);
     }
 
     public static void Update()
     {
-        if (lastState != currentState)
+        if (lastState != CurrentState)
         {
             Load();
         }
 
-        switch (currentState)
+        switch (CurrentState)
         {
             case "MenuState":
                 menuState.Update();
@@ -61,14 +61,14 @@ public class StatesManager
         }
 
         // scale mouse position to virtual screen
-        Globals.mousePosition = Raylib.GetMousePosition() / VirtualScreenScaling;
+        Globals.MousePosition = Raylib.GetMousePosition() / VirtualScreenScaling;
     }
 
     public static void Draw()
     {
         Raylib.BeginTextureMode(renderTexture);
         Raylib.ClearBackground(backgroundColor);
-        switch (currentState)
+        switch (CurrentState)
         {
             case "MenuState":
                 menuState.Draw();
@@ -84,7 +84,7 @@ public class StatesManager
                 break;
         }
 
-        Raylib.DrawTexture(mouseCursor, (int)MathF.Round(Globals.mousePosition.X - MouseCursorWidth/2), (int)MathF.Round(Globals.mousePosition.Y - MouseCursorWidth/2), Color.White);
+        Raylib.DrawTexture(mouseCursor, (int)MathF.Round(Globals.MousePosition.X - MouseCursorWidth/2), (int)MathF.Round(Globals.MousePosition.Y - MouseCursorWidth/2), Color.White);
         Raylib.EndTextureMode();
 
         Raylib.DrawTexturePro(renderTexture.Texture,

@@ -82,8 +82,8 @@ namespace AntsShooter.States
                     ResolveAntCollisions();
                 }
 
-                ant.lifeBar.Position.X = ant.Position.X;
-                ant.lifeBar.Position.Y = ant.Position.Y - 20;
+                ant.LifeBar.Position.X = ant.Position.X;
+                ant.LifeBar.Position.Y = ant.Position.Y - 20;
             }
         }
 
@@ -123,20 +123,20 @@ namespace AntsShooter.States
 
         private void HandleShooting()
         {
-            Globals.mouseWorldPos = Raylib.GetScreenToWorld2D(Globals.mousePosition, camera.camera);
-            lastMouseWorldPos = Globals.mouseWorldPos;
+            Globals.MouseWorldPos = Raylib.GetScreenToWorld2D(Globals.MousePosition, camera.camera);
+            lastMouseWorldPos = Globals.MouseWorldPos;
 
-            if (Raylib.IsMouseButtonDown(MouseButton.Left) && ammo.reloadGun == false && bulletTimer <= 0 && ammo.loadedAmmo > 0)
+            if (Raylib.IsMouseButtonDown(MouseButton.Left) && ammo.ReloadGun == false && bulletTimer <= 0 && ammo.LoadedAmmo > 0)
             {
                 bullets.Add(new Bullet(
                     new Vector2(player.Position.X + player.Width / 2,
                                 player.Position.Y + player.Height / 2),
-                    Globals.mouseWorldPos));
+                    Globals.MouseWorldPos));
 
                 bulletTimer = timeBetweenBullets;
-                ammo.loadedAmmo -= 1;
+                ammo.LoadedAmmo -= 1;
 
-                player.gun.shooting = true;
+                player.Gun.Shooting = true;
                 Raylib.PlaySound(gunSound);
 
                 // start shaking the camera
@@ -146,10 +146,6 @@ namespace AntsShooter.States
                     cameraShakePoints.Add(new Vector2(random.Next(-3, 3), random.Next(-3, 3)));
                 }
                 camera.Shake(cameraShakePoints);
-            }
-            else
-            {
-                player.gun.shooting = false;
             }
 
             // Console.Write(Raylib.GetMousePosition() + " ... ");
@@ -178,10 +174,10 @@ namespace AntsShooter.States
 
                 for (int j = ants.Count - 1; j >= 0; j--)
                 {
-                    if (ants[j].isDead)
+                    if (ants[j].IsDead)
                     {
-                        killsScore.kills++;
-                        Globals.score = killsScore.kills;
+                        killsScore.Kills++;
+                        Globals.Score = killsScore.Kills;
                         ants.RemoveAt(j);
                         break;
                     }
@@ -209,7 +205,7 @@ namespace AntsShooter.States
             {
                 string[] pickableTypes = { "ammo", "health" };
                 Pickable pickable = new Pickable(pickableTypes[random.Next(pickableTypes.Length)]);
-                // Console.WriteLine(pickable.type);
+                // Console.WriteLine(pickable.Type);
                 pickables.Add(pickable);
                 timeToSpawnPickable = random.Next(3, 7);
             }
@@ -227,35 +223,35 @@ namespace AntsShooter.States
 
                 if (pickables[i].IsPickedByPlayer(player))
                 {
-                    if (pickables[i].type == "ammo")
+                    if (pickables[i].Type == "ammo")
                     {
-                        ammo.ammo += 10;
+                        ammo.HowMuchAmmo += 10;
                         pickables.Remove(pickables[i]);
                         break;
                     }
-                    else if (pickables[i].type == "health" && player.health < player.maxHealth)
+                    else if (pickables[i].Type == "health" && player.Health < player.MaxHealth)
                     {
-                        player.health += 1;
+                        player.Health += 1;
                         pickables.Remove(pickables[i]);
                         break;
                     }
                 }
 
-                if (pickables[i].removeTimer < 0)
+                if (pickables[i].RemoveTimer < 0)
                 {
-                    pickables[i].removeTimer = pickables[i].timeToRemove;
+                    pickables[i].RemoveTimer = pickables[i].TimeToRemove;
                     pickables.RemoveAt(i);
                 }
                 else
                 {
-                    pickables[i].removeTimer -= Raylib.GetFrameTime();
+                    pickables[i].RemoveTimer -= Raylib.GetFrameTime();
                 }
             }
         }
 
         private void UpdateDifficulty()
         {
-            int step = killsScore.kills / killsPerDifficultyStep;
+            int step = killsScore.Kills / killsPerDifficultyStep;
 
             if (step <= lastDifficultyStep)
                 return;
@@ -313,7 +309,7 @@ namespace AntsShooter.States
 
             foreach (var ant in ants)
             {
-                ant.lifeBar.Draw();
+                ant.LifeBar.Draw();
             }
 
             Raylib.DrawRectangle(0 - Globals.MAP_WIDTH / 2, (int)MathF.Round(Globals.OriginPlayerPos.Y + player.Height), Globals.MAP_WIDTH + Globals.MAP_WIDTH, Globals.VECTUAL_SCREEN_HEIGHT - Globals.GROUND_LEVEL, Color.DarkGray);
@@ -321,8 +317,8 @@ namespace AntsShooter.States
             Raylib.EndMode2D();
 
             // draw UI elements
-            player.lifeBar.Draw();
-            player.dashBar.Draw();
+            player.LifeBar.Draw();
+            player.DashBar.Draw();
             ammo.Draw();
             killsScore.Draw();
         }

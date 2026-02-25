@@ -9,7 +9,7 @@ namespace AntsShooter.Entities;
 public class Player : Entity
 {
     private Texture2D texture;
-    public Gun gun = new Gun();
+    public Gun Gun = new Gun();
     private Dictionary<string, Animation> animations = new Dictionary<string, Animation>
     {
         {"idle" , new Animation("assets/player/idle")},
@@ -21,11 +21,11 @@ public class Player : Entity
     private const float friction = 10f;
     private readonly float MaxSpeed = 5f;
     private int facing = 1;
-    public int health = 3;
-    public int maxHealth = 3;
+    public int Health = 3;
+    public int MaxHealth = 3;
     private bool isDead = false;
     private const float timeBetweenDamages = 1.0f;
-    public float damageTimer = timeBetweenDamages;
+    public float DamageTimer = timeBetweenDamages;
 
     private Sound runningSound;
 
@@ -33,8 +33,8 @@ public class Player : Entity
     private bool isJumping = false;
     private bool isFalling = false;
 
-    public LifeBar lifeBar;
-    public DashBar dashBar;
+    public LifeBar LifeBar;
+    public DashBar DashBar;
 
     private const float dashingSpeed = 10f;
     private bool dashing = false;
@@ -55,8 +55,8 @@ public class Player : Entity
         Position.Y = Globals.OriginPlayerPos.Y;
         velocity = Vector2.Zero;
 
-        lifeBar = new LifeBar(Globals.VECTUAL_SCREEN_WIDTH / 5, Globals.VECTUAL_SCREEN_HEIGHT / 30);
-        dashBar = new DashBar(Globals.VECTUAL_SCREEN_WIDTH / 5, Globals.VECTUAL_SCREEN_HEIGHT / 30);
+        LifeBar = new LifeBar(Globals.VECTUAL_SCREEN_WIDTH / 5, Globals.VECTUAL_SCREEN_HEIGHT / 30);
+        DashBar = new DashBar(Globals.VECTUAL_SCREEN_WIDTH / 5, Globals.VECTUAL_SCREEN_HEIGHT / 30);
 
         animations["idle"] = ResourceManager.GetAnimation("player_idle", "assets/player/idle");
         animations["run"] = ResourceManager.GetAnimation("player_run", "assets/player/run");
@@ -188,6 +188,7 @@ public class Player : Entity
     public override void Update()
     {
         base.Update();
+        Gun.Update();
 
         HandleMovement();
         HandleJump();
@@ -198,9 +199,9 @@ public class Player : Entity
         if (Position.X + Width > Globals.MAP_WIDTH) Position.X = Globals.MAP_WIDTH - Width;
         
         HandleDeath();
-        gun.LookAtMouse(Position, Globals.mouseWorldPos);
-        lifeBar.lifeBarHealthWidth = (int)(lifeBar.Width * (health / (float)maxHealth));
-        dashBar.dashBarWidth = (int)(dashBar.Width * (tilDashEnableTimer / (float)tilDashEnableTime));
+        Gun.LookAtMouse(Position, Globals.MouseWorldPos);
+        LifeBar.LifeBarHealthWidth = (int)(LifeBar.Width * (Health / (float)MaxHealth));
+        DashBar.DashBarWidth = (int)(DashBar.Width * (tilDashEnableTimer / (float)tilDashEnableTime));
 
         // Console.WriteLine("player y pos: " + position.Y + " player origin y pos: " + (Globals.OriginPlayerPos.Y - height));
     }
@@ -209,12 +210,12 @@ public class Player : Entity
     {
         if (isDead == true)
         {
-            States.StatesManager.currentState = "MenuState";
+            States.StatesManager.CurrentState = "MenuState";
         }
 
-        if (damageTimer > 0)
+        if (DamageTimer > 0)
         {
-            damageTimer -= Raylib.GetFrameTime();
+            DamageTimer -= Raylib.GetFrameTime();
         }
         // Console.WriteLine("Health: " + health);
     }
@@ -222,17 +223,17 @@ public class Player : Entity
     public bool GetDamage(Ant ant)
     {
         if (Raylib.CheckCollisionRecs(new Rectangle(Position, new Vector2(Width, Height)),
-            new Rectangle(ant.Position, new Vector2(ant.Width, ant.Height))) && damageTimer <= 0)
+            new Rectangle(ant.Position, new Vector2(ant.Width, ant.Height))) && DamageTimer <= 0)
         {
-            if (health > 0)
+            if (Health > 0)
             {
-                health -= 1;
+                Health -= 1;
             }
             else
             {
                 isDead = true;
             }
-            damageTimer = timeBetweenDamages;
+            DamageTimer = timeBetweenDamages;
 
             return true;
         }
@@ -256,6 +257,7 @@ public class Player : Entity
             Raylib.DrawTexturePro(texture, new Rectangle(0f, 0f, -Width, Height),
             new Rectangle(Position.X, Position.Y, Width, Height), Vector2.Zero, 0f, Color.White);
         }
-        gun.Draw();
+
+        Gun.Draw();
     }
 }

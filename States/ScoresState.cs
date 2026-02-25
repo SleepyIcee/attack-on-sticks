@@ -34,7 +34,7 @@ public class ScoresState : IState
     {
         if (buttons[0].IsClicked())
         {
-            StatesManager.currentState = "MenuState";
+            StatesManager.CurrentState = "MenuState";
         }
 
         if (keyboardPoitingToTimer <= 0)
@@ -75,12 +75,12 @@ public class ScoresState : IState
         {
             if (keyboardPoitingToButtonNumber == 0)
             {
-                StatesManager.currentState = "MenuState";
+                StatesManager.CurrentState = "MenuState";
             }
         }
         else
         {
-            buttons[keyboardPoitingToButtonNumber].isHovered = true;
+            buttons[keyboardPoitingToButtonNumber].IsHovered = true;
         }
     }
 
@@ -92,7 +92,7 @@ public class ScoresState : IState
         {
             buttons[i].Update();
 
-            if (buttons[i].mouseHovered)
+            if (buttons[i].MouseHovered)
             {
                 keyboardPoitingToButtonNumber = i;
             }
@@ -102,7 +102,7 @@ public class ScoresState : IState
                 continue;
             }
 
-            buttons[i].isHovered = false;
+            buttons[i].IsHovered = false;
         }
     }
 
