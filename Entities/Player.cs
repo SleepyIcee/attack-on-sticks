@@ -74,7 +74,7 @@ public class Player : Entity
                 facing = 1;
                 velocity.X += speed * Raylib.GetFrameTime();
                 if (velocity.X > MaxSpeed) velocity.X = MaxSpeed;
-                texture = animations["run"].Play(10);
+                texture = animations["run"].Play(20);
                 if (!Raylib.IsSoundPlaying(runningSound) && !isJumping && !isFalling) Raylib.PlaySound(runningSound);
             }
             else if (Raylib.IsKeyDown(KeyboardKey.A) && Position.X > 0)
@@ -82,13 +82,13 @@ public class Player : Entity
                 facing = 0;
                 velocity.X -= speed * Raylib.GetFrameTime();
                 if (velocity.X < -MaxSpeed) velocity.X = -MaxSpeed;
-                texture = animations["run"].Play(10);
+                texture = animations["run"].Play(20);
                 if (!Raylib.IsSoundPlaying(runningSound) && !isJumping && !isFalling) Raylib.PlaySound(runningSound);
             }
             else
             {
                 SlowDown();
-                texture = animations["idle"].Play(10);
+                texture = animations["idle"].Play(0);
             }
         }
     }

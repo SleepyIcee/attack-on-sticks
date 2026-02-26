@@ -12,7 +12,7 @@ public class Ant : Entity
     private Texture2D texture;
     private Dictionary<string, Animation> animations = new Dictionary<string, Animation>
     {
-        {"run", new Animation("assets/player/run")}
+        {"run", ResourceManager.GetAnimation("enemy_run", "assets/enemy/run")}
     };
     private const float speed = 250f;
     private const float maxSpeed = 3f;
@@ -39,7 +39,6 @@ public class Ant : Entity
             Position.X = Globals.MAP_WIDTH + 100;
         }
 
-        animations["run"] = ResourceManager.GetAnimation("ant_run", "assets/player/run");
         texture = animations["run"].Play(0);
 
         LifeBar = new LifeBar(50, 10);
@@ -52,14 +51,14 @@ public class Ant : Entity
             VelocityX += speed * Raylib.GetFrameTime();
             if (VelocityX > maxSpeed) VelocityX = maxSpeed;
             facing = 1;
-            texture = animations["run"].Play(10);
+            texture = animations["run"].Play(20);
         }
         else if (player.Position.X + player.Width < Position.X)
         {
             VelocityX -= speed * Raylib.GetFrameTime();
             if (VelocityX < -maxSpeed) VelocityX = -maxSpeed;
             facing = 0;
-            texture = animations["run"].Play(10);
+            texture = animations["run"].Play(20);
         }
     }
 

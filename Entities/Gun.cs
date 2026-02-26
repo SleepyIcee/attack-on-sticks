@@ -24,6 +24,9 @@ namespace AntsShooter.Entities
         {
             // texture = animations["idle"].Play(0);
             // gunSound = ResourceManager.GetSound("gun_sound", "assets/sounds/gun-sound.wav");
+
+            Width = 64;
+            Height = 64;
         }
 
         public void LookAtMouse(Vector2 playerPosition, Vector2 mousePosition)

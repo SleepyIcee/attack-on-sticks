@@ -17,8 +17,8 @@ public static class Globals
     public static Vector2 MouseWorldPos = Vector2.Zero;
 
     // player settings
-    public const int PLAYER_WIDTH = 43;
-    public const int PLAYER_HEIGHT = 41;
+    public const int PLAYER_WIDTH = 64;
+    public const int PLAYER_HEIGHT = 64;
     public static readonly Vector2 OriginPlayerPos = new Vector2(VECTUAL_SCREEN_WIDTH / 2, GROUND_LEVEL - PLAYER_HEIGHT);
 
     // physics constants
