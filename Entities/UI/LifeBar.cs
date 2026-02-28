@@ -8,7 +8,7 @@ namespace AntsShooter.Entities.UI;
 public class LifeBar : Entity
 {
     private Vector2 screenPosition = new Vector2(Globals.VECTUAL_SCREEN_WIDTH / 20, Globals.VECTUAL_SCREEN_HEIGHT / 10);
-    private Color color = new Color(255, 0, 0, 255);
+    private Color color = new Color(234, 79, 54, 255);
     public int LifeBarHealthWidth { get; set; }
 
     public LifeBar(int lifeBarWidth, int lifeBarHeight) : base()

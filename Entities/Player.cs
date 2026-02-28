@@ -12,9 +12,10 @@ public class Player : Entity
     public Gun Gun = new Gun();
     private Dictionary<string, Animation> animations = new Dictionary<string, Animation>
     {
-        {"idle" , new Animation("assets/player/idle")},
-        {"run" , new Animation("assets/player/run")},
-        {"jump" , new Animation("assets/player/jump")}
+        {"idle" , ResourceManager.GetAnimation("player_idle", "assets/player/idle")},
+        {"run" , ResourceManager.GetAnimation("player_run", "assets/player/run")},
+        {"jump" , ResourceManager.GetAnimation("player_jump", "assets/player/jump")},
+        {"dash" , ResourceManager.GetAnimation("player_dash", "assets/player/dash", true)}
     };
     private Vector2 velocity;
     private const float speed = 50f;
@@ -44,6 +45,7 @@ public class Player : Entity
     private bool canDash = true;
     private const float tilDashEnableTime = 3f;
     private float tilDashEnableTimer = tilDashEnableTime;
+    private bool dashAnimationPlay = true;
 
     // private Texture2D texture = Raylib.LoadTexture("assets/player/idle/player-idle.png");
 
@@ -57,10 +59,6 @@ public class Player : Entity
 
         LifeBar = new LifeBar(Globals.VECTUAL_SCREEN_WIDTH / 5, Globals.VECTUAL_SCREEN_HEIGHT / 30);
         DashBar = new DashBar(Globals.VECTUAL_SCREEN_WIDTH / 5, Globals.VECTUAL_SCREEN_HEIGHT / 30);
-
-        animations["idle"] = ResourceManager.GetAnimation("player_idle", "assets/player/idle");
-        animations["run"] = ResourceManager.GetAnimation("player_run", "assets/player/run");
-        animations["jump"] = ResourceManager.GetAnimation("player_jump", "assets/player/jump");
 
         runningSound = ResourceManager.GetSound("running_sound", "assets/sounds/running-sound.wav");
     }
@@ -112,11 +110,13 @@ public class Player : Entity
                 velocity.X = 0;
             }
 
+            dashAnimationPlay = true;
+
             dashTimer -= Raylib.GetFrameTime();
         }
         else
         {
-            if (Raylib.IsKeyPressed(KeyboardKey.Space) && canDash)
+            if (Globals.InputLock <= 0f && Raylib.IsKeyPressed(KeyboardKey.Space) && canDash)
             {
                 dashing = true;
                 dashTimer = DashTime;
@@ -135,6 +135,20 @@ public class Player : Entity
             {
                 tilDashEnableTimer += Raylib.GetFrameTime();
             }
+        }
+
+        if (dashAnimationPlay)
+        {
+            if (animations["dash"].Replay == false)
+            {
+                dashAnimationPlay = false;
+            }
+
+            texture = animations["dash"].Play(20);
+        }
+        else
+        {
+            animations["dash"].Replay = true;
         }
     }
 

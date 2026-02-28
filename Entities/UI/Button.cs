@@ -9,9 +9,14 @@ namespace AntsShooter.Entities.UI;
 public class Button : Entity
 {
     private string Text;
+    private Texture2D texture;
+    private Dictionary<string, Animation> animations = new Dictionary<string, Animation>
+    {
+        {"idle" , ResourceManager.GetAnimation("button_idle", "assets/ui/button/idle")},
+        {"hovered" , ResourceManager.GetAnimation("button_hovered", "assets/ui/button/hovered")},
+    };
     private int fontSize;
     private Vector2 textPosition;
-    private Color buttonColor = Color.Black;
 
     public bool IsHovered = false;
     public bool MouseHovered = false;
@@ -23,6 +28,8 @@ public class Button : Entity
         Height = height;
         Text = text;
         CalculateTextSize();
+
+        texture = animations["idle"].Play(0);
     }
 
     private void CalculateTextSize()
@@ -78,19 +85,24 @@ public class Button : Entity
 
         if (IsHovered)
         {
-            buttonColor = Color.DarkGray;
+            texture = animations["hovered"].Play(0);
         }
         else
         {
-            buttonColor = Color.Black;
+            texture = animations["idle"].Play(0);
         }
     }
 
     public override void Draw()
     {
         base.Draw();
+        
 
-        Raylib.DrawRectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), Width, Height, buttonColor);
+        Raylib.DrawTexturePro(texture,
+        new Rectangle(0, 0, texture.Width, texture.Height),
+        new Rectangle(Position.X, Position.Y, Width, Height),
+        Vector2.Zero, 0, Color.White);
+        
         Raylib.DrawText(Text, (int)Math.Round(textPosition.X), (int)Math.Round(textPosition.Y), fontSize, Color.White);
         // Raylib.DrawTextEx(Globals.GameFont, Text, Position, fontSize, 2, Color.White);
     }

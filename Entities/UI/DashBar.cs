@@ -6,7 +6,7 @@ namespace AntsShooter.Entities.UI;
 
 public class DashBar : Entity
 {
-    private Color color = Color.Orange;
+    private Color color = new Color(77, 155, 230);
     public int DashBarWidth { get; set; }
 
     public DashBar(int dashBarWidth, int dashBarHeight) : base()

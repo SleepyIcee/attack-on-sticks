@@ -18,14 +18,14 @@ public class Game
     {
         StatesManager.Update();
 
-        if (Raylib.IsKeyPressed(KeyboardKey.Escape))
-        {
-            Raylib.CloseWindow();
-        }
-        else if (Raylib.IsKeyPressed(KeyboardKey.F11))
+        if (Raylib.IsKeyPressed(KeyboardKey.F11))
         {
             Raylib.ToggleFullscreen();
         }
+        // else if (Raylib.IsKeyPressed(KeyboardKey.Escape))
+        // {
+        //     Raylib.CloseWindow();
+        // }
     }
 
     public void Draw()

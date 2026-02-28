@@ -34,7 +34,7 @@ namespace AntsShooter.States
         private const float minSpawnTime = 1.0f;
         private int lastDifficultyStep = 0;
 
-        private Sound gunSound = Raylib.LoadSound("assets/sounds/gun-sound.wav");
+        private Sound gunSound = ResourceManager.GetSound("gun_sound", "assets/sounds/gun-sound.wav");
 
         public PlayState()
         {
@@ -126,7 +126,8 @@ namespace AntsShooter.States
             Globals.MouseWorldPos = Raylib.GetScreenToWorld2D(Globals.MousePosition, camera.camera);
             lastMouseWorldPos = Globals.MouseWorldPos;
 
-            if (Raylib.IsMouseButtonDown(MouseButton.Left) && ammo.ReloadGun == false && bulletTimer <= 0 && ammo.LoadedAmmo > 0)
+            // don't allow firing if inputs are locked right after unpausing
+            if (Globals.InputLock <= 0f && Raylib.IsMouseButtonDown(MouseButton.Left) && ammo.ReloadGun == false && bulletTimer <= 0 && ammo.LoadedAmmo > 0)
             {
                 bullets.Add(new Bullet(
                     new Vector2(player.Position.X + player.Width / 2,
@@ -136,7 +137,7 @@ namespace AntsShooter.States
                 bulletTimer = timeBetweenBullets;
                 ammo.LoadedAmmo -= 1;
 
-                player.Gun.Shooting = true;
+                player.Gun.ShootingAnimationPlay = true;
                 Raylib.PlaySound(gunSound);
 
                 // start shaking the camera
@@ -302,9 +303,9 @@ namespace AntsShooter.States
             // Vector2 playerCenter = new Vector2(player.Position.X + player.Width / 2, player.Position.Y + player.Height / 2);
             // Raylib.DrawLineV(playerCenter, lastMouseWorldPos, Color.Red);
 
+            DrawBullets();
             player.Draw();
             DrawAnts();
-            DrawBullets();
             DrawPickables();
 
             foreach (var ant in ants)
@@ -312,7 +313,7 @@ namespace AntsShooter.States
                 ant.LifeBar.Draw();
             }
 
-            Raylib.DrawRectangle(0 - Globals.MAP_WIDTH / 2, (int)MathF.Round(Globals.OriginPlayerPos.Y + player.Height), Globals.MAP_WIDTH + Globals.MAP_WIDTH, Globals.VECTUAL_SCREEN_HEIGHT - Globals.GROUND_LEVEL, Color.DarkGray);
+            Raylib.DrawRectangle(0 - Globals.MAP_WIDTH / 2, (int)MathF.Round(Globals.OriginPlayerPos.Y + player.Height), Globals.MAP_WIDTH + Globals.MAP_WIDTH, Globals.VECTUAL_SCREEN_HEIGHT - Globals.GROUND_LEVEL, new Color(46, 34, 47));
 
             Raylib.EndMode2D();
 

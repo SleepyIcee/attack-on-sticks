@@ -32,4 +32,5 @@ public static class Globals
     public const int BUTTONS_WIDTH = 100;
     public const int BUTTONS_HEIGHT = 20;
     public static int Score;
+    public static float InputLock = 0f;
 }

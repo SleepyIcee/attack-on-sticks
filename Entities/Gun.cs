@@ -17,7 +17,7 @@ namespace AntsShooter.Entities
         private Vector2 direction = Vector2.Zero;
         private float angle = 0;
         private int facing = 1;
-        public bool Shooting = false;
+        public bool ShootingAnimationPlay = false;
         private Sound gunSound;
 
         public Gun() : base()
@@ -51,11 +51,11 @@ namespace AntsShooter.Entities
         {
             base.Update();
 
-            if (Shooting)
+            if (ShootingAnimationPlay)
             {
                 if (animations["shoot"].Replay == false)
                 {
-                    Shooting = false;
+                    ShootingAnimationPlay = false;
                 }
 
                 texture = animations["shoot"].Play(30);
