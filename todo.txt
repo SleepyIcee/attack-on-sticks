@@ -29,6 +29,7 @@ draw a gun and make it rotate with the mouth
 add dash
 finish the gun animation
 draw new stickman characters and add dash animation to the player
+add pause menu
 
 
 
@@ -40,4 +41,3 @@ draw better background and fill the main menu
 draw textures for pickables
 add nuke
 change the game name to Attack on ants
-add pause menu

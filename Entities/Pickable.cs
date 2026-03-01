@@ -38,6 +38,10 @@ public class Pickable : Entity
         {
             color = new Color(255, 0, 0, 255);
         }
+        else if (Type == "nuke")
+        {
+            color = Color.Blue;
+        }
     }
 
     public override void Update()
@@ -72,6 +76,13 @@ public class Pickable : Entity
 
     public override void Draw()
     {
-        Raylib.DrawCircle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), Radius, color);
+        if (Type == "nuke")
+        {
+            Raylib.DrawCircle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), Radius, color);
+        }
+        else
+        {
+            Raylib.DrawCircle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), Radius, color);
+        }
     }
 }

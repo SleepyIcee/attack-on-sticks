@@ -69,21 +69,26 @@ namespace AntsShooter.States
 
             foreach (var ant in ants)
             {
-                ant.Follow(player);
                 ant.Update();
+                ant.Follow(player);
 
+                if (ant.IsDying)
+                {
+                    continue;
+                }
+                
                 if (player.GetDamage(ant))
                 {
                     // turn on ant attack animation
                 }
 
-                for (int i = 0; i < ants.Count(); i++)
-                {
-                    ResolveAntCollisions();
-                }
-
                 ant.LifeBar.Position.X = ant.Position.X;
                 ant.LifeBar.Position.Y = ant.Position.Y - 20;
+            }
+
+            for (int i = 0; i < ants.Count(); i++)
+            {
+                ResolveAntCollisions();
             }
         }
 
@@ -95,6 +100,9 @@ namespace AntsShooter.States
                 {
                     Ant a = ants[i];
                     Ant b = ants[j];
+
+                    if (a.IsDying || a.IsDead || b.IsDying || b.IsDead)
+                        continue;
 
                     if (!Raylib.CheckCollisionRecs(new Rectangle(a.Position, new Vector2(a.Width, a.Height)),
                         new Rectangle(b.Position, new Vector2(b.Width, b.Height))))
@@ -204,8 +212,13 @@ namespace AntsShooter.States
         {
             if (timeToSpawnPickable <= 0)
             {
-                string[] pickableTypes = { "ammo", "health" };
-                Pickable pickable = new Pickable(pickableTypes[random.Next(pickableTypes.Length)]);
+                string[] pickableTypes = { "ammo", "health"};
+                string pickableType = pickableTypes[random.Next(pickableTypes.Length)];
+                if (random.Next(5) == 1)
+                {
+                    pickableType = "nuke";
+                }
+                Pickable pickable = new Pickable(pickableType);
                 // Console.WriteLine(pickable.Type);
                 pickables.Add(pickable);
                 timeToSpawnPickable = random.Next(3, 7);
@@ -234,6 +247,19 @@ namespace AntsShooter.States
                     {
                         player.Health += 1;
                         pickables.Remove(pickables[i]);
+                        break;
+                    }
+                    else if (pickables[i].Type == "nuke")
+                    {
+                        pickables.Remove(pickables[i]);
+                        foreach (var ant in ants)
+                        {
+                            ant.Health = 0;
+                            ant.IsDying = true;
+                            ant.LifeBar.LifeBarHealthWidth = 0;
+                        }
+                        killsScore.Kills += ants.Count;
+                        Globals.Score = killsScore.Kills;
                         break;
                     }
                 }
