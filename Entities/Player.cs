@@ -18,9 +18,9 @@ public class Player : Entity
         {"dash" , ResourceManager.GetAnimation("player_dash", "assets/player/dash", true)}
     };
     private Vector2 velocity;
-    private const float speed = 50f;
-    private const float friction = 10f;
-    private readonly float MaxSpeed = 5f;
+    private const float speed = 2000f;
+    private const float friction = 700f;
+    private readonly float MaxSpeed = 300f;
     private int facing = 1;
     public int Health = 3;
     public int MaxHealth = 3;
@@ -30,16 +30,16 @@ public class Player : Entity
 
     private Sound runningSound;
 
-    private const float jumpSpeed = 12.0f;
+    private const float jumpSpeed = 700;
     private bool isJumping = false;
     private bool isFalling = false;
 
     public LifeBar LifeBar;
     public DashBar DashBar;
 
-    private const float dashingSpeed = 10f;
+    private const float dashingSpeed = 20000f;
     private bool dashing = false;
-    private const float DashTime = 0.13f;
+    private const float DashTime = 0.15f;
     private float dashTimer = DashTime;
 
     private bool canDash = true;
@@ -72,7 +72,7 @@ public class Player : Entity
                 facing = 1;
                 velocity.X += speed * Raylib.GetFrameTime();
                 if (velocity.X > MaxSpeed) velocity.X = MaxSpeed;
-                texture = animations["run"].Play(20);
+                texture = animations["run"].Play(15);
                 if (!Raylib.IsSoundPlaying(runningSound) && !isJumping && !isFalling) Raylib.PlaySound(runningSound);
             }
             else if (Raylib.IsKeyDown(KeyboardKey.A) && Position.X > 0)
@@ -80,7 +80,7 @@ public class Player : Entity
                 facing = 0;
                 velocity.X -= speed * Raylib.GetFrameTime();
                 if (velocity.X < -MaxSpeed) velocity.X = -MaxSpeed;
-                texture = animations["run"].Play(20);
+                texture = animations["run"].Play(15);
                 if (!Raylib.IsSoundPlaying(runningSound) && !isJumping && !isFalling) Raylib.PlaySound(runningSound);
             }
             else
@@ -97,11 +97,11 @@ public class Player : Entity
         {
             if (facing == 1)
             {
-                velocity.X += dashingSpeed;
+                velocity.X += dashingSpeed * Raylib.GetFrameTime();
             }
             else
             {
-                velocity.X -= dashingSpeed;
+                velocity.X -= dashingSpeed * Raylib.GetFrameTime();
             }
 
             if (dashTimer <= 0)
@@ -185,7 +185,7 @@ public class Player : Entity
         {
             velocity.Y += Globals.GRAVITY * Raylib.GetFrameTime();
 
-            if (Position.Y >= Globals.OriginPlayerPos.Y - Height)
+            if (Position.Y >= Globals.OriginPlayerPos.Y - Height/4)
             {
                 Position.Y = Globals.OriginPlayerPos.Y;
                 velocity.Y = 0;
@@ -207,11 +207,11 @@ public class Player : Entity
         HandleMovement();
         HandleJump();
         HandleDash();
-        Position += velocity;
-        
+        Position += velocity * Raylib.GetFrameTime();
+
         if (Position.X < 0) Position.X = 0;
         if (Position.X + Width > Globals.MAP_WIDTH) Position.X = Globals.MAP_WIDTH - Width;
-        
+
         HandleDeath();
         Gun.LookAtMouse(Position, Globals.MouseWorldPos);
         LifeBar.LifeBarHealthWidth = (int)(LifeBar.Width * (Health / (float)MaxHealth));

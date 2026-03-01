@@ -22,7 +22,7 @@ public static class Globals
     public static readonly Vector2 OriginPlayerPos = new Vector2(VECTUAL_SCREEN_WIDTH / 2, GROUND_LEVEL - PLAYER_HEIGHT);
 
     // physics constants
-    public const float GRAVITY = 50f;
+    public const float GRAVITY = 2500f;
 
     // game timers and spawns
     public static float SpawnAntTimer = 5f;

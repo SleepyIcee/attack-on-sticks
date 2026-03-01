@@ -14,8 +14,8 @@ public class Ant : Entity
     {
         {"run", ResourceManager.GetAnimation("enemy_run", "assets/enemy/run")}
     };
-    private const float speed = 250f;
-    private const float maxSpeed = 3f;
+    private const float speed = 1500f;
+    private const float maxSpeed = 200f;
     private int facing = 1;
     private Random random = new Random();
     private int spawnDirection;
@@ -51,14 +51,14 @@ public class Ant : Entity
             VelocityX += speed * Raylib.GetFrameTime();
             if (VelocityX > maxSpeed) VelocityX = maxSpeed;
             facing = 1;
-            texture = animations["run"].Play(20);
+            texture = animations["run"].Play(10);
         }
         else if (player.Position.X + player.Width < Position.X)
         {
             VelocityX -= speed * Raylib.GetFrameTime();
             if (VelocityX < -maxSpeed) VelocityX = -maxSpeed;
             facing = 0;
-            texture = animations["run"].Play(20);
+            texture = animations["run"].Play(10);
         }
     }
 
@@ -86,7 +86,7 @@ public class Ant : Entity
 
     public override void Update()
     {
-        Position.X += VelocityX;
+        Position.X += VelocityX * Raylib.GetFrameTime();
         LifeBar.Position = Position + new Vector2(-25, -15);
     }
 

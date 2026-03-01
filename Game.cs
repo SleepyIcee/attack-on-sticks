@@ -13,7 +13,7 @@ public class Game
         Raylib.ToggleFullscreen();
         Raylib.HideCursor();
     }
-    
+
     public void Update()
     {
         StatesManager.Update();
