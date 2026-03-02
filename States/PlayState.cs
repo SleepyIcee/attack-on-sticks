@@ -21,6 +21,7 @@ namespace AntsShooter.States
         private float bulletTimer = timeBetweenBullets;
         private const int bulletRange = 1000;
         private Ammo ammo;
+        private Tilemap tilemap = new Tilemap();
         private KillsScore killsScore;
         private Vector2 lastMouseWorldPos = Vector2.Zero;
         private int killsNumberToMakeTheGameHarder = 3;
@@ -339,7 +340,12 @@ namespace AntsShooter.States
                 ant.LifeBar.Draw();
             }
 
-            Raylib.DrawRectangle(0 - Globals.MAP_WIDTH / 2, (int)MathF.Round(Globals.OriginPlayerPos.Y + player.Height), Globals.MAP_WIDTH + Globals.MAP_WIDTH, Globals.VECTUAL_SCREEN_HEIGHT - Globals.GROUND_LEVEL, new Color(46, 34, 47));
+            // Raylib.DrawRectangle(0 - Globals.MAP_WIDTH / 2,
+            // (int)MathF.Round(Globals.OriginPlayerPos.Y + player.Height),
+            // Globals.MAP_WIDTH + Globals.MAP_WIDTH,
+            // Globals.VECTUAL_SCREEN_HEIGHT - Globals.GROUND_LEVEL,
+            // new Color(46, 34, 47));
+            tilemap.Draw();
 
             Raylib.EndMode2D();
 
