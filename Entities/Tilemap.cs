@@ -16,7 +16,7 @@ namespace AntsShooter.Entities
 
         public Tilemap() : base()
         {
-            
+
         }
 
         public override void Update()
@@ -37,7 +37,7 @@ namespace AntsShooter.Entities
                         Raylib.DrawTexture(
                             topTileTexture,
                             (int)(TILE_SIZE * j),
-                            (int)(Globals.GROUND_LEVEL + TILE_SIZE * i),
+                            (int)(Globals.GROUND_LEVEL),
                             Color.White
                         );
                     }

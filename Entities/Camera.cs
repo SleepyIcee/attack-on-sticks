@@ -6,7 +6,7 @@ namespace AntsShooter.Entities;
 
 public class Camera : Entity
 {
-    private Player player;
+    private Player _player;
     public Camera2D camera;
     private Vector2 cameraTarget;
     private Vector2 cameraOffset = new();
@@ -17,14 +17,14 @@ public class Camera : Entity
     private List<Vector2> shakePoints = new();
     private int shakeIndex = 0;
 
-    public Camera(Player GamePlayer) : base()
+    public Camera(Player player) : base()
     {
-        player = GamePlayer;
+        _player = player;
 
         cameraTarget = new Vector2();    
         camera = new Camera2D();
         camera.Target = cameraTarget;
-        cameraOffset = new Vector2(Globals.VECTUAL_SCREEN_WIDTH/2 - player.Width/2, Globals.VECTUAL_SCREEN_HEIGHT/2 - player.Height/2 + 15);
+        cameraOffset = new Vector2(Globals.VECTUAL_SCREEN_WIDTH/2 - _player.Width/2, Globals.VECTUAL_SCREEN_HEIGHT/2 - _player.Height/2 + 15);
         camera.Offset = cameraOffset;
         camera.Rotation = 0.0f;
         camera.Zoom = 1.0f;
@@ -34,16 +34,15 @@ public class Camera : Entity
     {
         base.Update();
 
-        cameraTarget.X = player.Position.X;
+        cameraTarget.X = _player.Position.X;
         cameraTarget.Y = Globals.OriginPlayerPos.Y;
-            
-        float leftBound = camera.Target.X - camera.Offset.X;
-        float rightBound = camera.Target.X + camera.Offset.X;
 
-        if (leftBound < 0) camera.Target.X = camera.Offset.X;
-        if (rightBound > Globals.MAP_WIDTH) camera.Target.X = Globals.MAP_WIDTH - camera.Offset.X;
-            
-        camera.Target = Vector2.Lerp(camera.Target, cameraTarget, 0.1f);
+        var newTarget = Vector2.Lerp(camera.Target, cameraTarget, 0.1f);
+
+        newTarget.X = Math.Clamp(newTarget.X,
+        cameraOffset.X,
+        Globals.MAP_WIDTH - cameraOffset.X);
+        camera.Target = newTarget;
 
         // shake logic
         if (isTimeToShake)

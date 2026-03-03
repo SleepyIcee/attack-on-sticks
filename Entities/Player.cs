@@ -210,7 +210,7 @@ public class Player : Entity
         Position += velocity * Raylib.GetFrameTime();
 
         if (Position.X < 0) Position.X = 0;
-        if (Position.X + Width > Globals.MAP_WIDTH) Position.X = Globals.MAP_WIDTH - Width;
+        if (Position.X > Globals.MAP_WIDTH) Position.X = Globals.MAP_WIDTH;
 
         HandleDeath();
         Gun.LookAtMouse(Position, Globals.MouseWorldPos);
