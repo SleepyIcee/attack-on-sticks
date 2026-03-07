@@ -124,7 +124,10 @@ public class MenuState : IState
 
     public void Draw()
     {
-        Raylib.DrawRectangle(10, 180 - 20, Globals.BUTTONS_WIDTH, Globals.VECTUAL_SCREEN_HEIGHT/2 - 80, Raylib.Fade(Color.Black, 0.5f));
+        Raylib.DrawTexture(Globals.backBackgroundTexture, 0, 0, Color.White);
+        Raylib.DrawTexture(Globals.frontBackgroundTexture, -10, 0, Color.White);
+
+        Raylib.DrawRectangle(10, 180 - 20, Globals.BUTTONS_WIDTH, Globals.VECTUAL_SCREEN_HEIGHT/2 - 80, Color.Black);
 
         Raylib.DrawText("highest kills", Globals.BUTTONS_WIDTH/5 - 2, 170, 15, Color.White);
 

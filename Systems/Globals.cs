@@ -15,6 +15,9 @@ public static class Globals
     public const int GROUND_LEVEL = VECTUAL_SCREEN_HEIGHT - 200;
     public static Vector2 MousePosition = Vector2.Zero;
     public static Vector2 MouseWorldPos = Vector2.Zero;
+    public static Texture2D frontBackgroundTexture = Raylib.LoadTexture("assets/backgrounds/front.png");
+    public static Texture2D backBackgroundTexture = Raylib.LoadTexture("assets/backgrounds/back.png");
+    public static float backBackgroundScrolling = 0f;
 
     // player settings
     public const int PLAYER_WIDTH = 64;

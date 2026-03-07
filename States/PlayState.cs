@@ -308,6 +308,7 @@ namespace AntsShooter.States
             SpawnPickables();
             UpdatePickables();
             UpdateDifficulty();
+            Globals.backBackgroundScrolling = camera.camera.Target.X * 0.2f;
             // update UI elements
             ammo.Update();
         }
@@ -315,6 +316,9 @@ namespace AntsShooter.States
         public void Draw()
         {
             Raylib.BeginMode2D(camera.camera);
+
+            Raylib.DrawTexture(Globals.backBackgroundTexture, (int)MathF.Round(Globals.backBackgroundScrolling - Globals.MAP_WIDTH/5), -Globals.SCREEN_HEIGHT/4, Color.White);
+            Raylib.DrawTexture(Globals.frontBackgroundTexture, 0, -Globals.VECTUAL_SCREEN_HEIGHT/2, Color.White);
 
             // Raylib.DrawCircleV(lastMouseWorldPos, 3, Color.Red);
             // Vector2 playerCenter = new Vector2(player.Position.X + player.Width / 2, player.Position.Y + player.Height / 2);

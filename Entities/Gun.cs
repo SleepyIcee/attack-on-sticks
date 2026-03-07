@@ -11,7 +11,8 @@ namespace AntsShooter.Entities
         private Dictionary<string, Animation> animations = new Dictionary<string, Animation>
         {
             {"idle", ResourceManager.GetAnimation("gun_idle", "assets/gun/idle")},
-            {"shoot", ResourceManager.GetAnimation("gun_shoot", "assets/gun/shoot", true)}
+            {"shoot", ResourceManager.GetAnimation("gun_shoot", "assets/gun/shoot", true)},
+            {"reload", ResourceManager.GetAnimation("gun_reload", "assets/gun/reload", true)}
         };
         private Vector2 origin = Vector2.Zero;
         private Vector2 direction = Vector2.Zero;
@@ -19,6 +20,7 @@ namespace AntsShooter.Entities
         private int facing = 1;
         public bool ShootingAnimationPlay = false;
         private Sound gunSound;
+        private bool IsReloading = false;
 
         public Gun() : base()
         {

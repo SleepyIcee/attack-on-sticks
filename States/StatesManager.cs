@@ -100,6 +100,7 @@ public class StatesManager
     {
         Raylib.BeginTextureMode(renderTexture);
         Raylib.ClearBackground(backgroundColor);
+
         switch (CurrentState)
         {
             case "MenuState":
