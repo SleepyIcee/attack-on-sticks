@@ -20,7 +20,7 @@ namespace AntsShooter.Entities
         private int facing = 1;
         public bool ShootingAnimationPlay = false;
         private Sound gunSound;
-        private bool IsReloading = false;
+        public bool ReloadAnimationPlay = false;
 
         public Gun() : base()
         {
@@ -66,6 +66,21 @@ namespace AntsShooter.Entities
             {
                 texture = animations["idle"].Play(0);
                 animations["shoot"].Replay = true;
+            }
+
+            if (ReloadAnimationPlay)
+            {
+                if (animations["reload"].Replay == false)
+                {
+                    ReloadAnimationPlay = false;
+                }
+
+                texture = animations["reload"].Play(5);
+            }
+            else
+            {
+                texture = animations["idle"].Play(0);
+                animations["reload"].Replay = true;
             }
         }
 

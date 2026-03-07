@@ -45,7 +45,7 @@ namespace AntsShooter.States
 
             testBlockPosition = new Vector2(0, 0);
 
-            ammo = new Ammo();
+            ammo = new Ammo(ref player.Gun);
             killsScore = new KillsScore();
         }
 

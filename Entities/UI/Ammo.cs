@@ -27,9 +27,12 @@ public class Ammo : Entity
     private bool reloadSoundPlayed = false;
 
     private int fontSize = 5;
+    private Gun _gun;
 
-    public Ammo() : base()
+    public Ammo(ref Gun gun) : base()
     {
+        _gun = gun;
+
         Position.X = 10;
         Position.Y = Globals.VECTUAL_SCREEN_HEIGHT - 65;
 
@@ -54,6 +57,7 @@ public class Ammo : Entity
             HowMuchAmmo -= transfer;
 
             ReloadGun = false;
+            _gun.ReloadAnimationPlay = false;
             reloadDelayTimer = 0;
             reloadingLineWidth = 0;
             reloadSoundPlayed = false;
@@ -75,12 +79,14 @@ public class Ammo : Entity
     {
         base.Update();
 
-        if (LoadedAmmo == 0 || Raylib.IsKeyPressed(KeyboardKey.R) && LoadedAmmo < HowMuchAmmoCouldBeLoaded)
+        // Start reload once when needed (don't restart every frame while reloading)
+        if ((LoadedAmmo == 0 || (Raylib.IsKeyPressed(KeyboardKey.R) && LoadedAmmo < HowMuchAmmoCouldBeLoaded)) && !ReloadGun)
         {
             ReloadGun = true;
+            _gun.ReloadAnimationPlay = true;
         }
 
-        if (ReloadGun & HowMuchAmmo > 0)
+        if (ReloadGun && HowMuchAmmo > 0)
         {
             Reload();
         }
