@@ -27,7 +27,7 @@ public class Ant : Entity
     private const float timeToDie = 30.0f;
     private float dyingTimer = timeToDie;
 
-    public LifeBar LifeBar;
+    // public LifeBar LifeBar;
 
     public Ant() : base()
     {
@@ -46,7 +46,7 @@ public class Ant : Entity
 
         texture = animations["run"].Play(0);
 
-        LifeBar = new LifeBar(50, 10);
+        // LifeBar = new LifeBar(50, 10);
     }
 
     public void Follow(Player player)
@@ -91,10 +91,10 @@ public class Ant : Entity
             IsDying = true;
             dyingTimer = timeToDie;
         }
-        else
-        {
-            LifeBar.LifeBarHealthWidth = (int)(LifeBar.Width * (Health / (float)maxHealth));
-        }
+        // else
+        // {
+        //     LifeBar.LifeBarHealthWidth = (int)(LifeBar.Width * (Health / (float)maxHealth));
+        // }
 
         return true;
     }
@@ -102,11 +102,11 @@ public class Ant : Entity
     public override void Update()
     {
         Position.X += VelocityX * Raylib.GetFrameTime();
-        LifeBar.Position = Position + new Vector2(-25, -15);
+        // LifeBar.Position = Position + new Vector2(-25, -15);
 
         if (IsDying)
         {
-            LifeBar.LifeBarHealthWidth = 0;
+            // LifeBar.LifeBarHealthWidth = 0;
             VelocityX = 0;
             texture = animations["dying"].Play(0);
 

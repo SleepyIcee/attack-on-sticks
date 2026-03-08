@@ -82,8 +82,8 @@ namespace AntsShooter.States
                     // turn on ant attack animation
                 }
 
-                ant.LifeBar.Position.X = ant.Position.X;
-                ant.LifeBar.Position.Y = ant.Position.Y - 20;
+                // ant.LifeBar.Position.X = ant.Position.X;
+                // ant.LifeBar.Position.Y = ant.Position.Y - 20;
             }
 
             for (int i = 0; i < ants.Count(); i++)
@@ -256,7 +256,7 @@ namespace AntsShooter.States
                         {
                             ant.Health = 0;
                             ant.IsDying = true;
-                            ant.LifeBar.LifeBarHealthWidth = 0;
+                            // ant.LifeBar.LifeBarHealthWidth = 0;
                         }
                         killsScore.Kills += ants.Count;
                         Globals.Score = killsScore.Kills;
@@ -329,10 +329,10 @@ namespace AntsShooter.States
             DrawAnts();
             DrawPickables();
 
-            foreach (var ant in ants)
-            {
-                ant.LifeBar.Draw();
-            }
+            // foreach (var ant in ants)
+            // {
+            //     ant.LifeBar.Draw();
+            // }
 
             // Raylib.DrawRectangle(0 - Globals.MAP_WIDTH / 2,
             // (int)MathF.Round(Globals.OriginPlayerPos.Y + player.Height),
