@@ -46,7 +46,7 @@ public class Animation
         {
             frameTimer -= animationSpeed * Raylib.GetFrameTime();
         }
-
+        
         return images[currentFrame];
     }
 }

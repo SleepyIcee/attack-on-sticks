@@ -9,7 +9,6 @@ namespace AntsShooter.Entities;
 public class Pickable : Entity
 {
     private Vector2 velocity;
-    public float Radius = 5.0f;
     Random random = new Random();
     public string Type = "";
     private Color color;
@@ -17,11 +16,18 @@ public class Pickable : Entity
     public float TimeToRemove;
     public float RemoveTimer;
 
+    private Texture2D texture = new Texture2D();
+    private Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>
+    {
+        {"ammo", Raylib.LoadTexture("assets/pickables/ammo.png")},
+        {"health", Raylib.LoadTexture("assets/pickables/health.png")},
+        {"nuke", Raylib.LoadTexture("assets/pickables/nuke.png")}
+    };
+
     public Pickable(string pickableType) : base()
     {
         Width = 16;
         Height = 16;
-
         Position.X = random.Next(0, 1600);
         Position.Y = -30;
         velocity = Vector2.Zero;
@@ -32,15 +38,15 @@ public class Pickable : Entity
         Type = pickableType;
         if (Type == "ammo")
         {
-            color = Color.Gold;
+            texture = textures["ammo"];
         }
         else if (Type == "health")
         {
-            color = new Color(255, 0, 0, 255);
+            texture = textures["health"];
         }
         else if (Type == "nuke")
         {
-            color = Color.Blue;
+            texture = textures["nuke"];
         }
     }
 
@@ -54,9 +60,9 @@ public class Pickable : Entity
     {
         velocity.Y += Globals.GRAVITY * Raylib.GetFrameTime();
 
-        if (Position.Y >= Globals.GROUND_LEVEL - Height)
+        if (Position.Y >= Globals.GROUND_LEVEL - Height - Height/2)
         {
-            Position.Y = Globals.GROUND_LEVEL - Height;
+            Position.Y = Globals.GROUND_LEVEL - Height - Height/2;
             velocity.Y = 0;
         }
         else
@@ -67,22 +73,19 @@ public class Pickable : Entity
 
     public bool IsPickedByPlayer(Player player)
     {
-        if (Raylib.CheckCollisionCircleRec(Position, Radius, new Rectangle(player.Position, new Vector2(player.Width, player.Height))))
+        if (Raylib.CheckCollisionRecs(new Rectangle(Position.X, Position.Y, Width, Height),
+        new Rectangle(player.Position.X, player.Position.Y, player.Width, player.Height)))
         {
             return true;
         }
-            return false;
+        else
+        {
+            return false;   
+        }
     }
 
     public override void Draw()
     {
-        if (Type == "nuke")
-        {
-            Raylib.DrawCircle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), Radius, color);
-        }
-        else
-        {
-            Raylib.DrawCircle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), Radius, color);
-        }
+        Raylib.DrawTexture(texture, (int)Position.X, (int)Position.Y, Color.White);
     }
 }

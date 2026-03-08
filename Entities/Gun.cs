@@ -12,7 +12,7 @@ namespace AntsShooter.Entities
         {
             {"idle", ResourceManager.GetAnimation("gun_idle", "assets/gun/idle")},
             {"shoot", ResourceManager.GetAnimation("gun_shoot", "assets/gun/shoot", true)},
-            {"reload", ResourceManager.GetAnimation("gun_reload", "assets/gun/reload", true)}
+            {"reload", ResourceManager.GetAnimation("gun_reload", "assets/gun/reload")}
         };
         private Vector2 origin = Vector2.Zero;
         private Vector2 direction = Vector2.Zero;

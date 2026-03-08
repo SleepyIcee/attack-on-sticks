@@ -1,7 +1,6 @@
 using AntsShooter.Entities;
 using AntsShooter.Systems;
 using Raylib_cs;
-using System.Net.Http.Headers;
 using System.Numerics;
 
 namespace AntsShooter.Entities.UI;
@@ -80,10 +79,20 @@ public class Ammo : Entity
         base.Update();
 
         // Start reload once when needed (don't restart every frame while reloading)
-        if ((LoadedAmmo == 0 || (Raylib.IsKeyPressed(KeyboardKey.R) && LoadedAmmo < HowMuchAmmoCouldBeLoaded)) && !ReloadGun)
+        // Only start a reload if we have reserve ammo to pull from
+        if ((LoadedAmmo == 0 || (Raylib.IsKeyPressed(KeyboardKey.R) && LoadedAmmo < HowMuchAmmoCouldBeLoaded))
+            && !ReloadGun
+            && HowMuchAmmo > 0)
         {
             ReloadGun = true;
             _gun.ReloadAnimationPlay = true;
+        }
+
+        // If we run out of reserve ammo mid-reload, stop the reload animation too.
+        if (ReloadGun && HowMuchAmmo <= 0)
+        {
+            ReloadGun = false;
+            _gun.ReloadAnimationPlay = false;
         }
 
         if (ReloadGun && HowMuchAmmo > 0)
