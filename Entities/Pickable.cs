@@ -1,10 +1,10 @@
 using System;
 using Raylib_cs;
-using AntsShooter.Entities;
-using AntsShooter.Systems;
+using AttackOnSticks.Entities;
+using AttackOnSticks.Systems;
 using System.Numerics;
 
-namespace AntsShooter.Entities;
+namespace AttackOnSticks.Entities;
 
 public class Pickable : Entity
 {

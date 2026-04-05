@@ -31,13 +31,15 @@ finish the gun animation
 draw new stickman characters and add dash animation to the player
 add pause menu
 add nuke
-
-
-
-
-
-draw cap for the player
-add reload animation
-draw better background and fill the main menu
+change the game name to Attack on Sticks
 draw textures for pickables
-change the game name to Attack on ants
+draw better background
+
+add reload animation
+
+
+
+
+
+fill the main menu
+add better walk sound

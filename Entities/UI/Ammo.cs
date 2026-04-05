@@ -1,9 +1,9 @@
-using AntsShooter.Entities;
-using AntsShooter.Systems;
+using AttackOnSticks.Entities;
+using AttackOnSticks.Systems;
 using Raylib_cs;
 using System.Numerics;
 
-namespace AntsShooter.Entities.UI;
+namespace AttackOnSticks.Entities.UI;
 
 public class Ammo : Entity
 {
@@ -16,11 +16,11 @@ public class Ammo : Entity
     private float reloadDelayTimer = 0;
     public bool ReloadGun = false;
 
-    private Vector2 reloadingLinePosition;
-    private Vector2 reloadingLineScreenPosition;
-    private int normalReloadingLineWidth = 30;
-    private int reloadingLineWidth;
-    private int reloadingLineHeight = 10;
+    // private Vector2 reloadingLinePosition;
+    // private Vector2 reloadingLineScreenPosition;
+    // private int normalReloadingLineWidth = 30;
+    // private int reloadingLineWidth;
+    // private int reloadingLineHeight = 10;
 
     private Sound gunReloadSound = new();
     private bool reloadSoundPlayed = false;
@@ -33,14 +33,14 @@ public class Ammo : Entity
         _gun = gun;
 
         Position.X = 10;
-        Position.Y = Globals.VECTUAL_SCREEN_HEIGHT - 65;
+        Position.Y = Globals.VERTUAL_SCREEN_HEIGHT - 65;
 
-        screenPosition = new Vector2(Globals.VECTUAL_SCREEN_WIDTH-200, 45);
+        screenPosition = new Vector2(Globals.VERTUAL_SCREEN_WIDTH-200, 45);
 
         reloadDelayTimer = 0;
 
-        reloadingLinePosition = new Vector2(Globals.VECTUAL_SCREEN_WIDTH/2 - normalReloadingLineWidth/2, Globals.VECTUAL_SCREEN_HEIGHT/2 - reloadingLineHeight * 3);
-        reloadingLineWidth = 0;
+        // reloadingLinePosition = new Vector2(Globals.VECTUAL_SCREEN_WIDTH/2 - normalReloadingLineWidth/2, Globals.VECTUAL_SCREEN_HEIGHT/2 - reloadingLineHeight * 3);
+        // reloadingLineWidth = 0;
 
         gunReloadSound = Raylib.LoadSound("assets/sounds/ak47-reload-sound.wav");
     }
@@ -58,7 +58,7 @@ public class Ammo : Entity
             ReloadGun = false;
             _gun.ReloadAnimationPlay = false;
             reloadDelayTimer = 0;
-            reloadingLineWidth = 0;
+            // reloadingLineWidth = 0;
             reloadSoundPlayed = false;
         }
         else
@@ -70,7 +70,7 @@ public class Ammo : Entity
             }
             
             reloadDelayTimer += Raylib.GetFrameTime();
-            reloadingLineWidth = (int)(normalReloadingLineWidth/TimeToReload*reloadDelayTimer);
+            // reloadingLineWidth = (int)(normalReloadingLineWidth/TimeToReload*reloadDelayTimer);
         }
     }
 
@@ -78,8 +78,6 @@ public class Ammo : Entity
     {
         base.Update();
 
-        // Start reload once when needed (don't restart every frame while reloading)
-        // Only start a reload if we have reserve ammo to pull from
         if ((LoadedAmmo == 0 || (Raylib.IsKeyPressed(KeyboardKey.R) && LoadedAmmo < HowMuchAmmoCouldBeLoaded))
             && !ReloadGun
             && HowMuchAmmo > 0)
@@ -87,8 +85,7 @@ public class Ammo : Entity
             ReloadGun = true;
             _gun.ReloadAnimationPlay = true;
         }
-
-        // If we run out of reserve ammo mid-reload, stop the reload animation too.
+        
         if (ReloadGun && HowMuchAmmo <= 0)
         {
             ReloadGun = false;
@@ -111,7 +108,7 @@ public class Ammo : Entity
         // reload bar
         if (ReloadGun)
         {
-            Raylib.DrawRectangle((int)Math.Round(reloadingLinePosition.X), (int)Math.Round(reloadingLinePosition.Y), reloadingLineWidth, reloadingLineHeight, Color.Gray);
+            // Raylib.DrawRectangle((int)Math.Round(reloadingLinePosition.X), (int)Math.Round(reloadingLinePosition.Y), reloadingLineWidth, reloadingLineHeight, Color.Gray);
         }
     }
 }

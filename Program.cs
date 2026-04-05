@@ -1,7 +1,7 @@
-﻿using AntsShooter.Systems;
+﻿using AttackOnSticks.Systems;
 using Raylib_cs;
 
-namespace AntsShooter;
+namespace AttackOnSticks;
 
 class Program
 {

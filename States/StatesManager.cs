@@ -1,8 +1,8 @@
-using AntsShooter.Systems;
+using AttackOnSticks.Systems;
 using Raylib_cs;
 using System.Numerics;
 
-namespace AntsShooter.States;
+namespace AttackOnSticks.States;
 
 public class StatesManager
 {

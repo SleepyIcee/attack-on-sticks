@@ -1,4 +1,4 @@
-namespace AntsShooter.States;
+namespace AttackOnSticks.States;
 
 public interface IState
 {

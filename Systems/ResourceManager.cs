@@ -1,6 +1,6 @@
 using Raylib_cs;
 
-namespace AntsShooter.Systems;
+namespace AttackOnSticks.Systems;
 
 public static class ResourceManager
 {

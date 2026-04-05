@@ -4,7 +4,7 @@ using Raylib_cs;
 using System.Runtime.InteropServices.Marshalling;
 
 
-namespace AntsShooter.Entities;
+namespace AttackOnSticks.Entities;
 
 public class Bullet : Entity
 {

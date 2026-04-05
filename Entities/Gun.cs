@@ -1,9 +1,9 @@
 using System.Numerics;
-using AntsShooter.Entities;
-using AntsShooter.Systems;
+using AttackOnSticks.Entities;
+using AttackOnSticks.Systems;
 using Raylib_cs;
 
-namespace AntsShooter.Entities
+namespace AttackOnSticks.Entities
 {
     public class Gun : Entity
     {

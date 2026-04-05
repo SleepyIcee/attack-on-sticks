@@ -1,7 +1,7 @@
 using Raylib_cs;
 
 
-namespace AntsShooter.Systems;
+namespace AttackOnSticks.Systems;
 
 public class Animation
 {

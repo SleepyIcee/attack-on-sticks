@@ -1,11 +1,11 @@
 using System.Numerics;
 using System.Runtime.CompilerServices;
-using AntsShooter.Entities.UI;
-using AntsShooter.Entities;
-using AntsShooter.Systems;
+using AttackOnSticks.Entities.UI;
+using AttackOnSticks.Entities;
+using AttackOnSticks.Systems;
 using Raylib_cs;
 
-namespace AntsShooter.States
+namespace AttackOnSticks.States
 {
     public class PlayState : IState
     {
@@ -257,6 +257,8 @@ namespace AntsShooter.States
                             ant.Health = 0;
                             ant.IsDying = true;
                             // ant.LifeBar.LifeBarHealthWidth = 0;
+                            int greenAndBlueValue = (int)(Globals.maxColorValue * (0 / (float)ant.MaxHealth));
+                            ant.Color = new Color(Globals.maxColorValue, greenAndBlueValue, greenAndBlueValue);
                         }
                         killsScore.Kills += ants.Count;
                         Globals.Score = killsScore.Kills;
@@ -318,7 +320,7 @@ namespace AntsShooter.States
             Raylib.BeginMode2D(camera.camera);
 
             Raylib.DrawTexture(Globals.backBackgroundTexture, (int)MathF.Round(Globals.backBackgroundScrolling - Globals.MAP_WIDTH/5), -Globals.SCREEN_HEIGHT/4, Color.White);
-            Raylib.DrawTexture(Globals.frontBackgroundTexture, 0, -Globals.VECTUAL_SCREEN_HEIGHT/2, Color.White);
+            Raylib.DrawTexture(Globals.frontBackgroundTexture, 0, -Globals.VERTUAL_SCREEN_HEIGHT/2, Color.White);
 
             // Raylib.DrawCircleV(lastMouseWorldPos, 3, Color.Red);
             // Vector2 playerCenter = new Vector2(player.Position.X + player.Width / 2, player.Position.Y + player.Height / 2);

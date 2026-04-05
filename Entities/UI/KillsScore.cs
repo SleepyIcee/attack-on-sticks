@@ -1,13 +1,13 @@
-using AntsShooter.Entities;
-using AntsShooter.Systems;
+using AttackOnSticks.Entities;
+using AttackOnSticks.Systems;
 using Raylib_cs;
 using System.Numerics;
 
-namespace AntsShooter.Entities.UI;
+namespace AttackOnSticks.Entities.UI;
 
 public class KillsScore : Entity
 {
-    private Vector2 screenPosition = new Vector2(Globals.VECTUAL_SCREEN_WIDTH / 20, Globals.VECTUAL_SCREEN_HEIGHT / 10);
+    private Vector2 screenPosition = new Vector2(Globals.VERTUAL_SCREEN_WIDTH / 20, Globals.VERTUAL_SCREEN_HEIGHT / 10);
     public int Kills = 0;
     private readonly int fontSize;
     private Color fontColor;
@@ -17,7 +17,7 @@ public class KillsScore : Entity
         fontSize = 5;
 
         Position.X = 10;
-        Position.Y = Globals.VECTUAL_SCREEN_HEIGHT - 75;
+        Position.Y = Globals.VERTUAL_SCREEN_HEIGHT - 75;
 
         fontColor = Color.White;
     }

@@ -1,7 +1,7 @@
 using System.Numerics;
 using Raylib_cs;
 
-namespace AntsShooter.Entities;
+namespace AttackOnSticks.Entities;
 
 public class Entity
 {

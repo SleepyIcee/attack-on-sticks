@@ -1,10 +1,10 @@
 using System.Numerics;
-using AntsShooter.States;
-using AntsShooter.Systems;
+using AttackOnSticks.States;
+using AttackOnSticks.Systems;
 using Raylib_cs;
 
 
-namespace AntsShooter;
+namespace AttackOnSticks;
 
 public class Game
 {

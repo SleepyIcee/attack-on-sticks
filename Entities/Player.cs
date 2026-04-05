@@ -1,10 +1,10 @@
 using System.Numerics;
-using AntsShooter.Entities;
-using AntsShooter.Entities.UI;
-using AntsShooter.Systems;
+using AttackOnSticks.Entities;
+using AttackOnSticks.Entities.UI;
+using AttackOnSticks.Systems;
 using Raylib_cs;
 
-namespace AntsShooter.Entities;
+namespace AttackOnSticks.Entities;
 
 public class Player : Entity
 {
@@ -57,8 +57,8 @@ public class Player : Entity
         Position.Y = Globals.OriginPlayerPos.Y;
         velocity = Vector2.Zero;
 
-        LifeBar = new LifeBar(Globals.VECTUAL_SCREEN_WIDTH / 5, Globals.VECTUAL_SCREEN_HEIGHT / 30);
-        DashBar = new DashBar(Globals.VECTUAL_SCREEN_WIDTH / 5, Globals.VECTUAL_SCREEN_HEIGHT / 30);
+        LifeBar = new LifeBar(Globals.VERTUAL_SCREEN_WIDTH / 5, Globals.VERTUAL_SCREEN_HEIGHT / 30);
+        DashBar = new DashBar(Globals.VERTUAL_SCREEN_WIDTH / 5, Globals.VERTUAL_SCREEN_HEIGHT / 30);
 
         runningSound = ResourceManager.GetSound("running_sound", "assets/sounds/running-sound.wav");
     }

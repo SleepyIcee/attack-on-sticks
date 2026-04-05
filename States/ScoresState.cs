@@ -1,9 +1,9 @@
 using Raylib_cs;
 using System.Numerics;
-using AntsShooter.Systems;
-using AntsShooter.Entities.UI;
+using AttackOnSticks.Systems;
+using AttackOnSticks.Entities.UI;
 
-namespace AntsShooter.States;
+namespace AttackOnSticks.States;
 
 public class ScoresState : IState
 {
@@ -25,7 +25,7 @@ public class ScoresState : IState
 
             new Button("back",
             new Vector2(10,
-            Globals.VECTUAL_SCREEN_HEIGHT - Globals.BUTTONS_HEIGHT * 2 - 10),
+            Globals.VERTUAL_SCREEN_HEIGHT - Globals.BUTTONS_HEIGHT * 2 - 10),
             Globals.BUTTONS_WIDTH, Globals.BUTTONS_HEIGHT)
         };
     }
@@ -110,7 +110,7 @@ public class ScoresState : IState
     {
         for (int i = 0; i < topScores.Length; i++)
         {
-            Raylib.DrawText(topScores[i].ToString(), (int)MathF.Round(Globals.VECTUAL_SCREEN_WIDTH / 2 - 10), 50 + i * 20, 20, Color.White);
+            Raylib.DrawText(topScores[i].ToString(), (int)MathF.Round(Globals.VERTUAL_SCREEN_WIDTH / 2 - 10), 50 + i * 20, 20, Color.White);
         }
 
         foreach (var button in buttons)

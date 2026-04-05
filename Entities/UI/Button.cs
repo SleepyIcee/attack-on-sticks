@@ -1,10 +1,10 @@
-using AntsShooter.Entities;
-using AntsShooter.Systems;
+using AttackOnSticks.Entities;
+using AttackOnSticks.Systems;
 using Raylib_cs;
 using System.Net;
 using System.Numerics;
 
-namespace AntsShooter.Entities.UI;
+namespace AttackOnSticks.Entities.UI;
 
 public class Button : Entity
 {
@@ -21,11 +21,18 @@ public class Button : Entity
     public bool IsHovered = false;
     public bool MouseHovered = false;
 
+    private int textureWidth;
+    private int textureHeight;
+    private Vector2 texturePosition;
+
     public Button(string text, Vector2 position, int width, int height) : base()
     {
         Position = position;
+        texturePosition = Position;
         Width = width;
         Height = height;
+        textureWidth = Width;
+        textureHeight = Height;
         Text = text;
         CalculateTextSize();
 
@@ -58,7 +65,7 @@ public class Button : Entity
 
     public bool IsClicked()
     {
-        if (Raylib.CheckCollisionPointRec(Raylib.GetMousePosition()/Globals.VECTUAL_SCREEN_SCALING,
+        if (Raylib.CheckCollisionPointRec(Raylib.GetMousePosition()/Globals.VERTUAL_SCREEN_SCALING,
             new Rectangle(Position, new Vector2(Width, Height))))
         {
             MouseHovered = true;
@@ -83,13 +90,24 @@ public class Button : Entity
     {
         base.Update();
 
+        // Keep hover state in sync with the latest mouse collision check (IsClicked).
+        // This makes the button visually respond to mouse-over even if the user is not clicking.
+        // Preserve any hover state set by keyboard navigation in the parent state.
+        IsHovered = IsHovered || MouseHovered;
+
         if (IsHovered)
         {
             texture = animations["hovered"].Play(0);
+            textureWidth = Width + 4;
+            textureHeight = Height + 4;
+            texturePosition = new Vector2(Position.X - 2, Position.Y - 2);
         }
         else
         {
             texture = animations["idle"].Play(0);
+            textureWidth = Width;
+            textureHeight = Height;
+            texturePosition = Position;
         }
     }
 
@@ -100,7 +118,7 @@ public class Button : Entity
 
         Raylib.DrawTexturePro(texture,
         new Rectangle(0, 0, texture.Width, texture.Height),
-        new Rectangle(Position.X, Position.Y, Width, Height),
+        new Rectangle(texturePosition.X, texturePosition.Y, textureWidth, textureHeight),
         Vector2.Zero, 0, Color.White);
         
         Raylib.DrawText(Text, (int)Math.Round(textPosition.X), (int)Math.Round(textPosition.Y), fontSize, Color.White);

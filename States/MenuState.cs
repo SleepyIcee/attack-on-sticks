@@ -1,9 +1,9 @@
 using Raylib_cs;
 using System.Numerics;
-using AntsShooter.Entities.UI;
-using AntsShooter.Systems;
+using AttackOnSticks.Entities.UI;
+using AttackOnSticks.Systems;
 
-namespace AntsShooter.States;
+namespace AttackOnSticks.States;
 
 public class MenuState : IState
 {
@@ -29,11 +29,11 @@ public class MenuState : IState
 
             new Button("play",
             new Vector2(10,
-            Globals.VECTUAL_SCREEN_HEIGHT - Globals.BUTTONS_HEIGHT * 3 - 20),
+            Globals.VERTUAL_SCREEN_HEIGHT - Globals.BUTTONS_HEIGHT * 3 - 20),
             Globals.BUTTONS_WIDTH, Globals.BUTTONS_HEIGHT),
             new Button("exit",
             new Vector2(10,
-            Globals.VECTUAL_SCREEN_HEIGHT - Globals.BUTTONS_HEIGHT * 2 - 10),
+            Globals.VERTUAL_SCREEN_HEIGHT - Globals.BUTTONS_HEIGHT * 2 - 10),
             Globals.BUTTONS_WIDTH, Globals.BUTTONS_HEIGHT)
         };
     }
@@ -124,10 +124,9 @@ public class MenuState : IState
 
     public void Draw()
     {
-        Raylib.DrawTexture(Globals.backBackgroundTexture, 0, 0, Color.White);
         Raylib.DrawTexture(Globals.frontBackgroundTexture, -10, 0, Color.White);
 
-        Raylib.DrawRectangle(10, 180 - 20, Globals.BUTTONS_WIDTH, Globals.VECTUAL_SCREEN_HEIGHT/2 - 80, Color.Black);
+        Raylib.DrawRectangle(10, 180 - 20, Globals.BUTTONS_WIDTH, Globals.VERTUAL_SCREEN_HEIGHT/2 - 80, Color.Black);
 
         Raylib.DrawText("highest kills", Globals.BUTTONS_WIDTH/5 - 2, 170, 15, Color.White);
 

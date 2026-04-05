@@ -1,10 +1,10 @@
 using Raylib_cs;
 using System.Numerics;
-using AntsShooter.Entities.UI;
-using AntsShooter.Systems;
+using AttackOnSticks.Entities.UI;
+using AttackOnSticks.Systems;
 
 
-namespace AntsShooter.States;
+namespace AttackOnSticks.States;
 
 public class PauseState : IState
 {
@@ -20,12 +20,12 @@ public class PauseState : IState
         buttons = new List<Button>
         {
             new Button("resume",
-            new Vector2(Globals.VECTUAL_SCREEN_WIDTH/2 - Globals.BUTTONS_WIDTH/2,
-            Globals.VECTUAL_SCREEN_HEIGHT/2 - Globals.BUTTONS_HEIGHT),
+            new Vector2(Globals.VERTUAL_SCREEN_WIDTH/2 - Globals.BUTTONS_WIDTH/2,
+            Globals.VERTUAL_SCREEN_HEIGHT/2 - Globals.BUTTONS_HEIGHT),
             Globals.BUTTONS_WIDTH, Globals.BUTTONS_HEIGHT),
             new Button("main menu",
-            new Vector2(Globals.VECTUAL_SCREEN_WIDTH/2 - Globals.BUTTONS_WIDTH/2,
-            Globals.VECTUAL_SCREEN_HEIGHT/2 + Globals.BUTTONS_HEIGHT/2),
+            new Vector2(Globals.VERTUAL_SCREEN_WIDTH/2 - Globals.BUTTONS_WIDTH/2,
+            Globals.VERTUAL_SCREEN_HEIGHT/2 + Globals.BUTTONS_HEIGHT/2),
             Globals.BUTTONS_WIDTH, Globals.BUTTONS_HEIGHT)
         };
     }
@@ -119,7 +119,7 @@ public class PauseState : IState
 
     public void Draw()
     {
-        Raylib.DrawRectangle(0, 0, Globals.VECTUAL_SCREEN_WIDTH, Globals.VECTUAL_SCREEN_HEIGHT, backgroundColor);
+        Raylib.DrawRectangle(0, 0, Globals.VERTUAL_SCREEN_WIDTH, Globals.VERTUAL_SCREEN_HEIGHT, backgroundColor);
 
         foreach (var button in buttons)
         {

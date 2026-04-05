@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace AntsShooter.Systems;
+namespace AttackOnSticks.Systems;
 
 class Score
 {

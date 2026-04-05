@@ -1,8 +1,8 @@
-using AntsShooter.Entities;
-using AntsShooter.Systems;
+using AttackOnSticks.Entities;
+using AttackOnSticks.Systems;
 using Raylib_cs;
 
-namespace AntsShooter.Entities.UI;
+namespace AttackOnSticks.Entities.UI;
 
 public class DashBar : Entity
 {
@@ -16,7 +16,7 @@ public class DashBar : Entity
         Height = dashBarHeight;
 
         Position.X = 10;
-        Position.Y = Globals.VECTUAL_SCREEN_HEIGHT - Height * 3;
+        Position.Y = Globals.VERTUAL_SCREEN_HEIGHT - Height * 3;
 
         this.DashBarWidth = Width;
     }

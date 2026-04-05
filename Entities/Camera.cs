@@ -1,8 +1,8 @@
 using Raylib_cs;
 using System.Numerics;
-using AntsShooter.Systems;
+using AttackOnSticks.Systems;
 
-namespace AntsShooter.Entities;
+namespace AttackOnSticks.Entities;
 
 public class Camera : Entity
 {
@@ -24,7 +24,7 @@ public class Camera : Entity
         cameraTarget = new Vector2();    
         camera = new Camera2D();
         camera.Target = cameraTarget;
-        cameraOffset = new Vector2(Globals.VECTUAL_SCREEN_WIDTH/2 - _player.Width/2, Globals.VECTUAL_SCREEN_HEIGHT/2 - _player.Height/2 + 15);
+        cameraOffset = new Vector2(Globals.VERTUAL_SCREEN_WIDTH/2 - _player.Width/2, Globals.VERTUAL_SCREEN_HEIGHT/2 - _player.Height/2 + 15);
         camera.Offset = cameraOffset;
         camera.Rotation = 0.0f;
         camera.Zoom = 1.0f;

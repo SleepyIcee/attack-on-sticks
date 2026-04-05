@@ -1,10 +1,10 @@
 using System.Numerics;
 using System.Threading.Channels;
-using AntsShooter.Entities.UI;
-using AntsShooter.Systems;
+using AttackOnSticks.Entities.UI;
+using AttackOnSticks.Systems;
 using Raylib_cs;
 
-namespace AntsShooter.Entities;
+namespace AttackOnSticks.Entities;
 
 public class Ant : Entity
 {
@@ -21,7 +21,8 @@ public class Ant : Entity
     private Random random = new Random();
     private int spawnDirection;
     public int Health = 10;
-    private int maxHealth = 10;
+    public int MaxHealth = 10;
+    public Color Color = Color.White;
     public bool IsDead = false;
     public bool IsDying = false;
     private const float timeToDie = 30.0f;
@@ -91,10 +92,11 @@ public class Ant : Entity
             IsDying = true;
             dyingTimer = timeToDie;
         }
-        // else
-        // {
-        //     LifeBar.LifeBarHealthWidth = (int)(LifeBar.Width * (Health / (float)maxHealth));
-        // }
+        else
+        {
+            int greenAndBlueValue = (int)(Globals.maxColorValue * (Health / (float)MaxHealth));
+            Color = new Color(Globals.maxColorValue, greenAndBlueValue, greenAndBlueValue);
+        }
 
         return true;
     }
@@ -125,12 +127,12 @@ public class Ant : Entity
     {
         if (facing == 1)
         {
-            Raylib.DrawTexture(texture, (int)MathF.Round(Position.X), (int)MathF.Round(Position.Y), Color.White);
+            Raylib.DrawTexture(texture, (int)MathF.Round(Position.X), (int)MathF.Round(Position.Y), Color);
         }
         else
         {
             Raylib.DrawTexturePro(texture, new Rectangle(0f, 0f, -Width, Height),
-            new Rectangle(Position.X, Position.Y, Width, Height), Vector2.Zero, 0f, Color.White);
+            new Rectangle(Position.X, Position.Y, Width, Height), Vector2.Zero, 0f, Color);
         }
     }
 }

@@ -1,14 +1,14 @@
 using Raylib_cs;
-using AntsShooter.Systems;
+using AttackOnSticks.Systems;
 using System.Numerics;
-using AntsShooter.Entities;
+using AttackOnSticks.Entities;
 
-namespace AntsShooter.Entities
+namespace AttackOnSticks.Entities
 {
     public class Tilemap : Entity
     {
         private const int TILE_SIZE = 32;
-        private const int ROWS_NUMBER = (Globals.MAP_WIDTH + Globals.VECTUAL_SCREEN_WIDTH/2) / TILE_SIZE;
+        private const int ROWS_NUMBER = (Globals.MAP_WIDTH + Globals.VERTUAL_SCREEN_WIDTH/2) / TILE_SIZE;
         private const int COLS_NUMBER = 5;
 
         private Texture2D topTileTexture = Raylib.LoadTexture("assets/tiles/top_tile.png");

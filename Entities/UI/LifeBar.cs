@@ -1,13 +1,13 @@
-using AntsShooter.Entities;
-using AntsShooter.Systems;
+using AttackOnSticks.Entities;
+using AttackOnSticks.Systems;
 using Raylib_cs;
 using System.Numerics;
 
-namespace AntsShooter.Entities.UI;
+namespace AttackOnSticks.Entities.UI;
 
 public class LifeBar : Entity
 {
-    private Vector2 screenPosition = new Vector2(Globals.VECTUAL_SCREEN_WIDTH / 20, Globals.VECTUAL_SCREEN_HEIGHT / 10);
+    private Vector2 screenPosition = new Vector2(Globals.VERTUAL_SCREEN_WIDTH / 20, Globals.VERTUAL_SCREEN_HEIGHT / 10);
     private Color color = new Color(234, 79, 54, 255);
     private Texture2D boarderTexture = Raylib.LoadTexture("assets/ui/bar/barBoarder.png");
     public int LifeBarHealthWidth { get; set; }
@@ -18,7 +18,7 @@ public class LifeBar : Entity
         Height = lifeBarHeight;
 
         Position.X = 10;
-        Position.Y = Globals.VECTUAL_SCREEN_HEIGHT - Height * 4 - 5;
+        Position.Y = Globals.VERTUAL_SCREEN_HEIGHT - Height * 4 - 5;
 
         this.LifeBarHealthWidth = Width;
     }

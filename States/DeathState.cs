@@ -1,9 +1,9 @@
 using Raylib_cs;
 using System.Numerics;
-using AntsShooter.Systems;
-using AntsShooter.Entities.UI;
+using AttackOnSticks.Systems;
+using AttackOnSticks.Entities.UI;
 
-namespace AntsShooter.States;
+namespace AttackOnSticks.States;
 
 
 public class DeathState : IState
@@ -29,11 +29,11 @@ public class DeathState : IState
 
             new Button("play again",
             new Vector2(10,
-            Globals.VECTUAL_SCREEN_HEIGHT - Globals.BUTTONS_HEIGHT * 3 - 20),
+            Globals.VERTUAL_SCREEN_HEIGHT - Globals.BUTTONS_HEIGHT * 3 - 20),
             Globals.BUTTONS_WIDTH, Globals.BUTTONS_HEIGHT),
             new Button("menu",
             new Vector2(10,
-            Globals.VECTUAL_SCREEN_HEIGHT - Globals.BUTTONS_HEIGHT * 2 - 10),
+            Globals.VERTUAL_SCREEN_HEIGHT - Globals.BUTTONS_HEIGHT * 2 - 10),
             Globals.BUTTONS_WIDTH, Globals.BUTTONS_HEIGHT)
         };
     }
@@ -123,7 +123,7 @@ public class DeathState : IState
     }
     public void Draw()
     {
-        Raylib.DrawText(Globals.Score.ToString(), (int)MathF.Round(Globals.VECTUAL_SCREEN_WIDTH / 2 - 10), 30, 20, Color.White);
+        Raylib.DrawText(Globals.Score.ToString(), (int)MathF.Round(Globals.VERTUAL_SCREEN_WIDTH / 2 - 10), 30, 20, Color.White);
         foreach (var button in buttons)
         {
             button.Draw();
