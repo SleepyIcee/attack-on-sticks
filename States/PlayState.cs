@@ -12,7 +12,7 @@ namespace AttackOnSticks.States
         private Player player;
         private Camera camera;
         private Vector2 testBlockPosition;
-        private List<Ant> ants;
+        private List<Enemy> ants;
         private readonly int antPushForce = 30;
         private float spawnAntTimer = Globals.SpawnAntTimer;
         private List<Bullet> bullets = new();
@@ -41,7 +41,7 @@ namespace AttackOnSticks.States
             player = new Player();
             camera = new Camera(player);
 
-            ants = new List<Ant>();
+            ants = new List<Enemy>();
 
             testBlockPosition = new Vector2(0, 0);
 
@@ -51,7 +51,7 @@ namespace AttackOnSticks.States
 
         private void SpawnAnt()
         {
-            Ant ant = new Ant();
+            Enemy ant = new Enemy();
             ants.Add(ant);
         }
 
@@ -98,8 +98,8 @@ namespace AttackOnSticks.States
             {
                 for (int j = i + 1; j < ants.Count; j++)
                 {
-                    Ant a = ants[i];
-                    Ant b = ants[j];
+                    Enemy a = ants[i];
+                    Enemy b = ants[j];
 
                     if (a.IsDying || a.IsDead || b.IsDying || b.IsDead)
                         continue;

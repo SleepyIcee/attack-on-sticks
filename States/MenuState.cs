@@ -11,6 +11,7 @@ public class MenuState : IState
     private int keyboardPoitingToButtonNumber = 0;
     private static readonly float keyboardPoitingTime = 0.2f;
     private float keyboardPoitingToTimer = keyboardPoitingTime;
+    private Texture2D Logo = Raylib.LoadTexture("assets/logo.png");
 
     private int[] topScores = Score.LoadHighestScores();
 
@@ -124,6 +125,7 @@ public class MenuState : IState
 
     public void Draw()
     {
+        Raylib.DrawTexture(Globals.backBackgroundTexture, 0, 0, Color.White);
         Raylib.DrawTexture(Globals.frontBackgroundTexture, -10, 0, Color.White);
 
         Raylib.DrawRectangle(10, 180 - 20, Globals.BUTTONS_WIDTH, Globals.VERTUAL_SCREEN_HEIGHT/2 - 80, Color.Black);
@@ -132,8 +134,23 @@ public class MenuState : IState
 
         for (int i = 0; i < topScores.Length; i++)
         {
-            Raylib.DrawText(topScores[i].ToString(), Globals.BUTTONS_WIDTH / 2, 190 + i * 20, 20, Color.White);
+            int posX = Globals.BUTTONS_WIDTH/2;
+
+            if (topScores[i] > 1000 && topScores[i] < 10000)
+            {
+                posX -= 10;
+            }
+            if (topScores[i] > 10000 && topScores[i] < 100000)
+            {
+                posX -= 20;
+            }
+
+            Raylib.DrawText(topScores[i].ToString(), posX, 190 + i * 20, 20, Color.White);
         }
+
+        Raylib.DrawTexture(Logo, Globals.VERTUAL_SCREEN_WIDTH/2 - 140, Globals.VERTUAL_SCREEN_HEIGHT/4, Color.White);
+        Raylib.DrawText("made by Icee", Globals.VERTUAL_SCREEN_WIDTH - Globals.VERTUAL_SCREEN_WIDTH/6, 
+        Globals.VERTUAL_SCREEN_HEIGHT - 50, 15, Color.White);
 
         foreach (var button in buttons)
         {

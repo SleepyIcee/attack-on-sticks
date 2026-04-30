@@ -6,8 +6,8 @@ namespace AttackOnSticks.Systems;
 public static class Globals
 {
     // screen and map settings
-    public const int SCREEN_WIDTH = 1280;
-    public const int SCREEN_HEIGHT = 720;
+    public const int SCREEN_WIDTH = 1280; // 640
+    public const int SCREEN_HEIGHT = 720; // 360
     public const int VERTUAL_SCREEN_SCALING = 2;
     public const int VERTUAL_SCREEN_WIDTH = SCREEN_WIDTH / VERTUAL_SCREEN_SCALING;
     public const int VERTUAL_SCREEN_HEIGHT = SCREEN_HEIGHT / VERTUAL_SCREEN_SCALING;

@@ -87,6 +87,7 @@ public class PauseState : IState
             else if (KeyboardPoitingToButtonNumber == 1)
             {
                 StatesManager.CurrentState = "MenuState";
+                StatesManager.PauseGame = false;
             }
         }
         else

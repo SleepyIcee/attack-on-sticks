@@ -60,7 +60,8 @@ public class Player : Entity
         LifeBar = new LifeBar(Globals.VERTUAL_SCREEN_WIDTH / 5, Globals.VERTUAL_SCREEN_HEIGHT / 30);
         DashBar = new DashBar(Globals.VERTUAL_SCREEN_WIDTH / 5, Globals.VERTUAL_SCREEN_HEIGHT / 30);
 
-        runningSound = ResourceManager.GetSound("running_sound", "assets/sounds/running-sound.wav");
+        // runningSound = ResourceManager.GetSound("running_sound", "assets/sounds/running-sound.wav");
+        runningSound = ResourceManager.GetSound("running_sound", "assets/sounds/gravel-step-sound.ogg");
     }
 
     public void HandleMovement()
@@ -234,7 +235,7 @@ public class Player : Entity
         // Console.WriteLine("Health: " + health);
     }
 
-    public bool GetDamage(Ant ant)
+    public bool GetDamage(Enemy ant)
     {
         if (Raylib.CheckCollisionRecs(new Rectangle(Position, new Vector2(Width, Height)),
             new Rectangle(ant.Position, new Vector2(ant.Width, ant.Height))) && DamageTimer <= 0)

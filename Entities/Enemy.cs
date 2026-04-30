@@ -6,7 +6,7 @@ using Raylib_cs;
 
 namespace AttackOnSticks.Entities;
 
-public class Ant : Entity
+public class Enemy : Entity
 {
     public float VelocityX = 0f;
     private Texture2D texture;
@@ -28,9 +28,12 @@ public class Ant : Entity
     private const float timeToDie = 30.0f;
     private float dyingTimer = timeToDie;
 
+    private Sound dyingSound = ResourceManager.GetSound("dying_sound", "assets/sounds/throat.mp3");
+    private Sound bloodySound = ResourceManager.GetSound("bloody_sound", "assets/sounds/combat-bloody.wav");
+
     // public LifeBar LifeBar;
 
-    public Ant() : base()
+    public Enemy() : base()
     {
         Width = Globals.PLAYER_WIDTH;
         Height = Globals.PLAYER_HEIGHT;
@@ -82,7 +85,7 @@ public class Ant : Entity
 
         if (!Raylib.CheckCollisionRecs(bullet.rectangle, new Rectangle(Position, new Vector2(Width, Height))))
         {
-            return false;   
+            return false;
         }
 
         Health -= 1;
@@ -91,12 +94,15 @@ public class Ant : Entity
             Health = 0;
             IsDying = true;
             dyingTimer = timeToDie;
+            Raylib.PlaySound(dyingSound);
         }
         else
         {
             int greenAndBlueValue = (int)(Globals.maxColorValue * (Health / (float)MaxHealth));
             Color = new Color(Globals.maxColorValue, greenAndBlueValue, greenAndBlueValue);
         }
+
+        Raylib.PlaySound(bloodySound);
 
         return true;
     }
